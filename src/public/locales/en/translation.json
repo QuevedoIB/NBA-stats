@@ -1,0 +1,7 @@
+{
+    "title": "NBA STATS",
+    "routes": {
+        "daily": "$t(daily_cases.title)",
+        "total": "$t(total_cases.title)"
+    }
+}

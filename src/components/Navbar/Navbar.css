@@ -1,0 +1,71 @@
+.navbar {
+    display: flex;
+    height: 8vh;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.navbar-burguer-menu {
+    transition: none;
+    display: inline-flex;
+    flex-direction: column;
+    justify-content: space-around;
+    height: 21px;
+    width: 50px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0 16px;
+    margin: 28px 0;
+    z-index: 10;
+    overflow: hidden;
+}
+
+.navbar-burguer-menu:focus {
+    outline: none;
+}
+
+.navbar-burguer-menu div {
+    border-radius: 10px;
+    transition: width 200ms ease-out, height 0.3s linear, transform 0.3s linear,
+        opacity 300ms linear;
+    position: relative;
+    transform-origin: 1px;
+    min-height: 7px;
+}
+
+.navbar-burguer-menu div span {
+    background: var(--font-color);
+    height: 3px;
+    display: block;
+    margin: 2px 0;
+    border-radius: 5px;
+}
+
+.navbar-burguer-menu.open-burguer div:first-child {
+    transform: rotate(45deg);
+    width: 22px;
+}
+
+.navbar-burguer-menu.close-burguer div:first-child {
+    transform: rotate(0);
+    width: 20px;
+}
+
+.navbar-burguer-menu.open-burguer div:nth-child(2) {
+    width: 0;
+}
+
+.navbar-burguer-menu.close-burguer div:nth-child(2) {
+    width: 20px;
+}
+
+.navbar-burguer-menu.open-burguer div:nth-child(3) {
+    transform: rotate(-45deg);
+    width: 22px;
+}
+
+.navbar-burguer-menu.close-burguer div:nth-child(3) {
+    transform: rotate(0);
+    width: 20px;
+}
