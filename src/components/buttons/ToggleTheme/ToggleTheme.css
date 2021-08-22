@@ -1,24 +1,24 @@
 #theme-container {
     position: relative;
-    width: 2rem;
-    height: 2rem;
+    width: 1.5rem;
+    height: 1.5rem;
 }
 
 .sun-circle {
     border-radius: 100%;
     width: 100%;
     height: 100%;
-    background: linear-gradient(40deg, #ff0080, #ff8c00 70%);
+    background: linear-gradient(40deg, #ffdc00, #f5b700 70%);
     margin: auto;
 }
 
 .crescent {
     position: absolute;
     border-radius: 100%;
-    top: 0rem;
-    right: 0rem;
-    width: 1.4rem;
-    height: 1.4rem;
+    top: 0;
+    right: 0;
+    width: 1rem;
+    height: 1rem;
     background: white;
     transform: scale(0);
     transform-origin: top right;
@@ -34,6 +34,7 @@
     margin: 0;
     opacity: 0;
     z-index: 1;
+    cursor: pointer;
 }
 
 #theme-toggle:checked ~ .crescent {
@@ -46,7 +47,7 @@
 }
 
 body {
-    --bg-color: #ffffff75;
+    --bg-color: #f7f9f7;
     --font-color: #121212;
     --em-font-color: #121212;
     --border-color: #218095;

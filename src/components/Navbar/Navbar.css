@@ -1,9 +1,27 @@
+/* NAVBAR STYLES */
+
 .navbar {
     display: flex;
     height: 8vh;
     justify-content: space-between;
     align-items: center;
+    padding-right: 1em;
+    padding-left: 1em;
+    border-bottom: 1px solid var(--font-color);
 }
+
+.navbar-title {
+    filter: drop-shadow(1px 1px 1px var(--bg-color));
+}
+
+@media only screen and (min-width: 992px) {
+    .navbar {
+        padding-left: 4rem;
+        padding-right: 4rem;
+    }
+}
+
+/* BURGER MENU STYLES */
 
 .navbar-burguer-menu {
     transition: none;
@@ -68,4 +86,29 @@
 .navbar-burguer-menu.close-burguer div:nth-child(3) {
     transform: rotate(0);
     width: 20px;
+}
+
+/* LINK STYLES */
+
+.navbar-menu-link-container {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-menu-link-container li {
+    margin-right: 1rem;
+}
+
+.navbar-menu-link-container li:first-child {
+    margin-left: 1rem;
+}
+
+.navbar-menu-link-container li:last-child {
+    margin-right: 0;
+}
+
+.navbar-menu-link-container li:hover,
+.navbar-menu-selected-link {
+    border-bottom: 1px solid var(--font-color);
 }
