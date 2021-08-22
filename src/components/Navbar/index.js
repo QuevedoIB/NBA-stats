@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
+import LanguageSelector from 'components/LanguageSelector';
 import ToggleTheme from 'components/buttons/ToggleTheme';
 import BurgerMenu from 'components/Navbar/BurgerMenu';
 import BasketBall from 'components/common/BasketBall.js';
@@ -28,6 +29,7 @@ const Navbar = () => {
             </NavLink>
 
             <div className="centered-container">
+                <LanguageSelector />
                 <ToggleTheme />
                 {width > 768 ? (
                     <ul className="navbar-menu-link-container centered-container">
@@ -40,7 +42,7 @@ const Navbar = () => {
                                             activeClassName="navbar-menu-selected-link"
                                             className="navbar-menu-link"
                                         >
-                                            {label}
+                                            {t(`routes.${label}`)}
                                         </NavLink>
                                     </li>
                                 ) : (

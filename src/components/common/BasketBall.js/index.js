@@ -4,9 +4,9 @@ import './BasketBall.css';
 
 const BasketBall = () => {
     return (
-        <div class="basket-ball">
-            <div class="line2"></div>
-            <div class="line1"></div>
+        <div className="basket-ball">
+            <div className="line2"></div>
+            <div className="line1"></div>
         </div>
     );
 };

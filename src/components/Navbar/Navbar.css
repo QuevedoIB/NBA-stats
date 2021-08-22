@@ -90,12 +90,6 @@
 
 /* LINK STYLES */
 
-.navbar-menu-link-container {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
 .navbar-menu-link-container li {
     margin-right: 1rem;
 }

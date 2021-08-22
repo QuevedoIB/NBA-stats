@@ -3,5 +3,9 @@
     "routes": {
         "teams": "Teams",
         "players": "Players"
+    },
+    "languages": {
+        "es": "Spanish",
+        "en": "English"
     }
 }

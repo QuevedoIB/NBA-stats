@@ -1,0 +1,11 @@
+{
+    "title": "NBA STATS",
+    "routes": {
+        "teams": "Equipos",
+        "players": "Jugadores"
+    },
+    "languages": {
+        "es": "Español",
+        "en": "Inglés"
+    }
+}
