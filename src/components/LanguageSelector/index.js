@@ -15,7 +15,6 @@ const languageOptions = {
 const LanguageSelector = () => {
     const [t] = useTranslation();
     const [displayedOptions, setDisplayedOptions] = useState(false);
-    console.log(i18n.language);
     const toggleLanguageOptions = () => setDisplayedOptions(!displayedOptions);
     const handleLanguageChange = useCallback(async language => {
         await i18n.changeLanguage(language);
