@@ -4,7 +4,7 @@ import { NavLink } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import LanguageSelector from 'components/LanguageSelector';
-import ToggleTheme from 'components/buttons/ToggleTheme';
+import ToggleTheme from 'components/ToggleTheme';
 import BurgerMenu from 'components/Navbar/BurgerMenu';
 import BasketBall from 'components/common/BasketBall.js';
 

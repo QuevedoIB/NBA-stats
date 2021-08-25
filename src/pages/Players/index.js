@@ -3,6 +3,8 @@ import { useQuery } from 'react-query';
 
 import NbaService from 'services/NbaService';
 
+import { HOUR_MILLISECONDS } from 'constants.js';
+
 const Players = () => {
     const { isLoading, error, data } = useQuery(
         'fetch-players',
@@ -12,7 +14,7 @@ const Players = () => {
             return response;
         },
         {
-            staleTime: 30000, // only eligible to refetch after 10 seconds
+            staleTime: HOUR_MILLISECONDS, // only eligible to refetch after 10 seconds
         }
     );
 
@@ -26,3 +28,5 @@ const Players = () => {
 };
 
 export default Players;
+
+//IMAGES https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{PLAYERID}.png

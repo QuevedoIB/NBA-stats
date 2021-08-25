@@ -7,5 +7,9 @@
     "languages": {
         "es": "Spanish",
         "en": "English"
+    },
+    "actions": {
+        "accept": "Accept",
+        "close": "Close"
     }
 }
