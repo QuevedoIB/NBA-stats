@@ -3,7 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import Navbar from 'components/Navbar';
 import Layout from 'components/common/Layout';
-import ErrorModal from 'components/common/Modal';
+import ErrorBoundary from 'components/ErrorBoundary';
 
 import { generalRoutes } from 'routes';
 
@@ -30,12 +30,7 @@ function App() {
                         )}
                     </Switch>
                 </Layout>
-                <ErrorModal
-                    content={{ title: 'Title', message: 'Message' }}
-                    visible={true}
-                    onActionClick={() => null}
-                    onCancelClick={() => null}
-                />
+                <ErrorBoundary />
             </QueryClientProvider>
         </Router>
     );

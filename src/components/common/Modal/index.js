@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useEffect } from 'react';
+import ReactDOM from 'react-dom';
 import { useTranslation } from 'react-i18next';
 
 import Button from 'components/common/Button';
@@ -15,9 +16,18 @@ const Modal = ({
     onCancelClick,
 }) => {
     const [t] = useTranslation();
+
+    useEffect(() => {
+        if (visible) {
+            document.querySelector('body').classList.add('disabled-scroll');
+        } else {
+            document.querySelector('body').classList.remove('disabled-scroll');
+        }
+    }, [visible]);
+
     if (!content || !visible) return null;
 
-    return (
+    return ReactDOM.createPortal(
         <div className="modal-overlay centered-container">
             <section className="modal-section">
                 <header className="modal-header">
@@ -42,12 +52,13 @@ const Modal = ({
                     {onActionClick && (
                         <Button
                             text={actionLabel || t('actions.accept')}
-                            onActionClick={onActionClick}
+                            onClick={onActionClick}
                         />
                     )}
                 </footer>
             </section>
-        </div>
+        </div>,
+        document.body
     );
 };
 

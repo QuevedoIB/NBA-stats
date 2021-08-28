@@ -52,14 +52,16 @@ body {
     --border-color: rgb(33, 128, 149);
     --rgb-bg: 247, 249, 247;
     --rgb-font: 18, 18, 18;
+    --rgb-border: 33, 128, 149;
     background: var(--bg-color);
     color: var(--font-color);
 }
 
 body.theme-dark {
     --bg-color: rgb(38, 36, 46);
-    --font-color: rgb(rgb(102, 102, 102));
+    --font-color: rgb(204, 197, 197);
     --border-color: rgb(201, 227, 233);
+    --rgb-border: 201, 227, 233;
     --rgb-bg: 38, 36, 46;
-    --rgb-font: 02, 102, 102;
+    --rgb-font: 102, 102, 102;
 }

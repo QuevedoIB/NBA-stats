@@ -1,0 +1,43 @@
+.searchbar-container {
+    position: relative;
+    width: fit-content;
+}
+
+.searchbar-input {
+    border-radius: 1rem;
+    padding: 0.5rem 2rem 0.5rem 1rem;
+    border: none;
+}
+
+.searchbar-input:focus {
+    border: none;
+    outline: none;
+}
+
+.searchbar-input-icon {
+    position: absolute;
+    top: 0.2rem;
+    right: 0.5rem;
+    width: 1rem;
+    margin: 0 auto;
+    padding: 0.25rem 0;
+    text-align: center;
+}
+
+.searchbar-input-icon .circle {
+    width: 0.6rem;
+    height: 0.6rem;
+    border: 0.15rem solid var(--font-color);
+    border-radius: 1rem;
+}
+
+.searchbar-input-icon .rectangle {
+    position: absolute;
+    right: 0rem;
+    bottom: 0.1rem;
+    width: 0.2rem;
+    transform: rotate(45deg);
+    border: 0.12rem solid var(--font-color);
+    border-top-right-radius: 0.12rem;
+    border-bottom-right-radius: 0.12rem;
+}

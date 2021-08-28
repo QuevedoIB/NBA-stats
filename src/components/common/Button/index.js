@@ -1,5 +1,7 @@
 import React from 'react';
 
+import './Button.css';
+
 const Button = ({
     role = 'primary',
     onClick,
@@ -10,7 +12,7 @@ const Button = ({
 }) => {
     return (
         <button
-            className={`button-${role} ${classes}`}
+            className={`button-container button-${role} ${classes}`}
             type={type}
             onClick={onClick}
         >

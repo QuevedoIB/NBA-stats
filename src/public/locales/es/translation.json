@@ -11,5 +11,9 @@
     "actions": {
         "accept": "Aceptar",
         "close": "Cerrar"
+    },
+    "errors": {
+        "modalTitle": "¡Vaya!",
+        "modalGenericMessage": "Parece que ha ocurrido un error. {{error}}"
     }
 }

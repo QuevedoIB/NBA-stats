@@ -1,0 +1,16 @@
+.button-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+}
+
+.button-secondary {
+    border-color: red;
+}
+
+.button-primary {
+    border-color: blue;
+}

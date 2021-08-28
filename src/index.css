@@ -45,3 +45,17 @@ ul {
     margin: 0;
     padding: 0;
 }
+
+button {
+    cursor: pointer;
+    background: none;
+    color: inherit;
+    padding: 0;
+    font: inherit;
+    outline: inherit;
+    border: none;
+}
+
+.disabled-scroll {
+    overflow: hidden;
+}
