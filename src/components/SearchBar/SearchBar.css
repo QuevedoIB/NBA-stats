@@ -1,22 +1,24 @@
 .searchbar-container {
     position: relative;
     width: fit-content;
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .searchbar-input {
     border-radius: 1rem;
     padding: 0.5rem 2rem 0.5rem 1rem;
-    border: none;
+    border: 1px solid var(--font-color);
+    font-size: 1rem;
 }
 
 .searchbar-input:focus {
-    border: none;
     outline: none;
 }
 
 .searchbar-input-icon {
     position: absolute;
-    top: 0.2rem;
+    top: 0.3rem;
     right: 0.5rem;
     width: 1rem;
     margin: 0 auto;
@@ -27,7 +29,7 @@
 .searchbar-input-icon .circle {
     width: 0.6rem;
     height: 0.6rem;
-    border: 0.15rem solid var(--font-color);
+    border: 0.125rem solid var(--font-color);
     border-radius: 1rem;
 }
 
@@ -40,4 +42,34 @@
     border: 0.12rem solid var(--font-color);
     border-top-right-radius: 0.12rem;
     border-bottom-right-radius: 0.12rem;
+}
+
+.searchbar-suggestions-container {
+    overflow: hidden;
+    border-bottom: 1px solid var(--font-color);
+    border-right: 1px solid var(--font-color);
+    border-left: 1px solid var(--font-color);
+    border-bottom-left-radius: 1rem;
+    border-bottom-right-radius: 1rem;
+}
+
+.searchbar-suggestions-container li:last-child button {
+    border-bottom: none;
+}
+
+.searchbar-suggestions-container button {
+    height: 100%;
+    width: 100%;
+    text-align: left;
+    padding: 0.5rem 1rem 0.5rem 1rem;
+    border-bottom: 1px solid var(--font-color);
+}
+
+.searchbar-suggestions-container button:hover {
+    background-color: rgba(var(--rgb-border), 0.1);
+}
+
+.searchbar-suggestions-container + .searchbar-input {
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
 }

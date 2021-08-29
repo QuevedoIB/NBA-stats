@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { useQuery } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -14,6 +14,7 @@ import { HOUR_MILLISECONDS } from 'constants.js';
 const Players = () => {
     const dispatch = useDispatch();
     const players = useSelector(state => state.players.players);
+    const [searchPlayer, setSearchPlayer] = useState('');
 
     const { isLoading, error } = useQuery(
         'fetch-players',
@@ -28,14 +29,25 @@ const Players = () => {
     );
     useErrorHandler(error?.message);
 
+    const updateSearchedPlayer = useCallback(({ target: { value } }) => {
+        setSearchPlayer(value);
+    }, []);
+
+    const onSelectSuggestedPlayer = useCallback(({ temporaryDisplayName }) => {
+        setSearchPlayer(temporaryDisplayName);
+    }, []);
+
     return isLoading ? (
         <Spinner />
     ) : (
         <div>
             <SearchBar
+                searchText={searchPlayer}
                 list={players}
                 keyword="temporaryDisplayName"
                 suggestionsAmount={3}
+                onSuggestionClick={onSelectSuggestedPlayer}
+                onSearchChange={updateSearchedPlayer}
             />
         </div>
     );

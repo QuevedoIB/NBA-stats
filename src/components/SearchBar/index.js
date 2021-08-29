@@ -1,36 +1,53 @@
-import React, { useState, useMemo } from 'react';
+import React, { useMemo } from 'react';
 
 import './SearchBar.css';
 
-const SearchBar = ({ list, keyword, suggestionsAmount }) => {
-    const [searchText, setSearchText] = useState('');
-
-    const updateSearchValue = ({ target: { value } }) => {
-        setSearchText(value);
-    };
-
+const SearchBar = ({
+    searchText,
+    list,
+    keyword,
+    suggestionsAmount,
+    onSearchChange,
+    onSuggestionClick,
+}) => {
     const suggestions = useMemo(() => {
-        if (!suggestionsAmount) return;
+        if (!suggestionsAmount || !searchText) return;
         return list
-            .filter(e =>
-                e[keyword]?.toLowerCase()?.includes(searchText.toLowerCase())
+            .filter(
+                e =>
+                    e[keyword]
+                        ?.toLowerCase()
+                        ?.includes(searchText.toLowerCase()) &&
+                    e[keyword] !== searchText
             )
             .slice(0, suggestionsAmount);
     }, [keyword, list, searchText, suggestionsAmount]);
 
-    console.log(suggestions);
     return (
         <div className="searchbar-container">
+            {suggestions?.length > 0 && (
+                <ul className="searchbar-suggestions-container">
+                    {suggestions.map((suggestion, i) => (
+                        <li key={`${suggestion[keyword]}${i}`}>
+                            <button
+                                type="button"
+                                onClick={() => onSuggestionClick(suggestion)}
+                            >
+                                {suggestion[keyword]}
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            )}
             <input
                 className="searchbar-input"
                 value={searchText}
-                onChange={updateSearchValue}
+                onChange={onSearchChange}
             />
             <div className="searchbar-input-icon">
                 <div className="circle" />
                 <div className="rectangle" />
             </div>
-            {suggestionsAmount && <ul></ul>}
         </div>
     );
 };
