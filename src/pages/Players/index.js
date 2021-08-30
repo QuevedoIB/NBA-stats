@@ -1,9 +1,10 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 
 import SearchBar from 'components/SearchBar';
 import Spinner from 'components/common/Spinner';
+import PlayersList from 'components/lists/PlayersList';
 
 import NbaService from 'services/NbaService';
 import { setPlayers } from 'redux/reducers/players';
@@ -37,19 +38,34 @@ const Players = () => {
         setSearchPlayer(temporaryDisplayName);
     }, []);
 
+    const filteredPlayers = useMemo(() => {
+        if (!searchPlayer) return;
+        return players.filter(e =>
+            e.temporaryDisplayName
+                ?.toLowerCase()
+                ?.includes(searchPlayer.toLowerCase())
+        );
+    }, [players, searchPlayer]);
+
+    const displayedSuggestions =
+        !(
+            filteredPlayers?.length === 1 &&
+            filteredPlayers[0].temporaryDisplayName === searchPlayer
+        ) && filteredPlayers;
+
     return isLoading ? (
         <Spinner />
     ) : (
-        <div>
+        <section>
             <SearchBar
                 searchText={searchPlayer}
-                list={players}
+                suggestions={displayedSuggestions}
                 keyword="temporaryDisplayName"
-                suggestionsAmount={3}
                 onSuggestionClick={onSelectSuggestedPlayer}
                 onSearchChange={updateSearchedPlayer}
             />
-        </div>
+            <PlayersList list={searchPlayer ? filteredPlayers : players} />
+        </section>
     );
 };
 

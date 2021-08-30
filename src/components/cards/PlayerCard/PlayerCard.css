@@ -1,0 +1,20 @@
+.players-list-container {
+    margin-top: 2rem;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    column-gap: 1rem;
+    row-gap: 1rem;
+}
+
+@media only screen and (max-width: 600px) {
+    .players-list-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+.player-card-container {
+}
+
+.player-card-image {
+    height: 8rem;
+}
