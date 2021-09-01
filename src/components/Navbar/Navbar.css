@@ -1,6 +1,7 @@
-/* NAVBAR STYLES */
+/* NAVBAR */
 
 .navbar {
+    position: relative;
     display: flex;
     height: 8vh;
     justify-content: space-between;
@@ -21,7 +22,7 @@
     }
 }
 
-/* BURGER MENU STYLES */
+/* BURGER MENU */
 
 .navbar-burguer-menu {
     transition: none;
@@ -88,7 +89,43 @@
     width: 20px;
 }
 
-/* LINK STYLES */
+/* SIDEBAR MENU */
+
+.navbar-side-menu {
+    height: 100vh;
+    width: 0;
+    position: absolute;
+    z-index: 1000;
+    top: 8vh;
+    right: 0;
+    background-color: var(--bg-color);
+    overflow-x: hidden;
+    padding-top: 1rem;
+    transition: 0.5s;
+    border-top: 1px solid var(--font-color);
+    box-shadow: -1px 2px 5px #888;
+}
+
+.navbar-side-menu.open {
+    width: 30vw;
+}
+
+.navbar-side-menu .navbar-menu-link-container {
+    padding: 0 1rem;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.navbar-side-menu .navbar-menu-link-container li:first-child {
+    margin-left: 0;
+}
+
+.navbar-side-menu .navbar-menu-link-container li {
+    margin-bottom: 1rem;
+}
+
+/* LINKS */
 
 .navbar-menu-link-container li {
     margin-right: 1rem;

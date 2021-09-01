@@ -7,6 +7,7 @@ import LanguageSelector from 'components/LanguageSelector';
 import ToggleTheme from 'components/ToggleTheme';
 import BurgerMenu from 'components/Navbar/BurgerMenu';
 import BasketBall from 'components/common/BasketBall.js';
+import RoutesList from 'components/Navbar/RoutesList';
 
 import { generalRoutes } from 'routes';
 import useWindowSize from 'hooks/useWindowSize';
@@ -32,29 +33,21 @@ const Navbar = () => {
                 <LanguageSelector />
                 <ToggleTheme />
                 {width > 768 ? (
-                    <ul className="navbar-menu-link-container centered-container">
-                        {Object.values(generalRoutes).flatMap(
-                            ({ path, label }) =>
-                                label ? (
-                                    <li key={path}>
-                                        <NavLink
-                                            to={path}
-                                            activeClassName="navbar-menu-selected-link"
-                                            className="navbar-menu-link"
-                                        >
-                                            {t(`routes.${label}`)}
-                                        </NavLink>
-                                    </li>
-                                ) : (
-                                    []
-                                )
-                        )}
-                    </ul>
+                    <RoutesList />
                 ) : (
-                    <BurgerMenu
-                        isOpen={openSideNav}
-                        onToggle={handleMenuOpen}
-                    />
+                    <>
+                        <BurgerMenu
+                            isOpen={openSideNav}
+                            onToggle={handleMenuOpen}
+                        />
+                        <div
+                            className={`navbar-side-menu ${
+                                openSideNav ? 'open' : ''
+                            }`}
+                        >
+                            <RoutesList />
+                        </div>
+                    </>
                 )}
             </div>
         </nav>

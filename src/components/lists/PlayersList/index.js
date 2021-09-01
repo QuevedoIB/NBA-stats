@@ -22,6 +22,7 @@ const PlayersList = ({ list, amountRendered = 6 }) => {
         ref: observerItem,
         keepObserving: true,
         intersectingCallback: updateItemsDisplayed,
+        options: { rootMargin: '20px' },
     });
 
     useEffect(() => {

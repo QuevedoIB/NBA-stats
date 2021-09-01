@@ -7,4 +7,7 @@ BUSCADOR DE JUGADORES CON AUTOCOMPLETADO
 AL DARLE A UN JUGADOR MOSTRAR SUS ESTADÍSTICAS / DATOS / FOTO...
 HOME -> MOSTRAR CALENDARIO / RESULTADOS / ETC
 
+Scroll to top button
+comparador de equipos y jugadores con tablas estadísticas
+
 https://cdn.nba.com/logos/nba/{teamId}/global/L/logo.svg ->> imagenes svg de los equipos

@@ -1,4 +1,3 @@
-import { useCallback } from 'react';
 import { useState, useRef, useEffect } from 'react';
 
 export function useObserver({
@@ -7,7 +6,6 @@ export function useObserver({
     keepObserving = false,
     intersectingCallback,
 }) {
-    const [element, setElement] = useState();
     const [isIntersecting, setIsIntersecting] = useState(false);
     const observer = useRef();
 
@@ -17,16 +15,8 @@ export function useObserver({
         }
     };
 
-    const updateObserver = useCallback(() => {
-        element && observer.current.observe(element);
-    }, [element]);
-
     useEffect(() => {
-        setElement(ref.current);
-    }, [ref]);
-
-    useEffect(() => {
-        if (!element) return;
+        if (!ref.current) return;
         observer.current = new IntersectionObserver(([entry]) => {
             const isElementIntersecting = entry.isIntersecting;
             if (keepObserving) {
@@ -43,18 +33,11 @@ export function useObserver({
                 intersectingCallback();
             }
         }, options);
-        updateObserver();
+        observer.current.observe(ref.current);
         return () => {
             removeObserver();
         };
-    }, [
-        element,
-        intersectingCallback,
-        isIntersecting,
-        keepObserving,
-        options,
-        updateObserver,
-    ]);
+    }, [intersectingCallback, isIntersecting, keepObserving, options, ref]);
 
-    return { isIntersecting, updateObserver };
+    return isIntersecting;
 }
