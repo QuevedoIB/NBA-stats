@@ -4,6 +4,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 import Navbar from 'components/Navbar';
 import Layout from 'components/common/Layout';
 import ErrorBoundary from 'components/ErrorBoundary';
+import ScrollToTop from 'components/ScrollToTop';
 
 import { generalRoutes } from 'routes';
 
@@ -31,6 +32,7 @@ function App() {
                     </Switch>
                 </Layout>
                 <ErrorBoundary />
+                <ScrollToTop />
             </QueryClientProvider>
         </Router>
     );

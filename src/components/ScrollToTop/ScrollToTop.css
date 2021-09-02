@@ -1,0 +1,16 @@
+.scroll-to-top-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 10000;
+    height: 3rem;
+    width: 3rem;
+    border: 1px solid var(--border-color);
+    background-color: var(--bg-color);
+    border-radius: 50%;
+    font-size: 2rem;
+}
+
+.scroll-to-top-container span {
+    height: inherit;
+}
