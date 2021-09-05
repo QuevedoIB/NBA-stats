@@ -25,7 +25,7 @@ const Players = () => {
             return response;
         },
         {
-            staleTime: HOUR_MILLISECONDS, // only eligible to refetch after 10 seconds
+            staleTime: HOUR_MILLISECONDS,
         }
     );
     useErrorHandler(error?.message);

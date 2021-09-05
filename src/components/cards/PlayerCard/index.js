@@ -1,29 +1,23 @@
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useQuery } from 'react-query';
+import { useSelector } from 'react-redux';
 
 import PlaceholderImage from 'public/images/player-placeholder.png';
 
 import './PlayerCard.css';
 
 import { formatDate } from 'helpers/formatDate';
-import CountriesService from 'services/CountriesService';
-
-import { HOUR_MILLISECONDS } from 'constants.js';
+import { useCountryCodes } from 'hooks/useCountryCodes';
+import { useTeams } from 'hooks/useTeams';
 
 const PlayerCard = ({ player }) => {
     const { i18n } = useTranslation();
     const [imageSource, setImageSource] = useState();
-    const { data: countries } = useQuery(
-        'fetch-countries',
-        async () => {
-            const response = await CountriesService.fetchCountryCodes();
-            return response?.data;
-        },
-        {
-            staleTime: HOUR_MILLISECONDS, // only eligible to refetch after 10 seconds
-        }
-    );
+    const { code: countryFlagCode } = useCountryCodes({
+        countryName: player.country,
+    });
+    const teams = useSelector(state => state.teams.teams);
+    useTeams(!Object.keys(teams).length);
 
     const getImageSource = useCallback(() => {
         const downloadingImage = new Image();
@@ -37,14 +31,7 @@ const PlayerCard = ({ player }) => {
         getImageSource();
     }, [getImageSource]);
 
-    const countryFlagCode = useMemo(() => {
-        if (!countries) return;
-        return countries.find(
-            ({ Name }) =>
-                Name ===
-                (player.country === 'USA' ? 'United States' : player.country)
-        )?.Code;
-    }, [countries, player.country]);
+    console.log(player, teams);
 
     return (
         <li className="player-card-container">
@@ -54,6 +41,7 @@ const PlayerCard = ({ player }) => {
                 className={`player-card-image ${
                     imageSource ? 'placeholder-image' : ''
                 }`}
+                loading="lazy"
             />
             <div>
                 <p className="player-card-title">
@@ -69,6 +57,7 @@ const PlayerCard = ({ player }) => {
                             className="country-flag-icon"
                             src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
                             alt="country"
+                            loading="lazy"
                         />
                     )}
                 </div>

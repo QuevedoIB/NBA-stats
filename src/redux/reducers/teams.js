@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    teams: [],
+    teams: {},
 };
 
 export const teamsSlice = createSlice({
