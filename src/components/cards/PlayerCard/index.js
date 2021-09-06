@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useSelector } from 'react-redux';
 
@@ -31,7 +31,14 @@ const PlayerCard = ({ player }) => {
         getImageSource();
     }, [getImageSource]);
 
-    console.log(player, teams);
+    const playerTeam = useMemo(
+        () => teams?.find(team => team.teamId === player.teamId),
+        [player.teamId, teams]
+    );
+
+    console.log(playerTeam, player, teams);
+
+    //{player.pos} -
 
     return (
         <li className="player-card-container">
@@ -61,6 +68,17 @@ const PlayerCard = ({ player }) => {
                         />
                     )}
                 </div>
+                {playerTeam && (
+                    <div className="player-card-team-info">
+                        <p>{playerTeam.fullName}</p>
+                        <img
+                            className="team-logo"
+                            loading="lazy"
+                            src={`https://cdn.nba.com/logos/nba/${playerTeam.teamId}/global/L/logo.svg`}
+                            alt={`${playerTeam.fullName} logo`}
+                        />
+                    </div>
+                )}
             </div>
         </li>
     );

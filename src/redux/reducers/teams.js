@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-    teams: {},
+    teams: [],
 };
 
 export const teamsSlice = createSlice({
@@ -9,14 +9,9 @@ export const teamsSlice = createSlice({
     initialState,
     reducers: {
         setTeams: (state, action) => {
-            state.teams = action.payload.standard
-                .filter(team => team.isNBAFranchise)
-                .reduce((acc, curr) => {
-                    acc[curr.divName]
-                        ? acc[curr.divName].push(curr)
-                        : (acc[curr.divName] = [curr]);
-                    return acc;
-                }, {});
+            state.teams = action.payload.standard.filter(
+                team => team.isNBAFranchise
+            );
         },
     },
 });

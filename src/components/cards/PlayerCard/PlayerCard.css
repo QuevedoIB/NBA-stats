@@ -47,3 +47,11 @@ body.theme-dark .player-card-image.placeholder-image {
     display: flex;
     align-items: center;
 }
+
+.player-card-team-info {
+    display: flex;
+}
+
+.player-card-team-info img {
+    width: 1.5rem;
+}
