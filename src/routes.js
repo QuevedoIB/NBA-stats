@@ -1,6 +1,7 @@
 import Home from 'pages/Home';
 import Teams from 'pages/Teams';
 import Players from 'pages/Players';
+import TeamDetail from 'pages/TeamDetail';
 
 export const generalRoutes = {
     home: { component: Home, path: '/' },
@@ -9,5 +10,9 @@ export const generalRoutes = {
         component: Players,
         path: '/players',
         label: 'players',
+    },
+    teamDetail: {
+        component: TeamDetail,
+        path: '/team-detail/:teamId',
     },
 };

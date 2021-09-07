@@ -8,7 +8,6 @@ export default function useErrorHandler(incomingError) {
     const error = useSelector(state => state.error.error);
     useEffect(() => {
         if (incomingError && !error) {
-            console.log(incomingError, error);
             dispatch(setError(incomingError));
         }
     }, [dispatch, error, incomingError]);

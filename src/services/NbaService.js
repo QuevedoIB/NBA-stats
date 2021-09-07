@@ -29,6 +29,12 @@ class NbaService {
             `${process.env.REACT_APP_API_ENDPOINT_V2}2021/teams.json`
         );
     }
+
+    fetchTeamRoster(code) {
+        return axios.get(
+            `${process.env.REACT_APP_API_ENDPOINT_V1}2021/teams/${code}/roster.json`
+        );
+    }
 }
 
 const service = new NbaService();

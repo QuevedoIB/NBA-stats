@@ -36,8 +36,6 @@ const PlayerCard = ({ player }) => {
         [player.teamId, teams]
     );
 
-    console.log(playerTeam, player, teams);
-
     //{player.pos} -
 
     return (
@@ -50,29 +48,30 @@ const PlayerCard = ({ player }) => {
                 }`}
                 loading="lazy"
             />
-            <div>
-                <p className="player-card-title">
-                    {player.temporaryDisplayName}
-                </p>
-                <p className="player-card-subtitle">
-                    {formatDate(player.dateOfBirthUTC, i18n.language)}
-                </p>
-                <div className="player-card-country">
-                    <p>{player.country}</p>
-                    {countryFlagCode && (
-                        <img
-                            className="country-flag-icon"
-                            src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
-                            alt="country"
-                            loading="lazy"
-                        />
-                    )}
+            <div className="player-card-info-container">
+                <div>
+                    <p className="player-card-title">
+                        {player.temporaryDisplayName}
+                    </p>
+                    <p className="player-card-subtitle">
+                        {formatDate(player.dateOfBirthUTC, i18n.language)}
+                    </p>
+                    <div className="player-card-country">
+                        <p>{player.country}</p>
+                        {countryFlagCode && (
+                            <img
+                                className="country-flag-icon"
+                                src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
+                                alt="country"
+                                loading="lazy"
+                            />
+                        )}
+                    </div>
                 </div>
                 {playerTeam && (
                     <div className="player-card-team-info">
                         <p>{playerTeam.fullName}</p>
                         <img
-                            className="team-logo"
                             loading="lazy"
                             src={`https://cdn.nba.com/logos/nba/${playerTeam.teamId}/global/L/logo.svg`}
                             alt={`${playerTeam.fullName} logo`}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './TeamCard.css';
 
@@ -19,7 +20,7 @@ const TeamCard = ({
 }) => {
     return (
         <div className="team-card-container">
-            <a href="/players">
+            <Link to={`/team-detail/${teamId}`}>
                 <img
                     className="team-logo"
                     loading="lazy"
@@ -29,7 +30,7 @@ const TeamCard = ({
                 <div>
                     <p>{fullName}</p>
                 </div>
-            </a>
+            </Link>
         </div>
     );
 };
