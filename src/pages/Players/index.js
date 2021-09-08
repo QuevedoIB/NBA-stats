@@ -1,34 +1,17 @@
-import React, { useState, useCallback, useMemo } from 'react';
-import { useQuery } from 'react-query';
-import { useSelector, useDispatch } from 'react-redux';
+import React, { useState, useCallback } from 'react';
 
 import SearchBar from 'components/SearchBar';
 import Spinner from 'components/common/Spinner';
 import PlayersList from 'components/lists/PlayersList';
 
-import NbaService from 'services/NbaService';
-import { setPlayers } from 'redux/reducers/players';
-import useErrorHandler from 'hooks/useErrorHandler';
-
-import { HOUR_MILLISECONDS } from 'constants.js';
+import usePlayers from 'hooks/usePlayers';
 
 const Players = () => {
-    const dispatch = useDispatch();
-    const players = useSelector(state => state.players.players);
     const [searchPlayer, setSearchPlayer] = useState('');
-
-    const { isLoading, error } = useQuery(
-        'fetch-players',
-        async () => {
-            const response = await NbaService.fetchPlayers();
-            dispatch(setPlayers(response?.data?.league || []));
-            return response;
-        },
-        {
-            staleTime: HOUR_MILLISECONDS,
-        }
-    );
-    useErrorHandler(error?.message);
+    const { isLoading, players, filteredPlayers } = usePlayers({
+        key: 'temporaryDisplayName',
+        value: searchPlayer,
+    });
 
     const updateSearchedPlayer = useCallback(({ target: { value } }) => {
         setSearchPlayer(value);
@@ -37,15 +20,6 @@ const Players = () => {
     const onSelectSuggestedPlayer = useCallback(({ temporaryDisplayName }) => {
         setSearchPlayer(temporaryDisplayName);
     }, []);
-
-    const filteredPlayers = useMemo(() => {
-        if (!searchPlayer) return;
-        return players.filter(e =>
-            e.temporaryDisplayName
-                ?.toLowerCase()
-                ?.includes(searchPlayer.toLowerCase())
-        );
-    }, [players, searchPlayer]);
 
     const displayedSuggestions =
         !(

@@ -1,4 +1,5 @@
 export const formatDate = (date, language = 'en') => {
+    if (!date) return date;
     const parsedDate = new Date(date);
     const year = new Intl.DateTimeFormat(language, { year: 'numeric' }).format(
         parsedDate
