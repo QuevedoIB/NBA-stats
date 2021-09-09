@@ -7,10 +7,11 @@ import { useQuery } from 'react-query';
 import NbaService from 'services/NbaService';
 
 import { HOUR_MILLISECONDS } from 'constants.js';
+import { useTeams } from 'hooks/useTeams';
 
 const TeamDetail = () => {
     const { teamId } = useParams();
-
+    useTeams();
     const teamData = useSelector(state =>
         state.teams.teams.find(e => e.teamId === teamId)
     );
@@ -26,7 +27,21 @@ const TeamDetail = () => {
         }
     );
 
-    console.log(teamId, teamData, roster);
+    const { data: calendar } = useQuery(
+        `fetch-${teamId}-calendar`,
+        async () => {
+            const response = await NbaService.fetchTeamCalendar(
+                teamData.urlName
+            );
+            console.log(response);
+            return response?.data;
+        },
+        {
+            staleTime: HOUR_MILLISECONDS,
+        }
+    );
+
+    console.log(teamId, teamData, roster, calendar);
     return <div></div>;
 };
 

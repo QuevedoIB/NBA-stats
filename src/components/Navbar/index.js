@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback, useEffect } from 'react';
 
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useTranslation } from 'react-i18next';
 
 import LanguageSelector from 'components/LanguageSelector';
@@ -17,8 +17,21 @@ import './Navbar.css';
 const Navbar = () => {
     const [t] = useTranslation();
     const [openSideNav, setOpenSideNav] = useState(false);
-    const handleMenuOpen = () => setOpenSideNav(!openSideNav);
+    const handleMenuOpen = useCallback(
+        () => setOpenSideNav(currentState => !currentState),
+        []
+    );
     const { width } = useWindowSize();
+    const history = useHistory();
+
+    useEffect(() => {
+        const removeRouteListener = history.listen(() => {
+            setOpenSideNav(false);
+        });
+        return () => {
+            removeRouteListener();
+        };
+    }, [history]);
 
     return (
         <nav className="navbar">

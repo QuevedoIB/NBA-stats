@@ -15,7 +15,7 @@ export function useTeams(refetch = true) {
         async () => {
             if (!refetch) return;
             const response = await NbaService.fetchTeams();
-            dispatch(setTeams(response?.data?.league || []));
+            dispatch(setTeams(response || []));
             return response;
         },
         {

@@ -9,9 +9,7 @@ export const teamsSlice = createSlice({
     initialState,
     reducers: {
         setTeams: (state, action) => {
-            state.teams = action.payload.standard.filter(
-                team => team.isNBAFranchise
-            );
+            state.teams = action.payload.filter(team => team.isNBAFranchise);
         },
     },
 });

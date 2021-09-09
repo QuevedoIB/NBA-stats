@@ -9,7 +9,7 @@ export const playersSlice = createSlice({
     initialState,
     reducers: {
         setPlayers: (state, action) => {
-            state.players = action.payload.standard.map(e => ({
+            state.players = action.payload.map(e => ({
                 ...e,
                 temporaryDisplayName: e.temporaryDisplayName
                     .split(', ')

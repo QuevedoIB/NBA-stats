@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useMemo } from 'react';
 import { useQuery } from 'react-query';
 import { useSelector, useDispatch } from 'react-redux';
 
@@ -16,7 +16,7 @@ export default function usePlayers(filter = { key: '', value: '' }) {
         'fetch-players',
         async () => {
             const response = await NbaService.fetchPlayers();
-            dispatch(setPlayers(response?.data?.league || []));
+            dispatch(setPlayers(response || []));
             return response;
         },
         {
