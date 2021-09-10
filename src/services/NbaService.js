@@ -39,6 +39,10 @@ class NbaService {
     fetchTeamCalendar(code) {
         return this.service.get(`/v1/2021/teams/${code}/schedule.json`);
     }
+
+    fetchStandings() {
+        return this.service.get('/v1/current/standings_division.json');
+    }
 }
 
 const service = new NbaService();
