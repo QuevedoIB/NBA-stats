@@ -8,8 +8,6 @@ import ScrollToTop from 'components/ScrollToTop';
 
 import { generalRoutes } from 'routes';
 
-import './App.css';
-
 const queryClient = new QueryClient();
 
 function App() {

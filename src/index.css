@@ -16,8 +16,8 @@ body {
 html,
 body,
 #root {
-    width: 100%;
-    height: 100%;
+    width: 100vw;
+    height: 100vh;
 }
 
 a {
@@ -32,6 +32,7 @@ a {
 }
 
 .layout-container {
+    overflow: scroll;
     padding: 2rem 4rem 0 4rem;
 }
 
@@ -63,4 +64,26 @@ button {
 
 input {
     font-family: inherit;
+}
+
+table,
+th,
+td {
+    border: 1px solid var(--border-color);
+    border-collapse: collapse;
+}
+
+td,
+th {
+    padding: 0.5rem;
+}
+
+tbody {
+    max-width: 100%;
+    overflow: scroll;
+}
+
+td:nth-child(even),
+th:nth-child(even) {
+    background-color: lightgray;
 }

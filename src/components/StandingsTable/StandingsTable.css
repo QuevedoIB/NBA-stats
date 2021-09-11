@@ -1,0 +1,24 @@
+.standings-table-conference-label p {
+    text-transform: capitalize;
+    margin: 0;
+    font-size: 1.2rem;
+    transform: translateZ(0) rotate(-90deg);
+    transform-origin: 50% 52%;
+}
+
+.standings-table-conference-label.conference-east {
+    background-color: lightsalmon;
+}
+
+.standings-table-conference-label.conference-west {
+    background-color: lightcyan;
+}
+
+.standings-table-title {
+    border: 1px solid var(--border-color);
+    border-bottom: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+}
