@@ -23,7 +23,7 @@ const Teams = () => {
     ) : (
         <section className="teams-list-container">
             {Object.entries(teamsGroupedByDivision).map(([division, teams]) => (
-                <TeamList key={division} division={division} teams={teams} />
+                <TeamList key={division} division={division} list={teams} />
             ))}
         </section>
     );

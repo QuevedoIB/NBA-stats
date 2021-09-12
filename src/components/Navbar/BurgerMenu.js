@@ -1,3 +1,5 @@
+import Proptypes from 'prop-types';
+
 const BurgerMenu = ({ isOpen, onToggle }) => {
     return (
         <button
@@ -17,6 +19,11 @@ const BurgerMenu = ({ isOpen, onToggle }) => {
             </div>
         </button>
     );
+};
+
+BurgerMenu.propTypes = {
+    isOpen: Proptypes.bool.isRequired,
+    onToggle: Proptypes.func.isRequired,
 };
 
 export default BurgerMenu;

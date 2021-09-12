@@ -16,8 +16,8 @@ body {
 html,
 body,
 #root {
-    width: 100vw;
-    height: 100vh;
+    width: 100%;
+    height: 100%;
 }
 
 a {
@@ -76,11 +76,6 @@ td {
 td,
 th {
     padding: 0.5rem;
-}
-
-tbody {
-    max-width: 100%;
-    overflow: scroll;
 }
 
 td:nth-child(even),

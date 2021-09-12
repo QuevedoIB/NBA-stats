@@ -1,6 +1,8 @@
 import React, { useMemo, Fragment } from 'react';
 import { useQuery } from 'react-query';
 
+import Spinner from 'components/common/Spinner';
+
 import NbaService from 'services/NbaService';
 
 import { HOUR_MILLISECONDS } from 'constants.js';
@@ -8,8 +10,10 @@ import { HOUR_MILLISECONDS } from 'constants.js';
 import useErrorHandler from 'hooks/useErrorHandler';
 
 import './StandingsTable.css';
+import { useTranslation } from 'react-i18next';
 
 const StandingsTable = () => {
+    const [t] = useTranslation();
     const { isLoading, error, data } = useQuery(
         'fetch-players',
         async () => {
@@ -23,7 +27,7 @@ const StandingsTable = () => {
     useErrorHandler(error?.message);
 
     const standingsTable = useMemo(() => {
-        if (!data) return;
+        if (!data?.conference) return;
         const conferences = Object.entries(data.conference).map(
             ([conference, teams]) => {
                 return {
@@ -39,26 +43,28 @@ const StandingsTable = () => {
 
     console.log(data, 'STANDINGS', standingsTable);
 
-    const standingHeaders = {
-        win: 'W',
-        loss: 'L',
-        winPctV2: '%WR',
-        homeWin: 'Home win',
-        homeLoss: 'Home loss',
-        awayWin: 'Visitor win',
-        awayLoss: 'Visitor loss',
-    };
+    const standingHeaders = [
+        'win',
+        'loss',
+        'winPctV2',
+        'homeWin',
+        'homeLoss',
+        'awayWin',
+        'awayLoss',
+    ];
+
+    if (isLoading) return <Spinner />;
 
     return standingsTable ? (
         <table style={{ border: '1px solid black' }}>
             <caption className="standings-table-title">
-                Clasificación {data?.seasonYear}
+                {`${t('standings.title')} ${data?.seasonYear}`}
             </caption>
             <thead>
                 <tr>
                     <th colSpan={2}></th>
-                    {Object.values(standingHeaders).map(label => (
-                        <th>{label}</th>
+                    {standingHeaders.map(key => (
+                        <th key={key}>{t(`standings.${key}`)}</th>
                     ))}
                 </tr>
             </thead>
@@ -71,13 +77,13 @@ const StandingsTable = () => {
                                     className={`standings-table-conference-label conference-${conference}`}
                                     rowSpan={teams.length + 1}
                                 >
-                                    <p>{conference}</p>
+                                    <p>{t(`conferences.${conference}`)}</p>
                                 </th>
                             </tr>
                             {teams.map(team => (
-                                <tr>
+                                <tr key={team.teamId}>
                                     <th>{`${team.teamSitesOnly.teamName} ${team.teamSitesOnly.teamNickname}`}</th>
-                                    {Object.keys(standingHeaders).map(key => (
+                                    {standingHeaders.map(key => (
                                         <td key={key}>
                                             <div className="centered-container">
                                                 {team[key]?.replace('.', ',')}

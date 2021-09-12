@@ -11,11 +11,10 @@ const ErrorBoundary = () => {
     const { error, clearAppError } = useErrorHandler();
 
     const errorMessage = useMemo(
-        () =>
-            error && {
-                title: t('errors.modalTitle'),
-                message: t('errors.modalGenericMessage', { error }),
-            },
+        () => ({
+            title: t('errors.modalTitle'),
+            message: t('errors.modalGenericMessage', { error }),
+        }),
         [error, t]
     );
 

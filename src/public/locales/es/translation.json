@@ -15,5 +15,16 @@
     "errors": {
         "modalTitle": "¡Vaya!",
         "modalGenericMessage": "Parece que ha ocurrido un error. {{error}}"
-    }
+    }, 
+    "standings": {
+        "title": "Clasificación",
+        "win": "Victorias",
+        "loss": "Derrotas",
+        "winPctV2": "% Victorias",
+        "homeWin": "Victorias locales",
+        "homeLoss": "Derrotas locales",
+        "awayWin": "Victorias visitantes",
+        "awayLoss": "Derrotas visitantes"
+    },
+    "conferences": {"east": "Este", "west": "Oeste"}
 }

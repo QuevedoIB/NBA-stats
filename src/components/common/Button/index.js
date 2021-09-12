@@ -1,4 +1,5 @@
 import React from 'react';
+import Proptypes from 'prop-types';
 
 import './Button.css';
 
@@ -19,6 +20,15 @@ const Button = ({
             {children || text}
         </button>
     );
+};
+
+Button.propTypes = {
+    role: Proptypes.oneOf(['primary', 'secondary']).isRequired,
+    onClick: Proptypes.func.isRequired,
+    type: Proptypes.oneOf(['button, submit']).isRequired,
+    text: Proptypes.string,
+    classes: Proptypes.string,
+    children: Proptypes.elementType,
 };
 
 export default Button;

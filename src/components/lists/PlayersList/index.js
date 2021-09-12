@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
+import Proptypes from 'prop-types';
 
 import PlayerCard from 'components/cards/PlayerCard';
 
 import { useObserver } from 'hooks/useObserver';
+
+import { playerProptypes } from 'components/types';
 
 const PlayersList = ({ list, amountRendered = 6 }) => {
     const [itemsDisplayed, setItemsDisplayed] = useState(amountRendered);
@@ -37,6 +40,11 @@ const PlayersList = ({ list, amountRendered = 6 }) => {
             <li ref={observerItem} id="list-observer" />
         </ul>
     );
+};
+
+PlayersList.propTypes = {
+    list: Proptypes.arrayOf(playerProptypes).isRequired,
+    amountRendered: Proptypes.number,
 };
 
 export default PlayersList;

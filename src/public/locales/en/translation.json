@@ -15,5 +15,16 @@
     "errors": {
         "modalTitle": "Woops!",
         "modalGenericMessage": "Looks like an error happened. {{error}}"
-    }
+    },
+    "standings": {
+        "title": "Standings",
+        "win": "Wins",
+        "loss": "Loses",
+        "winPctV2": "% Wins",
+        "homeWin": "Home wins",
+        "homeLoss": "Home loses",
+        "awayWin": "Visitor wins",
+        "awayLoss": "Visitor loses"
+    },
+    "conferences": {"east": "East", "west": "West"}
 }

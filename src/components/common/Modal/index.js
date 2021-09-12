@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import { useTranslation } from 'react-i18next';
+import Proptypes from 'prop-types';
 
 import Button from 'components/common/Button';
 
@@ -60,6 +61,19 @@ const Modal = ({
         </div>,
         document.body
     );
+};
+
+Modal.propTypes = {
+    content: Proptypes.shape({
+        title: Proptypes.string,
+        message: Proptypes.string,
+    }),
+    visible: Proptypes.any,
+    children: Proptypes.elementType,
+    onActionClick: Proptypes.func,
+    actionLabel: Proptypes.string,
+    cancelLabel: Proptypes.string,
+    onCancelClick: Proptypes.func,
 };
 
 export default Modal;
