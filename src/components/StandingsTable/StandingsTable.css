@@ -14,11 +14,6 @@
     background-color: lightcyan;
 }
 
-.standings-table-title {
-    border: 1px solid var(--border-color);
+caption.standings-table-title {
     border-bottom: none;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
-    font-size: 1.2rem;
-    font-weight: bold;
 }

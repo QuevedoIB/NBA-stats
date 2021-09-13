@@ -82,3 +82,15 @@ td:nth-child(even),
 th:nth-child(even) {
     background-color: lightgray;
 }
+
+.title {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin: 0;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+.border-container {
+    border: 1px solid var(--border-color);
+}

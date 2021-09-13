@@ -43,6 +43,10 @@ class NbaService {
     fetchStandings() {
         return this.service.get('/v1/current/standings_division.json');
     }
+
+    fetchDayGames(date) {
+        return this.service.get(`/v1/${date}/scoreboard.json`);
+    }
 }
 
 const service = new NbaService();

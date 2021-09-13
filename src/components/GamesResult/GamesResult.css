@@ -1,0 +1,9 @@
+.games-result-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+.games-result-container li {
+    border-top: 1px solid var(--border-color);
+}

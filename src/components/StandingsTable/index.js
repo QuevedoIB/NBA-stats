@@ -15,7 +15,7 @@ import { useTranslation } from 'react-i18next';
 const StandingsTable = () => {
     const [t] = useTranslation();
     const { isLoading, error, data } = useQuery(
-        'fetch-players',
+        'fetch-standings',
         async () => {
             const response = await NbaService.fetchStandings();
             return response;
@@ -41,8 +41,6 @@ const StandingsTable = () => {
         return conferences;
     }, [data]);
 
-    console.log(data, 'STANDINGS', standingsTable);
-
     const standingHeaders = [
         'win',
         'loss',
@@ -56,8 +54,8 @@ const StandingsTable = () => {
     if (isLoading) return <Spinner />;
 
     return standingsTable ? (
-        <table style={{ border: '1px solid black' }}>
-            <caption className="standings-table-title">
+        <table>
+            <caption className="title border-container standings-table-title">
                 {`${t('standings.title')} ${data?.seasonYear}`}
             </caption>
             <thead>
