@@ -75,6 +75,10 @@ body.theme-dark .player-card-image.placeholder-image {
         flex-direction: row;
         margin-left: 0;
     }
+    .player-card-team-info p {
+        text-align: left;
+        width: min-content;
+    }
     .player-card-team-info img {
         width: 2rem;
     }

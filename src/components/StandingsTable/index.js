@@ -54,47 +54,52 @@ const StandingsTable = () => {
     if (isLoading) return <Spinner />;
 
     return standingsTable ? (
-        <table>
-            <caption className="title border-container standings-table-title">
-                {`${t('standings.title')} ${data?.seasonYear}`}
-            </caption>
-            <thead>
-                <tr>
-                    <th colSpan={2}></th>
-                    {standingHeaders.map(key => (
-                        <th key={key}>{t(`standings.${key}`)}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {standingsTable.map(({ conference, teams }) => {
-                    return (
-                        <Fragment key={conference}>
-                            <tr>
-                                <th
-                                    className={`standings-table-conference-label conference-${conference}`}
-                                    rowSpan={teams.length + 1}
-                                >
-                                    <p>{t(`conferences.${conference}`)}</p>
-                                </th>
-                            </tr>
-                            {teams.map(team => (
-                                <tr key={team.teamId}>
-                                    <th>{`${team.teamSitesOnly.teamName} ${team.teamSitesOnly.teamNickname}`}</th>
-                                    {standingHeaders.map(key => (
-                                        <td key={key}>
-                                            <div className="centered-container">
-                                                {team[key]?.replace('.', ',')}
-                                            </div>
-                                        </td>
-                                    ))}
+        <div className="table-container">
+            <table>
+                <caption className="title border-container standings-table-title">
+                    {`${t('standings.title')} ${data?.seasonYear}`}
+                </caption>
+                <thead>
+                    <tr>
+                        <th colSpan={2}></th>
+                        {standingHeaders.map(key => (
+                            <th key={key}>{t(`standings.${key}`)}</th>
+                        ))}
+                    </tr>
+                </thead>
+                <tbody>
+                    {standingsTable.map(({ conference, teams }) => {
+                        return (
+                            <Fragment key={conference}>
+                                <tr>
+                                    <th
+                                        className={`standings-table-conference-label conference-${conference}`}
+                                        rowSpan={teams.length + 1}
+                                    >
+                                        <p>{t(`conferences.${conference}`)}</p>
+                                    </th>
                                 </tr>
-                            ))}
-                        </Fragment>
-                    );
-                })}
-            </tbody>
-        </table>
+                                {teams.map(team => (
+                                    <tr key={team.teamId}>
+                                        <th>{`${team.teamSitesOnly.teamName} ${team.teamSitesOnly.teamNickname}`}</th>
+                                        {standingHeaders.map(key => (
+                                            <td key={key}>
+                                                <div className="centered-container">
+                                                    {team[key]?.replace(
+                                                        '.',
+                                                        ','
+                                                    )}
+                                                </div>
+                                            </td>
+                                        ))}
+                                    </tr>
+                                ))}
+                            </Fragment>
+                        );
+                    })}
+                </tbody>
+            </table>
+        </div>
     ) : null;
 };
 

@@ -33,7 +33,6 @@ const TeamDetail = () => {
             const response = await NbaService.fetchTeamCalendar(
                 teamData.urlName
             );
-            console.log(response);
             return response?.data;
         },
         {
@@ -41,7 +40,6 @@ const TeamDetail = () => {
         }
     );
 
-    console.log(teamId, teamData, roster, calendar);
     return <div></div>;
 };
 

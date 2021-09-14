@@ -17,3 +17,7 @@
 caption.standings-table-title {
     border-bottom: none;
 }
+
+.table-container {
+    overflow-x: scroll;
+}

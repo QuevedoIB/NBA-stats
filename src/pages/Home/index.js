@@ -5,7 +5,7 @@ import GamesResult from 'components/GamesResult';
 
 const Home = () => {
     return (
-        <div>
+        <div className="home-container">
             <StandingsTable />
             <GamesResult />
         </div>

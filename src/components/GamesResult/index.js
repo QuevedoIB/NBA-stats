@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { useQuery } from 'react-query';
 
 import Spinner from 'components/common/Spinner';
 
 import NbaService from 'services/NbaService';
 
-import { HOUR_MILLISECONDS } from 'constants.js';
+import { HOUR_MILLISECONDS, MIN_DATE_DATA } from 'constants.js';
 
 import useErrorHandler from 'hooks/useErrorHandler';
 import { useTeams } from 'hooks/useTeams';
@@ -14,15 +14,25 @@ import './GamesResult.css';
 
 const GamesResult = () => {
     const { teams } = useTeams();
-    const today = new Date();
-    const [date, setDate] = useState(
-        '20210312'
-        //`${today.getUTCFullYear()}${today.getUTCMonth()}${today.getUTCDate()}`
-    );
+    const { today, maxDate } = useMemo(() => {
+        const currentDate = new Date();
+        let month = currentDate.getUTCMonth() + 1;
+        let day = currentDate.getUTCDate();
+        month = month < 10 ? `0${month}` : month;
+        day = day < 10 ? `0${day}` : day;
+        return {
+            today: `${currentDate.getUTCFullYear()}-${month}-${day}`,
+            maxDate: `${currentDate.getUTCFullYear() + 1}-${month}-${day}`,
+        };
+    }, []);
+    const [date, setDate] = useState(today);
     const { isLoading, error, data } = useQuery(
         `fetch-${date}-games`,
         async () => {
-            const { data } = await NbaService.fetchDayGames(date);
+            const splittedDate = date.split('-');
+            const { data } = await NbaService.fetchDayGames(
+                `${splittedDate[0]}${splittedDate[1]}${splittedDate[2]}`
+            );
             return data;
         },
         {
@@ -31,12 +41,26 @@ const GamesResult = () => {
     );
     useErrorHandler(error?.message);
 
+    const handleDateChange = ({ target: { value } }) => setDate(value);
+
     return (
         <div className="games-result-container border-container">
-            <h3 className="title">{`Resultados ${date}`}</h3>
+            <h3 className="title title-container">
+                Resultados
+                <input
+                    type="date"
+                    name="results-date"
+                    value={date}
+                    min={MIN_DATE_DATA}
+                    max={maxDate}
+                    onChange={handleDateChange}
+                />
+            </h3>
             <ul>
                 {!data?.numGames ? (
-                    <li>No hay resultados para esa fecha</li>
+                    <li>
+                        <p>No hay resultados para esa fecha</p>
+                    </li>
                 ) : (
                     data.games.map(game => {
                         const visitorTeam = teams.find(
@@ -46,7 +70,6 @@ const GamesResult = () => {
                         const homeTeam = teams.find(
                             ({ teamId }) => teamId === game.hTeam.teamId
                         );
-                        console.log(visitorTeam, homeTeam, game);
                         return (
                             <li key={game.gameId}>
                                 <p>{`${homeTeam?.fullName} vs ${visitorTeam?.fullName}`}</p>
