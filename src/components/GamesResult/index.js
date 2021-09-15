@@ -44,7 +44,7 @@ const GamesResult = () => {
     const handleDateChange = ({ target: { value } }) => setDate(value);
 
     return (
-        <div className="games-result-container border-container">
+        <section className="games-result-container border-container">
             <h3 className="title title-container">
                 Resultados
                 <input
@@ -81,7 +81,7 @@ const GamesResult = () => {
                     })
                 )}
             </ul>
-        </div>
+        </section>
     );
 };
 

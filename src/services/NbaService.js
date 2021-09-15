@@ -22,8 +22,6 @@ class NbaService {
         );
     }
 
-    //api v2 "teams": "2021/teams.json", "scoreboard": "{{gameDate}}/scoreboard.json",
-
     fetchPlayers() {
         return this.service.get(`/v1/2021/players.json`);
     }
@@ -41,7 +39,7 @@ class NbaService {
     }
 
     fetchStandings() {
-        return this.service.get('/v1/current/standings_division.json');
+        return this.service.get('/v1/current/standings_conference.json');
     }
 
     fetchDayGames(date) {
