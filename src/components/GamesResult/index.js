@@ -57,7 +57,9 @@ const GamesResult = () => {
                 />
             </h3>
             <ul>
-                {!data?.numGames ? (
+                {isLoading ? (
+                    <Spinner />
+                ) : !data?.numGames ? (
                     <li>
                         <p>No hay resultados para esa fecha</p>
                     </li>
