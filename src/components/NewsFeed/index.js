@@ -4,12 +4,15 @@ import { useTranslation } from 'react-i18next';
 import i18n from 'i18n';
 
 import Spinner from 'components/common/Spinner';
+import NewsCard from 'components/cards/NewsCard';
 
 import useErrorHandler from 'hooks/useErrorHandler';
 
 import { HOUR_MILLISECONDS } from 'constants.js';
 
 import NewsFeedService from 'services/NewsFeedService';
+
+import './NewsFeed.css';
 
 const NewsFeed = () => {
     const [t] = useTranslation();
@@ -30,26 +33,18 @@ const NewsFeed = () => {
     console.log(data);
 
     return (
-        <section>
+        <section className="border-container newsfeed-container">
             {isLoading ? (
                 <Spinner />
             ) : (
                 <div>
-                    <h3>{data.header}</h3>
+                    <h3 className="title">{data.header}</h3>
                     {data.articles?.map((article, i) => {
                         return (
-                            <article key={`${article.headline}${i}`}>
-                                <h5>{article.headline}</h5>
-                                {article.images?.[0] && (
-                                    <img
-                                        style={{ width: '10rem' }}
-                                        loading="lazy"
-                                        src={article.images[0]?.url}
-                                        alt={article.images[0]?.caption}
-                                    />
-                                )}
-                                <p>{article.description}</p>
-                            </article>
+                            <NewsCard
+                                key={`${article.headline}${i}`}
+                                article={article}
+                            />
                         );
                     })}
                 </div>

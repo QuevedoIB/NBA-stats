@@ -1,0 +1,9 @@
+.newsfeed-container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    height: min-content;
+}
+
+.newsfeed-title {
+    text-align: center;
+}

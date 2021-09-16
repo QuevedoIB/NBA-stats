@@ -1,0 +1,29 @@
+.newscard-container {
+    padding-bottom: 1rem;
+}
+
+.newscard-container:after {
+    content: '';
+    clear: both;
+    display: block;
+}
+
+.newscard-title {
+    margin-top: 0;
+    text-align: center;
+}
+
+.newscard-image {
+    width: 10rem;
+    float: left;
+    padding-right: 1rem;
+}
+
+.newscard-text:first-line {
+    line-height: 100%;
+}
+
+.newscard-text {
+    text-align: justify;
+    word-break: break-all;
+}
