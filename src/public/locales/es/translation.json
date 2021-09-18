@@ -26,5 +26,9 @@
         "awayWin": "Victorias visitantes",
         "awayLoss": "Derrotas visitantes"
     },
-    "conferences": {"east": "Este", "west": "Oeste"}
+    "conferences": {"east": "Este", "west": "Oeste"},
+    "gamesResult": {
+        "title": "Resultados",
+        "noResults": "No hay resultados para esa fecha"
+    }
 }

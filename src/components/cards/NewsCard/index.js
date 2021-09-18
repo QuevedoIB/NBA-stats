@@ -4,7 +4,7 @@ import './NewsCard.css';
 
 const NewsCard = ({ article }) => {
     return (
-        <article className="newscard-container">
+        <article>
             <h5 className="newscard-title">{article.headline}</h5>
             {article.images?.[0] && (
                 <img

@@ -1,9 +1,35 @@
 .newsfeed-container {
-    padding-left: 1rem;
-    padding-right: 1rem;
     height: min-content;
 }
 
-.newsfeed-title {
+.newsfeed-container .title {
     text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.newsfeed-list-container li {
+    padding: 0 1rem 1rem 1rem;
+}
+.newsfeed-list-container li:first-child {
+    padding-top: 1rem;
+}
+
+.newsfeed-list-container li::after {
+    content: '';
+    display: block;
+    height: 1px;
+    width: 3rem;
+    margin: auto;
+    background-color: var(--border-color);
+}
+
+.newsfeed-list-container li:last-child::after {
+    content: '';
+    display: block;
+    height: 0;
+    width: 0;
+}
+
+.newsfeed-list-container li article {
+    padding-bottom: 1rem;
 }

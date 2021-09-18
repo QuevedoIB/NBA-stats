@@ -28,3 +28,11 @@
     cursor: pointer;
     margin-left: -1rem;
 }
+
+.games-result-container .title input {
+    line-height: 1rem;
+}
+
+.games-result-container .title input:focus {
+    outline: none;
+}

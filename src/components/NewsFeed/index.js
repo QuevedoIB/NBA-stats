@@ -37,17 +37,18 @@ const NewsFeed = () => {
             {isLoading ? (
                 <Spinner />
             ) : (
-                <div>
+                <>
                     <h3 className="title">{data.header}</h3>
-                    {data.articles?.map((article, i) => {
-                        return (
-                            <NewsCard
-                                key={`${article.headline}${i}`}
-                                article={article}
-                            />
-                        );
-                    })}
-                </div>
+                    <ul className="newsfeed-list-container">
+                        {data.articles?.map((article, i) => {
+                            return (
+                                <li key={`${article.headline}${i}`}>
+                                    <NewsCard article={article} />
+                                </li>
+                            );
+                        })}
+                    </ul>
+                </>
             )}
         </section>
     );

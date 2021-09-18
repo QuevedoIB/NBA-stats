@@ -1,5 +1,6 @@
 import React, { useState, useMemo } from 'react';
 import { useQuery } from 'react-query';
+import { useTranslation } from 'react-i18next';
 
 import Spinner from 'components/common/Spinner';
 
@@ -13,6 +14,7 @@ import { useTeams } from 'hooks/useTeams';
 import './GamesResult.css';
 
 const GamesResult = () => {
+    const [t] = useTranslation();
     const { teams } = useTeams();
     const { today, maxDate } = useMemo(() => {
         const currentDate = new Date();
@@ -46,7 +48,7 @@ const GamesResult = () => {
     return (
         <section className="games-result-container border-container">
             <h3 className="title title-container">
-                Resultados
+                {t('gamesResult.title')}
                 <input
                     type="date"
                     name="results-date"
@@ -61,7 +63,7 @@ const GamesResult = () => {
                     <Spinner />
                 ) : !data?.numGames ? (
                     <li>
-                        <p>No hay resultados para esa fecha</p>
+                        <p>{t('gamesResult.noResults')}</p>
                     </li>
                 ) : (
                     data.games.map(game => {

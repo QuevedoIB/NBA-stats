@@ -26,5 +26,9 @@
         "awayWin": "Visitor wins",
         "awayLoss": "Visitor loses"
     },
-    "conferences": {"east": "East", "west": "West"}
+    "conferences": {"east": "East", "west": "West"},
+    "gamesResult": {
+        "title": "Results",
+        "noResults": "No results found for this date"
+    }
 }

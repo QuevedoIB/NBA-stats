@@ -110,3 +110,15 @@ th:nth-child(even) {
         grid-template-columns: 1fr;
     }
 }
+
+input {
+    line-height: inherit;
+}
+
+::-moz-selection {
+    background: rgba(var(--rgb-font), 0.2);
+}
+
+::selection {
+    background: rgba(var(--rgb-font), 0.2);
+}
