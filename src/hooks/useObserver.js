@@ -1,43 +1,43 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react'
 
-export function useObserver({
-    ref,
-    options = {},
-    keepObserving = false,
-    intersectingCallback,
+export function useObserver ({
+  ref,
+  options = {},
+  keepObserving = false,
+  intersectingCallback
 }) {
-    const [isIntersecting, setIsIntersecting] = useState(false);
-    const observer = useRef();
+  const [isIntersecting, setIsIntersecting] = useState(false)
+  const observer = useRef()
 
-    const removeObserver = () => {
-        if (observer.current) {
-            observer.current.disconnect();
-        }
-    };
+  const removeObserver = () => {
+    if (observer.current) {
+      observer.current.disconnect()
+    }
+  }
 
-    useEffect(() => {
-        if (!ref.current) return;
-        observer.current = new IntersectionObserver(([entry]) => {
-            const isElementIntersecting = entry.isIntersecting;
-            if (keepObserving) {
-                setIsIntersecting(isElementIntersecting);
-            } else if (
-                !keepObserving &&
+  useEffect(() => {
+    if (!ref.current) return
+    observer.current = new IntersectionObserver(([entry]) => {
+      const isElementIntersecting = entry.isIntersecting
+      if (keepObserving) {
+        setIsIntersecting(isElementIntersecting)
+      } else if (
+        !keepObserving &&
                 !isIntersecting &&
                 isElementIntersecting
-            ) {
-                setIsIntersecting(isElementIntersecting);
-                removeObserver();
-            }
-            if (isElementIntersecting && intersectingCallback) {
-                intersectingCallback();
-            }
-        }, options);
-        observer.current.observe(ref.current);
-        return () => {
-            removeObserver();
-        };
-    }, [intersectingCallback, isIntersecting, keepObserving, options, ref]);
+      ) {
+        setIsIntersecting(isElementIntersecting)
+        removeObserver()
+      }
+      if (isElementIntersecting && intersectingCallback) {
+        intersectingCallback()
+      }
+    }, options)
+    observer.current.observe(ref.current)
+    return () => {
+      removeObserver()
+    }
+  }, [intersectingCallback, isIntersecting, keepObserving, options, ref])
 
-    return isIntersecting;
+  return isIntersecting
 }

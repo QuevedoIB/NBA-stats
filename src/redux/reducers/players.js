@@ -1,25 +1,25 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit'
 
 const initialState = {
-    players: [],
-};
+  players: []
+}
 
 export const playersSlice = createSlice({
-    name: 'players',
-    initialState,
-    reducers: {
-        setPlayers: (state, action) => {
-            state.players = action.payload.map(e => ({
-                ...e,
-                temporaryDisplayName: e.temporaryDisplayName
-                    .split(', ')
-                    .reverse()
-                    .join(' '),
-            }));
-        },
-    },
-});
+  name: 'players',
+  initialState,
+  reducers: {
+    setPlayers: (state, action) => {
+      state.players = action.payload.map(e => ({
+        ...e,
+        temporaryDisplayName: e.temporaryDisplayName
+          .split(', ')
+          .reverse()
+          .join(' ')
+      }))
+    }
+  }
+})
 
-export const { setPlayers } = playersSlice.actions;
+export const { setPlayers } = playersSlice.actions
 
-export default playersSlice.reducer;
+export default playersSlice.reducer

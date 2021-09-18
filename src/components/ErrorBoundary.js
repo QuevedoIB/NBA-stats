@@ -1,31 +1,31 @@
-import React, { useMemo } from 'react';
-import { useTranslation } from 'react-i18next';
+import React, { useMemo } from 'react'
+import { useTranslation } from 'react-i18next'
 
-import Modal from 'components/common/Modal';
+import Modal from 'components/common/Modal'
 
-import useErrorHandler from 'hooks/useErrorHandler';
+import useErrorHandler from 'hooks/useErrorHandler'
 
 const ErrorBoundary = () => {
-    const [t] = useTranslation();
+  const [t] = useTranslation()
 
-    const { error, clearAppError } = useErrorHandler();
+  const { error, clearAppError } = useErrorHandler()
 
-    const errorMessage = useMemo(
-        () => ({
-            title: t('errors.modalTitle'),
-            message: t('errors.modalGenericMessage', { error }),
-        }),
-        [error, t]
-    );
+  const errorMessage = useMemo(
+    () => ({
+      title: t('errors.modalTitle'),
+      message: t('errors.modalGenericMessage', { error })
+    }),
+    [error, t]
+  )
 
-    return (
-        <Modal
-            content={errorMessage}
-            visible={error}
-            onActionClick={clearAppError}
-            onCancelClick={clearAppError}
-        />
-    );
-};
+  return (
+    <Modal
+      content={errorMessage}
+      visible={error}
+      onActionClick={clearAppError}
+      onCancelClick={clearAppError}
+    />
+  )
+}
 
-export default ErrorBoundary;
+export default ErrorBoundary

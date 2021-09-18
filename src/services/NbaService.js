@@ -1,52 +1,52 @@
-import axios from 'axios';
+import axios from 'axios'
 
 class NbaService {
-    constructor() {
-        this.service = axios.create({
-            baseURL: process.env.REACT_APP_API_ENDPOINT,
-        });
+  constructor () {
+    this.service = axios.create({
+      baseURL: process.env.REACT_APP_API_ENDPOINT
+    })
 
-        this.service.interceptors.response.use(
-            response => {
-                //parse response
-                if (response?.data?.league?.standard) {
-                    return response.data.league.standard;
-                }
+    this.service.interceptors.response.use(
+      response => {
+        // parse response
+        if (response?.data?.league?.standard) {
+          return response.data.league.standard
+        }
 
-                return response;
-            },
-            error => {
-                //generic error handling
-                return Promise.reject(error.message);
-            }
-        );
-    }
+        return response
+      },
+      error => {
+        // generic error handling
+        return Promise.reject(error.message)
+      }
+    )
+  }
 
-    fetchPlayers() {
-        return this.service.get(`/v1/2021/players.json`);
-    }
+  fetchPlayers () {
+    return this.service.get('/v1/2021/players.json')
+  }
 
-    fetchTeams() {
-        return this.service.get(`/v2/2021/teams.json`);
-    }
+  fetchTeams () {
+    return this.service.get('/v2/2021/teams.json')
+  }
 
-    fetchTeamRoster(code) {
-        return this.service.get(`/v1/2021/teams/${code}/roster.json`);
-    }
+  fetchTeamRoster (code) {
+    return this.service.get(`/v1/2021/teams/${code}/roster.json`)
+  }
 
-    fetchTeamCalendar(code) {
-        return this.service.get(`/v1/2021/teams/${code}/schedule.json`);
-    }
+  fetchTeamCalendar (code) {
+    return this.service.get(`/v1/2021/teams/${code}/schedule.json`)
+  }
 
-    fetchStandings() {
-        return this.service.get('/v1/current/standings_conference.json');
-    }
+  fetchStandings () {
+    return this.service.get('/v1/current/standings_conference.json')
+  }
 
-    fetchDayGames(date) {
-        return this.service.get(`/v1/${date}/scoreboard.json`);
-    }
+  fetchDayGames (date) {
+    return this.service.get(`/v1/${date}/scoreboard.json`)
+  }
 }
 
-const service = new NbaService();
+const service = new NbaService()
 
-export default service;
+export default service
