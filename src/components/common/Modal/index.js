@@ -5,7 +5,7 @@ import Proptypes from 'prop-types'
 
 import Button from 'components/common/Button'
 
-import './Modal.css'
+import styles from './Modal.module.css'
 
 const Modal = ({
   content,
@@ -29,20 +29,20 @@ const Modal = ({
   if (!content || !visible) return null
 
   return ReactDOM.createPortal(
-    <div className='modal-overlay centered-container'>
-      <section className='modal-section'>
-        <header className='modal-header'>
+    <div className={`${styles.overlay} centered-container`}>
+      <section className={styles.section}>
+        <header className={styles.header}>
           <button
             onClick={onCancelClick}
-            className='modal-close-button'
+            className={styles.closeButton}
           >
             x
           </button>
         </header>
-        <h1 className='modal-title'>{content.title}</h1>
-        <p className='modal-message'>{content.message}</p>
+        <h1 className={styles.title}>{content.title}</h1>
+        <p className={styles.message}>{content.message}</p>
         {children}
-        <footer className='modal-footer'>
+        <footer className={styles.footer}>
           {onCancelClick && (
             <Button
               text={cancelLabel || t('actions.close')}

@@ -1,10 +1,12 @@
 import Proptypes from 'prop-types'
 
+import styles from './Navbar.module.css'
+
 const BurgerMenu = ({ isOpen, onToggle }) => {
   return (
     <button
-      className={`navbar-burguer-menu ${
-                isOpen ? 'open-burguer' : 'close-burguer'
+      className={`${styles.burguerMenu} ${
+                isOpen ? styles.open : styles.close
             }`}
       onClick={onToggle}
     >

@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 
 import PlaceholderImage from 'public/images/player-placeholder.png'
 
-import './PlayerCard.css'
+import styles from './PlayerCard.module.css'
 
 import { formatDate } from 'helpers/formatDate'
 import { useCountryCodes } from 'hooks/useCountryCodes'
@@ -20,7 +20,7 @@ const PlayerCard = ({ player }) => {
   useTeams(!Object.keys(teams).length)
 
   const getImageSource = useCallback(() => {
-    const downloadingImage = new Image()
+    const downloadingImage = new window.Image()
     downloadingImage.onload = function () {
       setImageSource(this.src)
     }
@@ -39,7 +39,7 @@ const PlayerCard = ({ player }) => {
   // {player.pos} -
 
   return (
-    <li className='player-card-container'>
+    <li className={styles.container}>
       <img
         src={imageSource ?? PlaceholderImage}
         alt={`${player.temporaryDisplayName}`}
@@ -48,19 +48,19 @@ const PlayerCard = ({ player }) => {
                 }`}
         loading='lazy'
       />
-      <div className='player-card-info-container'>
+      <div className={styles.infoContainer}>
         <div>
-          <p className='player-card-title'>
+          <p className={styles.title}>
             {player.temporaryDisplayName}
           </p>
-          <p className='player-card-subtitle'>
+          <p className={styles.subtitle}>
             {formatDate(player.dateOfBirthUTC, i18n.language)}
           </p>
-          <div className='player-card-country'>
+          <div className={styles.country}>
             <p>{player.country}</p>
             {countryFlagCode && (
               <img
-                className='country-flag-icon'
+                className={styles.countryIcon}
                 src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
                 alt='country'
                 loading='lazy'
@@ -69,7 +69,7 @@ const PlayerCard = ({ player }) => {
           </div>
         </div>
         {playerTeam && (
-          <div className='player-card-team-info'>
+          <div className={styles.team}>
             <p>{playerTeam.fullName}</p>
             <img
               loading='lazy'

@@ -1,0 +1,60 @@
+.ball {
+    -webkit-transform: translate(-50%, -50%) rotate(30deg);
+    background-color: #e65c00;
+    background: radial-gradient(ellipse at center, #ef7f4d 0%, #b54213 100%);
+    background: -webkit-radial-gradient(
+        center ellipse,
+        #ef7f4d 0%,
+        #b54213 100%
+    );
+    border-radius: 50%;
+    box-shadow: 1px 1px 1px 1px rgba(0, 0, 0, 0.2);
+    box-sizing: border-box;
+    height: 2em;
+    overflow: hidden;
+    position: absolute;
+    right: -3.5rem;
+    top: 1em;
+    transform: translate(-50%, -50%) rotate(30deg);
+    width: 2em;
+  
+}
+.ball:before,
+.ball:after {
+    border-radius: 50%;
+    border: solid 0.14rem rgba(13, 13, 13, 0.6);
+    box-sizing: border-box;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    width: 100%;
+}
+.line1 {
+    border-right: solid 0.12em rgba(13, 13, 13, 0.6);
+    box-sizing: border-box;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    right: 50%;
+    width: 100%;
+}
+
+.line2 {
+    border-top: solid 0.14rem rgba(13, 13, 13, 0.6);
+    box-sizing: border-box;
+    content: '';
+    display: block;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    width: 100%;
+}
+
+.ball:before {
+    right: 75%;
+}
+.ball:after {
+    left: 75%;
+}

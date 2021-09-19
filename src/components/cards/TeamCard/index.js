@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-import './TeamCard.css'
+import styles from './TeamCard.module.css'
 
 const TeamCard = ({
   team: {
@@ -19,10 +19,10 @@ const TeamCard = ({
   }
 }) => {
   return (
-    <div className='team-card-container'>
+    <div className={styles.container}>
       <Link to={`/team-detail/${teamId}`}>
         <img
-          className='team-logo'
+          className={styles.logo}
           loading='lazy'
           src={`https://cdn.nba.com/logos/nba/${teamId}/global/L/logo.svg`}
           alt={`${fullName} logo`}

@@ -1,12 +1,12 @@
 import React from 'react'
 
-import './BasketBall.css'
+import styles from './BasketBall.module.css'
 
 const BasketBall = () => {
   return (
-    <div className='basket-ball'>
-      <div className='line2' />
-      <div className='line1' />
+    <div className={styles.ball}>
+      <div className={styles.line1} />
+      <div className={styles.line2} />
     </div>
   )
 }

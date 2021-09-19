@@ -7,6 +7,8 @@ import { useObserver } from 'hooks/useObserver'
 
 import { playerProptypes } from 'components/types'
 
+import styles from './PlayersList.module.css'
+
 const PlayersList = ({ list, amountRendered = 6 }) => {
   const [itemsDisplayed, setItemsDisplayed] = useState(amountRendered)
   const observerItem = useRef()
@@ -33,7 +35,7 @@ const PlayersList = ({ list, amountRendered = 6 }) => {
   }, [amountRendered, list])
 
   return (
-    <ul className='players-list-container'>
+    <ul className={styles.container}>
       {list.slice(0, itemsDisplayed).map(player => (
         <PlayerCard key={player.personId} player={player} />
       ))}

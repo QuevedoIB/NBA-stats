@@ -1,0 +1,9 @@
+.container a {
+    display: flex;
+    width: fit-content;
+}
+
+.logo {
+    height: 4rem;
+    width: 4rem;
+}

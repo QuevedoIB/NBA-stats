@@ -5,6 +5,8 @@ import TeamCard from 'components/cards/TeamCard'
 
 import { teamProptypes } from 'components/types'
 
+//  import styles from './TeamList.module.css'
+
 const TeamList = ({ list, division }) => {
   return (
     <article>

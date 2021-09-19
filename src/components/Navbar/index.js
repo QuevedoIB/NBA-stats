@@ -12,7 +12,7 @@ import RoutesList from 'components/Navbar/RoutesList'
 import { generalRoutes } from 'routes'
 import useWindowSize from 'hooks/useWindowSize'
 
-import './Navbar.css'
+import styles from './Navbar.module.css'
 
 const Navbar = () => {
   const [t] = useTranslation()
@@ -34,10 +34,10 @@ const Navbar = () => {
   }, [history])
 
   return (
-    <nav className='navbar'>
+    <nav className={styles.container}>
       <NavLink to={generalRoutes.home.path}>
         <div style={{ position: 'relative' }}>
-          <h1 className='navbar-title'>{t('title')}</h1>
+          <h1 className={styles.title}>{t('title')}</h1>
           <BasketBall />
         </div>
       </NavLink>
@@ -56,7 +56,7 @@ const Navbar = () => {
                 onToggle={handleMenuOpen}
               />
               <div
-                className={`navbar-side-menu ${
+                className={`${styles.sideMenu} ${
                                 openSideNav ? 'open' : ''
                             }`}
               >

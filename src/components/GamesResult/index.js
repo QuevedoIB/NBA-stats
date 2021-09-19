@@ -11,7 +11,7 @@ import { HOUR_MILLISECONDS, MIN_DATE_DATA } from 'constants.js'
 import useErrorHandler from 'hooks/useErrorHandler'
 import { useTeams } from 'hooks/useTeams'
 
-import './GamesResult.css'
+import styles from './GamesResult.module.css'
 
 const GamesResult = () => {
   const [t] = useTranslation()
@@ -46,8 +46,8 @@ const GamesResult = () => {
   const handleDateChange = ({ target: { value } }) => setDate(value)
 
   return (
-    <section className='games-result-container border-container'>
-      <h3 className='title title-container'>
+    <section className={`${styles.container} border-container`}>
+      <h3 className={`title ${styles.title}`}>
         {t('gamesResult.title')}
         <input
           type='date'

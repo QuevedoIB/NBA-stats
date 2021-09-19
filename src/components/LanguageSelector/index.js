@@ -5,7 +5,7 @@ import { useTranslation } from 'react-i18next'
 import { ReactComponent as EnglishFlag } from 'public/images/united-kingdom-flag.svg'
 import { ReactComponent as SpanishFlag } from 'public/images/spain-flag.svg'
 
-import './LanguageSelector.css'
+import styles from './LanguageSelector.module.css'
 
 const languageOptions = {
   en: EnglishFlag,
@@ -34,12 +34,12 @@ const LanguageSelector = () => {
   )
   return (
     <div
-      className='language-selector-container'
+      className={styles.container}
       onClick={toggleLanguageOptions}
     >
       <SelectedLanguage />
       {displayedOptions && (
-        <ul className='language-selector-options-container'>
+        <ul className={styles.optionsContainer}>
           {options}
         </ul>
       )}

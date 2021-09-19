@@ -1,6 +1,6 @@
 /* NAVBAR */
 
-.navbar {
+.container {
     position: relative;
     display: flex;
     height: 8vh;
@@ -11,7 +11,7 @@
     border-bottom: 1px solid var(--font-color);
 }
 
-.navbar-title {
+.title {
     filter: drop-shadow(1px 1px 1px var(--bg-color));
 }
 
@@ -24,7 +24,7 @@
 
 /* BURGER MENU */
 
-.navbar-burguer-menu {
+.burguerMenu {
     transition: none;
     display: inline-flex;
     flex-direction: column;
@@ -40,11 +40,11 @@
     overflow: hidden;
 }
 
-.navbar-burguer-menu:focus {
+.burguerMenu:focus {
     outline: none;
 }
 
-.navbar-burguer-menu div {
+.burguerMenu div {
     border-radius: 10px;
     transition: width 200ms ease-out, height 0.3s linear, transform 0.3s linear,
         opacity 300ms linear;
@@ -53,7 +53,7 @@
     min-height: 7px;
 }
 
-.navbar-burguer-menu div span {
+.burguerMenu div span {
     background: var(--font-color);
     height: 3px;
     display: block;
@@ -61,37 +61,37 @@
     border-radius: 5px;
 }
 
-.navbar-burguer-menu.open-burguer div:first-child {
+.burguerMenu.open div:first-child {
     transform: rotate(45deg);
     width: 22px;
 }
 
-.navbar-burguer-menu.close-burguer div:first-child {
+.burguerMenu.close div:first-child {
     transform: rotate(0);
     width: 20px;
 }
 
-.navbar-burguer-menu.open-burguer div:nth-child(2) {
+.burguerMenu.open div:nth-child(2) {
     width: 0;
 }
 
-.navbar-burguer-menu.close-burguer div:nth-child(2) {
+.burguerMenu.close div:nth-child(2) {
     width: 20px;
 }
 
-.navbar-burguer-menu.open-burguer div:nth-child(3) {
+.burguerMenu.open div:nth-child(3) {
     transform: rotate(-45deg);
     width: 22px;
 }
 
-.navbar-burguer-menu.close-burguer div:nth-child(3) {
+.burguerMenu.close div:nth-child(3) {
     transform: rotate(0);
     width: 20px;
 }
 
 /* SIDEBAR MENU */
 
-.navbar-side-menu {
+.sideMenu {
     height: 100vh;
     width: 0;
     position: absolute;
@@ -106,22 +106,22 @@
     box-shadow: -1px 2px 5px #888;
 }
 
-.navbar-side-menu.open {
+.sideMenu.open {
     width: 30vw;
 }
 
-.navbar-side-menu .navbar-menu-link-container {
+.sideMenu .navbar-menu-link-container {
     padding: 0 1rem;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
-.navbar-side-menu .navbar-menu-link-container li:first-child {
+.sideMenu .navbar-menu-link-container li:first-child {
     margin-left: 0;
 }
 
-.navbar-side-menu .navbar-menu-link-container li {
+.sideMenu .navbar-menu-link-container li {
     margin-bottom: 1rem;
 }
 

@@ -1,15 +1,15 @@
-.language-selector-container {
+.container {
     cursor: pointer;
 }
 
-.language-selector-container svg {
+.container svg {
     margin-right: 1rem;
     display: flex;
     width: 1.5rem;
     height: 1.5rem;
 }
 
-.language-selector-options-container {
+.optionsContainer {
     position: absolute;
     margin-top: 3rem;
     width: 8rem;
@@ -17,12 +17,12 @@
     border-radius: 5px;
 }
 
-.language-selector-options-container li {
+.optionsContainer li {
     display: flex;
     align-items: center;
     padding: 0 1rem;
 }
 
-.language-selector-options-container li:hover {
+.optionsContainer li:hover {
     background-color: red;
 }

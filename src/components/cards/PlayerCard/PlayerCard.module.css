@@ -1,13 +1,6 @@
-.players-list-container {
-    column-gap: 6rem;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 2rem;
-    max-width: 100%;
-    row-gap: 6rem;
-}
 
-.player-card-container {
+
+.container {
     align-items: flex-end;
     border-radius: 1rem;
     border: 1px solid var(--border-color);
@@ -20,17 +13,17 @@
     height: 8rem;
 }
 
-.player-card-info-container {
+.infoContainer {
     align-self: flex-start;
     display: flex;
 }
 
-.player-card-title {
+.title {
     font-weight: bold;
     margin: 0;
 }
 
-.player-card-subtitle {
+.subtitle {
     margin: 0;
 }
 
@@ -38,51 +31,48 @@ body.theme-dark .player-card-image.placeholder-image {
     filter: invert(100%);
 }
 
-.country-flag-icon {
+.countryIcon {
     margin-left: 0.25rem;
     width: 1.5rem;
 }
 
-.player-card-country {
+.country {
     align-items: center;
     display: flex;
 }
 
-.player-card-team-info {
+.team {
     display: flex;
     flex-direction: column;
     margin: 0 0 1rem 1rem;
 }
 
-.player-card-team-info img {
+.team img {
     margin: auto;
     width: 5rem;
 }
 
-.player-card-team-info p {
+.team p {
     margin: 0;
     text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-    .players-list-container {
-        grid-template-columns: 1fr;
-    }
     .player-card-image {
         height: 6rem;
     }
-    .player-card-team-info {
+    .team {
         flex-direction: row;
         margin-left: 0;
     }
-    .player-card-team-info p {
+    .team p {
         text-align: left;
         width: min-content;
     }
-    .player-card-team-info img {
+    .team img {
         width: 2rem;
     }
-    .player-card-info-container {
+    .infoContainer {
         flex-direction: column;
     }
 }

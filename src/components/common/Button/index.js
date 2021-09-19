@@ -1,7 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types'
 
-import './Button.css'
+import styles from './Button.module.css'
 
 const Button = ({
   role = 'primary',
@@ -13,7 +13,7 @@ const Button = ({
 }) => {
   return (
     <button
-      className={`button-container button-${role} ${classes}`}
+      className={`${styles.container} ${styles[role]} ${classes}`}
       type={type}
       onClick={onClick}
     >

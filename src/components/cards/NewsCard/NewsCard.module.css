@@ -1,25 +1,25 @@
-.newscard-title {
+.title {
     margin-top: 0;
     text-align: center;
 }
 
-.newscard-image {
+.image {
     float: left;
     padding-right: 1rem;
     width: 10rem;
 }
 
-.newscard-text:first-line {
-    line-height: 100%;
-}
-
-.newscard-text {
+.text {
     margin: 0;
     text-align: justify;
     word-break: break-all;
 }
 
-.newscard-text::after {
+.text:first-line {
+    line-height: 100%;
+}
+
+.text::after {
     clear: both;
     content: '';
     display: block;
