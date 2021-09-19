@@ -4,9 +4,9 @@
 }
 
 .newscard-image {
-    width: 10rem;
     float: left;
     padding-right: 1rem;
+    width: 10rem;
 }
 
 .newscard-text:first-line {
@@ -14,13 +14,13 @@
 }
 
 .newscard-text {
+    margin: 0;
     text-align: justify;
     word-break: break-all;
-    margin: 0;
 }
 
 .newscard-text::after {
+    clear: both;
     content: '';
     display: block;
-    clear: both;
 }

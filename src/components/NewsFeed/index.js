@@ -1,6 +1,5 @@
 import React from 'react'
 import { useQuery } from 'react-query'
-import { useTranslation } from 'react-i18next'
 import i18n from 'i18n'
 
 import Spinner from 'components/common/Spinner'
@@ -15,8 +14,6 @@ import NewsFeedService from 'services/NewsFeedService'
 import './NewsFeed.css'
 
 const NewsFeed = () => {
-  const [t] = useTranslation()
-
   const { isLoading, error, data } = useQuery(
         `fetch-news-${i18n.language}`,
         async () => {
