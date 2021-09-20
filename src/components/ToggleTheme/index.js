@@ -2,21 +2,21 @@ import React from 'react'
 
 import useDarkMode from 'hooks/useDarkMode'
 
-import './ToggleTheme.css'
+import styles from './ToggleTheme.module.css'
 
 const ToggleTheme = () => {
   const [theme, toggleTheme] = useDarkMode()
 
   return (
-    <div id='theme-container'>
+    <div id={styles.container}>
       <input
         type='checkbox'
-        id='theme-toggle'
+        id={styles.toggle}
         defaultChecked={theme === 'dark'}
         onClick={toggleTheme}
       />
-      <div className='sun-circle' />
-      <div className='crescent' />
+      <div className={styles.sun} />
+      <div className={styles.moon} />
     </div>
   )
 }

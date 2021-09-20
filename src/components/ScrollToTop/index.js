@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback } from 'react'
 
-import './ScrollToTop.css'
+import styles from './ScrollToTop.module.css'
 
 const ScrollToTop = () => {
   const [visible, setVisible] = useState(false)
@@ -38,7 +38,7 @@ const ScrollToTop = () => {
   return (
     visible && (
       <button
-        className='scroll-to-top-container centered-container'
+        className={`${styles.container} centered-container`}
         onClick={onScrollToTop}
       >
         <span>&#8593;</span>

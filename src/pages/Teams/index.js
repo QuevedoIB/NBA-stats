@@ -5,6 +5,8 @@ import Spinner from 'components/common/Spinner'
 
 import { useTeams } from 'hooks/useTeams'
 
+import styles from './Teams.module.css'
+
 const Teams = () => {
   const { teams, isLoading } = useTeams()
   const teamsGroupedByDivision = useMemo(
@@ -23,7 +25,7 @@ const Teams = () => {
       <Spinner />
       )
     : (
-      <section className='teams-list-container'>
+      <section className={styles.container}>
         {Object.entries(teamsGroupedByDivision).map(([division, teams]) => (
           <TeamList key={division} division={division} list={teams} />
         ))}

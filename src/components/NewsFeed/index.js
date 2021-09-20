@@ -11,13 +11,12 @@ import { HOUR_MILLISECONDS } from 'constants.js'
 
 import NewsFeedService from 'services/NewsFeedService'
 
-import './NewsFeed.css'
+import styles from './NewsFeed.module.css'
 
 const NewsFeed = () => {
   const { isLoading, error, data } = useQuery(
         `fetch-news-${i18n.language}`,
         async () => {
-          console.log('REQUEST')
           const { data } = await NewsFeedService.fetchNews(i18n.language)
           return data
         },
@@ -27,18 +26,16 @@ const NewsFeed = () => {
   )
   useErrorHandler(error?.message)
 
-  console.log(data)
-
   return (
-    <section className='border-container newsfeed-container'>
+    <section className={`border-container ${styles.container}`}>
       {isLoading
         ? (
           <Spinner />
           )
         : (
           <>
-            <h3 className='title'>{data.header}</h3>
-            <ul className='newsfeed-list-container'>
+            <h3 className={`title ${styles.title}`}>{data.header}</h3>
+            <ul className={styles.list}>
               {data.articles?.map((article, i) => {
                 return (
                   <li key={`${article.headline}${i}`}>

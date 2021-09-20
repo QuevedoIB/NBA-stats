@@ -1,0 +1,23 @@
+.conference p {
+    font-size: 1.2rem;
+    margin: 0;
+    text-transform: capitalize;
+    transform-origin: 50% 52%;
+    transform: translateZ(0) rotate(-90deg);
+}
+
+.conference.conference-east {
+    background-color: lightsalmon;
+}
+
+.conference.conference-west {
+    background-color: lightcyan;
+}
+
+caption.title {
+    border-bottom: none;
+}
+
+.container {
+    overflow-x: scroll;
+}

@@ -1,7 +1,7 @@
 import React from 'react'
 import Proptypes from 'prop-types'
 
-import './SearchBar.css'
+import styles from './SearchBar.module.css'
 
 const SearchBar = ({
   searchText,
@@ -12,9 +12,9 @@ const SearchBar = ({
   onSuggestionClick
 }) => {
   return (
-    <div className='searchbar-container'>
+    <div className={styles.container}>
       {suggestions?.length > 0 && (
-        <ul className='searchbar-suggestions-container'>
+        <ul className={styles.suggestions}>
           {suggestions
             .slice(0, suggestionsAmount)
             .map((suggestion, i) => (
@@ -31,11 +31,11 @@ const SearchBar = ({
         </ul>
       )}
       <input
-        className='searchbar-input'
+        className={styles.input}
         value={searchText}
         onChange={onSearchChange}
       />
-      <div className='searchbar-input-icon'>
+      <div className={styles.inputIcon}>
         <div className='circle' />
         <div className='rectangle' />
       </div>

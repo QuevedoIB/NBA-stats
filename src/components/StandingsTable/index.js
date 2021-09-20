@@ -4,14 +4,14 @@ import { useQuery } from 'react-query'
 import Spinner from 'components/common/Spinner'
 
 import NbaService from 'services/NbaService'
-import NewsFeedService from 'services/NewsFeedService'
 
 import { HOUR_MILLISECONDS } from 'constants.js'
 
 import useErrorHandler from 'hooks/useErrorHandler'
 
-import './StandingsTable.css'
 import { useTranslation } from 'react-i18next'
+
+import styles from './StandingsTable.module.css'
 
 const StandingsTable = () => {
   const [t] = useTranslation()
@@ -40,9 +40,9 @@ const StandingsTable = () => {
   if (isLoading) return <Spinner />
 
   return (
-    <section className='table-container'>
+    <section className={styles.container}>
       <table>
-        <caption className='title border-container standings-table-title'>
+        <caption className={`title border-container ${styles.title}`}>
           {`${t('standings.title')} ${data?.seasonYear}`}
         </caption>
         <thead>
@@ -60,7 +60,7 @@ const StandingsTable = () => {
                 <Fragment key={conference}>
                   <tr>
                     <th
-                      className={`standings-table-conference-label conference-${conference}`}
+                      className={`${styles.conference} ${styles[`conference-${conference}`]}`}
                       rowSpan={teams.length + 1}
                     >
                       <p>

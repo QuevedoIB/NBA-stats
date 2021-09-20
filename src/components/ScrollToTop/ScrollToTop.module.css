@@ -1,4 +1,4 @@
-.scroll-to-top-container {
+.container {
     position: fixed;
     bottom: 2rem;
     right: 2rem;
@@ -11,6 +11,6 @@
     font-size: 2rem;
 }
 
-.scroll-to-top-container span {
+.container span {
     height: inherit;
 }
