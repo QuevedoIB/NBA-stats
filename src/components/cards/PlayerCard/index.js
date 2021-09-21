@@ -43,8 +43,8 @@ const PlayerCard = ({ player }) => {
       <img
         src={imageSource ?? PlaceholderImage}
         alt={`${player.temporaryDisplayName}`}
-        className={`player-card-image ${
-                    imageSource ? 'placeholder-image' : ''
+        className={`${styles.image} ${
+                    imageSource ? '' : styles.placeholderImage
                 }`}
         loading='lazy'
       />

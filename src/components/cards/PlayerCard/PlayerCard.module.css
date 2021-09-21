@@ -7,10 +7,22 @@
     display: flex;
     max-width: 100%;
     padding: 1rem 1rem 0 1rem;
+    overflow: hidden;
 }
 
-.player-card-image {
+.image {
     height: 8rem;
+    filter: url('data:image/svg+xml,\
+    <svg xmlns="http://www.w3.org/2000/svg">\
+      <filter id="naturalShadow" x="0" y="0" width="1" height="1">\
+        <feOffset in="SourceGraphic" dx="1" dy="1" />\
+        <feGaussianBlur stdDeviation="3" result="blur" />\
+        <feMerge>\
+          <feMergeNode in="blur"/>\
+          <feMergeNode in="SourceGraphic"/>\
+        </feMerge>\
+      </filter>\
+    </svg>#naturalShadow');
 }
 
 .infoContainer {
@@ -27,7 +39,7 @@
     margin: 0;
 }
 
-body.theme-dark .player-card-image.placeholder-image {
+body:global(.theme-dark) :local(.image.placeholderImage) {
     filter: invert(100%);
 }
 
@@ -58,7 +70,7 @@ body.theme-dark .player-card-image.placeholder-image {
 }
 
 @media only screen and (max-width: 600px) {
-    .player-card-image {
+    .image {
         height: 6rem;
     }
     .team {

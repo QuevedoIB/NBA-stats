@@ -4,17 +4,18 @@ import { useTranslation } from 'react-i18next'
 
 import { generalRoutes } from 'routes'
 
+import styles from "./Navbar.module.css"
+
 const RoutesList = () => {
   const [t] = useTranslation()
   return (
-    <ul className='navbar-menu-link-container centered-container'>
+    <ul className={`${styles.linksList} centered-container`}>
       {Object.values(generalRoutes).flatMap(({ path, label }) =>
         label ? (
           <li key={path}>
             <NavLink
               to={path}
-              activeClassName='navbar-menu-selected-link'
-              className='navbar-menu-link'
+              activeClassName={styles.selectedLink}
             >
               {t(`routes.${label}`)}
             </NavLink>

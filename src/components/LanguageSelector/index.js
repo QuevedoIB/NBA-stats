@@ -30,6 +30,7 @@ const LanguageSelector = () => {
   )
   const SelectedLanguage = useMemo(
     () => languageOptions[i18n.language],
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     [i18n.language]
   )
   return (

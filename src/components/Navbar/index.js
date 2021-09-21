@@ -57,7 +57,7 @@ const Navbar = () => {
               />
               <div
                 className={`${styles.sideMenu} ${
-                                openSideNav ? 'open' : ''
+                                openSideNav ? styles.open : ''
                             }`}
               >
                 <RoutesList />

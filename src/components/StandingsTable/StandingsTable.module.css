@@ -19,5 +19,5 @@ caption.title {
 }
 
 .container {
-    overflow-x: scroll;
+    overflow-x: auto;
 }

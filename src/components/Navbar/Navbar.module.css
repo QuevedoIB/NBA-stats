@@ -16,7 +16,7 @@
 }
 
 @media only screen and (min-width: 992px) {
-    .navbar {
+    .container {
         padding-left: 4rem;
         padding-right: 4rem;
     }
@@ -99,7 +99,7 @@
     top: 8vh;
     right: 0;
     background-color: var(--bg-color);
-    overflow-x: hidden;
+    overflow: hidden;
     padding-top: 1rem;
     transition: 0.5s;
     border-top: 1px solid var(--font-color);
@@ -110,36 +110,36 @@
     width: 30vw;
 }
 
-.sideMenu .navbar-menu-link-container {
+.sideMenu .linksList {
     padding: 0 1rem;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
 }
 
-.sideMenu .navbar-menu-link-container li:first-child {
+.sideMenu .linksList li:first-child {
     margin-left: 0;
 }
 
-.sideMenu .navbar-menu-link-container li {
+.sideMenu .linksList li {
     margin-bottom: 1rem;
 }
 
 /* LINKS */
 
-.navbar-menu-link-container li {
+.linksList li {
     margin-right: 1rem;
 }
 
-.navbar-menu-link-container li:first-child {
+.linksList li:first-child {
     margin-left: 1rem;
 }
 
-.navbar-menu-link-container li:last-child {
+.linksList li:last-child {
     margin-right: 0;
 }
 
-.navbar-menu-link-container li:hover,
-.navbar-menu-selected-link {
+.linksList li:hover,
+.selectedLink {
     border-bottom: 1px solid var(--font-color);
 }

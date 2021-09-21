@@ -36,8 +36,8 @@ const SearchBar = ({
         onChange={onSearchChange}
       />
       <div className={styles.inputIcon}>
-        <div className='circle' />
-        <div className='rectangle' />
+        <div className={styles.circle} />
+        <div className={styles.rectangle} />
       </div>
     </div>
   )
