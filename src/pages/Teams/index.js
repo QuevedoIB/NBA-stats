@@ -3,7 +3,7 @@ import React, { useMemo } from 'react'
 import TeamList from 'components/lists/TeamList'
 import Spinner from 'components/common/Spinner'
 
-import { useTeams } from 'hooks/useTeams'
+import  useTeams  from 'hooks/useTeams'
 
 import styles from './Teams.module.css'
 

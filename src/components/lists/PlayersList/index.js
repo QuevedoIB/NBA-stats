@@ -3,7 +3,7 @@ import Proptypes from 'prop-types'
 
 import PlayerCard from 'components/cards/PlayerCard'
 
-import { useObserver } from 'hooks/useObserver'
+import useObserver from 'hooks/useObserver'
 
 import { playerProptypes } from 'components/types'
 

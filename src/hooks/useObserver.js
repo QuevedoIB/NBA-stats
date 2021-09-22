@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from 'react'
 
-export function useObserver ({
+export default function useObserver ({
   ref,
   options = {},
   keepObserving = false,

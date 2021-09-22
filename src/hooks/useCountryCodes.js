@@ -5,7 +5,7 @@ import CountriesService from 'services/CountriesService'
 
 import { HOUR_MILLISECONDS } from 'constants.js'
 
-export function useCountryCodes ({ countryName, countryCode }) {
+export default function useCountryCodes ({ countryName, countryCode }) {
   const [countryData, setCountryData] = useState()
 
   const { data: countries } = useQuery(

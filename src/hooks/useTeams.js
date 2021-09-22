@@ -7,7 +7,7 @@ import NbaService from 'services/NbaService'
 
 import { HOUR_MILLISECONDS } from 'constants.js'
 
-export function useTeams (refetch = true) {
+export default function useTeams (refetch = true) {
   const teams = useSelector(state => state.teams.teams)
   const dispatch = useDispatch()
   const { isLoading, error } = useQuery(

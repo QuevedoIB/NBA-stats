@@ -11,8 +11,6 @@
 
 .text {
     margin: 0;
-    text-align: justify;
-    word-break: break-all;
 }
 
 .text:first-line {

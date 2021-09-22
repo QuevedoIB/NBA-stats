@@ -14,10 +14,26 @@
     background-color: lightcyan;
 }
 
-caption.title {
-    border-bottom: none;
-}
-
 .container {
     overflow-x: auto;
+    width: 100%;
+}
+
+.container table {
+    width: 100%;
+    border-spacing: 0;
+}
+
+.container table th, .container table td {
+    border-collapse: collapse;
+}
+
+.container summary {
+    width: calc(100% - 2px);
+    border: 1px solid var(--border-color);
+    justify-content: center;
+}
+
+.container details[open] summary {
+    border-bottom: none;
 }

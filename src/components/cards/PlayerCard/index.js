@@ -7,8 +7,8 @@ import PlaceholderImage from 'public/images/player-placeholder.png'
 import styles from './PlayerCard.module.css'
 
 import { formatDate } from 'helpers/formatDate'
-import { useCountryCodes } from 'hooks/useCountryCodes'
-import { useTeams } from 'hooks/useTeams'
+import useCountryCodes  from 'hooks/useCountryCodes'
+import useTeams  from 'hooks/useTeams'
 
 const PlayerCard = ({ player }) => {
   const { i18n } = useTranslation()

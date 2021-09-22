@@ -9,7 +9,7 @@ import NbaService from 'services/NbaService'
 import { HOUR_MILLISECONDS, MIN_DATE_DATA } from 'constants.js'
 
 import useErrorHandler from 'hooks/useErrorHandler'
-import { useTeams } from 'hooks/useTeams'
+import  useTeams  from 'hooks/useTeams'
 
 import styles from './GamesResult.module.css'
 

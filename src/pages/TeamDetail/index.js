@@ -7,7 +7,7 @@ import React from 'react'
 // import NbaService from 'services/NbaService';
 
 // import { HOUR_MILLISECONDS } from 'constants.js';
-import { useTeams } from 'hooks/useTeams'
+import  useTeams  from 'hooks/useTeams'
 
 const TeamDetail = () => {
   // const { teamId } = useParams();

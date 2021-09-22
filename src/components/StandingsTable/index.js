@@ -1,5 +1,6 @@
-import React, { Fragment } from 'react'
+import React, { Fragment , useRef} from 'react'
 import { useQuery } from 'react-query'
+import { useTranslation } from 'react-i18next'
 
 import Spinner from 'components/common/Spinner'
 
@@ -9,9 +10,8 @@ import { HOUR_MILLISECONDS } from 'constants.js'
 
 import useErrorHandler from 'hooks/useErrorHandler'
 
-import { useTranslation } from 'react-i18next'
-
 import styles from './StandingsTable.module.css'
+import CollapseView from 'components/common/CollapseView'
 
 const StandingsTable = () => {
   const [t] = useTranslation()
@@ -26,6 +26,7 @@ const StandingsTable = () => {
     }
   )
   useErrorHandler(error?.message)
+  const containerRef = useRef();
 
   const standingHeaders = [
     'win',
@@ -40,11 +41,9 @@ const StandingsTable = () => {
   if (isLoading) return <Spinner />
 
   return (
-    <section className={styles.container}>
-      <table>
-        <caption className={`title border-container ${styles.title}`}>
-          {`${t('standings.title')} ${data?.seasonYear}`}
-        </caption>
+    <section ref={containerRef} className={styles.container} >
+      <CollapseView contentRef={containerRef} summary={`${t('standings.title')} ${data?.seasonYear}`} classNames={{summary: 'title'}}>
+        <table >
         <thead>
           <tr>
             <th colSpan={2} />
@@ -89,6 +88,7 @@ const StandingsTable = () => {
           )}
         </tbody>
       </table>
+      </CollapseView>
     </section>
   )
 }
