@@ -1,39 +1,47 @@
 .conference p {
-    font-size: 1.2rem;
-    margin: 0;
-    text-transform: capitalize;
-    transform-origin: 50% 52%;
-    transform: translateZ(0) rotate(-90deg);
+  font-size: 1.2rem;
+  margin: 0;
+  text-transform: capitalize;
+  transform-origin: 50% 52%;
+  transform: translateZ(0) rotate(-90deg);
 }
 
 .conference.conference-east {
-    background-color: lightsalmon;
+  background-color: lightsalmon;
 }
 
 .conference.conference-west {
-    background-color: lightcyan;
+  background-color: lightcyan;
 }
 
 .container {
-    overflow-x: auto;
-    width: 100%;
+  overflow-x: auto;
+  width: 100%;
 }
 
 .container table {
-    width: 100%;
-    border-spacing: 0;
+  width: 100%;
+  border-spacing: 0;
 }
 
-.container table th, .container table td {
-    border-collapse: collapse;
+/* @media only screen and (max-width: 600px) {
+  .container table {
+    overflow-x: auto;
+    max-width: calc(100vw - 2rem);
+  }
+} */
+
+.container table th,
+.container table td {
+  border-collapse: collapse;
 }
 
 .container summary {
-    width: calc(100% - 2px);
-    border: 1px solid var(--border-color);
-    justify-content: center;
+  width: calc(100% - 2px);
+  border: 1px solid var(--border-color);
+  justify-content: center;
 }
 
 .container details[open] summary {
-    border-bottom: none;
+  border-bottom: none;
 }

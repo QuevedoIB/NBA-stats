@@ -13,6 +13,16 @@ import useErrorHandler from 'hooks/useErrorHandler'
 import styles from './StandingsTable.module.css'
 import CollapseView from 'components/common/CollapseView'
 
+const standingHeaders = [
+  'win',
+  'loss',
+  'winPctV2',
+  'homeWin',
+  'homeLoss',
+  'awayWin',
+  'awayLoss'
+]
+
 const StandingsTable = () => {
   const [t] = useTranslation()
   const { isLoading, error, data } = useQuery(
@@ -28,22 +38,12 @@ const StandingsTable = () => {
   useErrorHandler(error?.message)
   const containerRef = useRef();
 
-  const standingHeaders = [
-    'win',
-    'loss',
-    'winPctV2',
-    'homeWin',
-    'homeLoss',
-    'awayWin',
-    'awayLoss'
-  ]
-
   if (isLoading) return <Spinner />
 
   return (
-    <section ref={containerRef} className={styles.container} >
+    <section className={styles.container} >
       <CollapseView contentRef={containerRef} summary={`${t('standings.title')} ${data?.seasonYear}`} classNames={{summary: 'title'}}>
-        <table >
+        <table ref={containerRef}>
         <thead>
           <tr>
             <th colSpan={2} />

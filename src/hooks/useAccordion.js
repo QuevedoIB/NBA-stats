@@ -1,76 +1,50 @@
-import { useReducer, useCallback } from "react";
-
-const RESET_ANIMATION = "RESET_ANIMATION";
-const SET_ANIMATION = "SET_ANIMATION";
-
-const initialAccordionState = {
-  animation: null,
-  expanded: true,
-};
-
-const accordionReducer = (state, { type, payload = {} }) => {
-  switch (type) {
-    case RESET_ANIMATION:
-      return {
-        ...state,
-        animation: null,
-        ...payload,
-      };
-    case SET_ANIMATION:
-      return { ...state, animation: payload };
-    default:
-      return state;
-  }
-};
+import { useCallback, useRef } from "react";
 
 export default function useAccordion({ detailsRef, summaryRef, contentRef }) {
-  const [{ expanded, animation}, dispatch] = useReducer(
-    accordionReducer,
-    initialAccordionState
-  );
+  const animationRef = useRef();
+  const isOpening = useRef(false);
+  const isClosing = useRef(false);
 
   const getAnimationDuration = useCallback((start, end) => {
-    return (start > end ? start - end : end - start) / 2;
+    return (start > end ? start - end : end - start) / 4;
   }, []);
 
   const generateAnimation = useCallback(
-    ({ start, end, opening = false }) => {
+    ({ start, end, statusRef }) => {
       const animation = detailsRef.current.animate(
         {
           height: [`${start}px`, `${end}px`],
         },
         {
-          duration: 500,
+          duration: getAnimationDuration(start, end) || 1000,
           easing: "ease-out",
         }
       );
       animation.onfinish = () => {
-        dispatch({ type: RESET_ANIMATION, payload: { expanded: opening } });
-        detailsRef.current.open = opening;
+        animationRef.current = null;
+        detailsRef.current.open = isOpening.current;
+        isClosing.current = false;
+        isOpening.current = false;
         detailsRef.current.style.height = "";
         detailsRef.current.style.overflow = "";
       };
-      animation.oncancel = () => dispatch({ type: RESET_ANIMATION });
-      dispatch({
-        type: SET_ANIMATION,
-        payload: animation
-      });
-      console.log("ANIMATION", start, end, opening);
-      return animation;
+      animation.oncancel = () => (statusRef.current = false);
+      animationRef.current = animation;
     },
-    [detailsRef]
+    [detailsRef, getAnimationDuration]
   );
 
   const handleClose = useCallback(() => {
-    window.requestAnimationFrame(() =>
-      generateAnimation({
-        start: detailsRef.current.offsetHeight,
-        end: summaryRef.current.offsetHeight,
-      })
-    );
+    isClosing.current = true;
+    generateAnimation({
+      start: detailsRef.current.offsetHeight,
+      end: summaryRef.current.offsetHeight,
+      statusRef: isClosing,
+    });
   }, [detailsRef, generateAnimation, summaryRef]);
 
   const handleOpen = useCallback(() => {
+    isOpening.current = true;
     detailsRef.current.style.height = `${detailsRef.current.offsetHeight}px`;
     detailsRef.current.open = true;
 
@@ -78,7 +52,7 @@ export default function useAccordion({ detailsRef, summaryRef, contentRef }) {
       generateAnimation({
         start: detailsRef.current.offsetHeight,
         end: summaryRef.current.offsetHeight + contentRef.current.offsetHeight,
-        opening: true,
+        statusRef: isOpening,
       })
     );
   }, [contentRef, detailsRef, generateAnimation, summaryRef]);
@@ -88,19 +62,23 @@ export default function useAccordion({ detailsRef, summaryRef, contentRef }) {
       e.preventDefault();
       detailsRef.current.style.overflow = "hidden";
 
-      if (animation) {
-        animation.cancel();
-        dispatch({type: RESET_ANIMATION})
-      }
-
-      if ((animation && !expanded) || expanded) {
-        handleClose();
+      if (animationRef.current) {
+        animationRef.current.reverse();
+        isClosing.current = !isClosing.current;
+        isOpening.current = !isOpening.current;
       } else {
-        handleOpen();
+        if (
+          isOpening.current ||
+          (detailsRef.current.open && !isClosing.current)
+        ) {
+          handleClose();
+        } else {
+          handleOpen();
+        }
       }
     },
-    [animation, detailsRef, expanded, handleClose, handleOpen]
+    [detailsRef, handleClose, handleOpen]
   );
 
-  return { toggleAccordion, expanded };
+  return { toggleAccordion };
 }
