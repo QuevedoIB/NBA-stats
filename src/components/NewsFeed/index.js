@@ -12,6 +12,7 @@ import { HOUR_MILLISECONDS } from 'constants.js'
 import NewsFeedService from 'services/NewsFeedService'
 
 import styles from './NewsFeed.module.css'
+import CollapseView from 'components/common/CollapseView'
 
 const NewsFeed = () => {
   const { isLoading, error, data } = useQuery(
@@ -33,8 +34,7 @@ const NewsFeed = () => {
           <Spinner />
           )
         : (
-          <>
-            <h3 className={`title ${styles.title}`}>{data.header}</h3>
+          <CollapseView summary={ <h3 className={`title ${styles.title}`}>{data.header}</h3>}>
             <ul className={styles.list}>
               {data.articles?.map((article, i) => {
                 return (
@@ -44,7 +44,7 @@ const NewsFeed = () => {
                 )
               })}
             </ul>
-          </>
+            </CollapseView>
           )}
     </section>
   )

@@ -14,7 +14,8 @@
   background-color: lightcyan;
 }
 
-.container {
+.container,
+.contentContainer {
   overflow-x: auto;
   width: 100%;
 }
@@ -39,7 +40,6 @@
 .container summary {
   width: calc(100% - 2px);
   border: 1px solid var(--border-color);
-  justify-content: center;
 }
 
 .container details[open] summary {

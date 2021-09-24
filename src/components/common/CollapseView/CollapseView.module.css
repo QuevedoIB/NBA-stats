@@ -1,25 +1,28 @@
-summary {
-    display: flex;
-    cursor: pointer
+#summary {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  position: relative;
 }
 
-details summary::-webkit-details-marker {
-    display:none;
+details #summary::-webkit-details-marker {
+  display: none;
 }
 
-details[open] > summary:before {
-    transform: rotate(90deg);
+details[open] > #summary:before {
+  transform: rotate(90deg);
 }
-  
-summary:before {
-    content: '';
-    border-width: .4rem;
-    border-style: solid;
-    border-color: transparent transparent transparent #fff;
-    position: absolute;
-    top: 1.3rem;
-    left: 1rem;
-    transform: rotate(0);
-    transform-origin: .2rem 50%;
-    transition: .25s transform ease;
+
+#summary:before {
+  content: "";
+  border-width: 0.6rem;
+  border-style: solid;
+  border-color: transparent transparent transparent var(--font-color);
+  transform: rotate(0);
+  transform-origin: 0.2rem 50%;
+  transition: 0.25s transform ease;
+  position: absolute;
+  left: 1rem;
+  top: calc(50% - 0.6rem);
 }

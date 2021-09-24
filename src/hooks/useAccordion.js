@@ -1,12 +1,17 @@
-import { useCallback, useRef } from "react";
+import { useCallback, useRef,  } from "react";
 
-export default function useAccordion({ detailsRef, summaryRef, contentRef }) {
+export default function useAccordion({ detailsRef, summaryRef }) {
   const animationRef = useRef();
   const isOpening = useRef(false);
   const isClosing = useRef(false);
+  
+  const getContentHeight = useCallback(() => {
+    if (!detailsRef.current) return
+    return detailsRef.current.querySelector(`:scope > :not(#${summaryRef.current.id})`).offsetHeight;
+  }, [detailsRef, summaryRef])
 
   const getAnimationDuration = useCallback((start, end) => {
-    return (start > end ? start - end : end - start) / 4;
+    return ((start > end ? start - end : end - start)) / 2;
   }, []);
 
   const generateAnimation = useCallback(
@@ -16,7 +21,7 @@ export default function useAccordion({ detailsRef, summaryRef, contentRef }) {
           height: [`${start}px`, `${end}px`],
         },
         {
-          duration: getAnimationDuration(start, end) || 1000,
+          duration: Math.max(getAnimationDuration(start, end), 400),
           easing: "ease-out",
         }
       );
@@ -51,11 +56,11 @@ export default function useAccordion({ detailsRef, summaryRef, contentRef }) {
     window.requestAnimationFrame(() =>
       generateAnimation({
         start: detailsRef.current.offsetHeight,
-        end: summaryRef.current.offsetHeight + contentRef.current.offsetHeight,
+        end: summaryRef.current.offsetHeight + getContentHeight(),
         statusRef: isOpening,
       })
     );
-  }, [contentRef, detailsRef, generateAnimation, summaryRef]);
+  }, [detailsRef, generateAnimation, getContentHeight, summaryRef]);
 
   const toggleAccordion = useCallback(
     (e) => {

@@ -1,35 +1,35 @@
 .container {
-    height: min-content;
+  height: min-content;
 }
 
-.container .title {
-    border-bottom: 1px solid var(--border-color);
-    text-align: center;
+.container details[open] summary {
+  border-bottom: 1px solid var(--border-color);
+  text-align: center;
 }
 
 .list li {
-    padding: 0 1rem 1rem 1rem;
+  padding: 0 1rem 1rem 1rem;
 }
 .list li:first-child {
-    padding-top: 1rem;
+  padding-top: 1rem;
 }
 
 .list li::after {
-    background-color: var(--border-color);
-    content: '';
-    display: block;
-    height: 1px;
-    margin: auto;
-    width: 3rem;
+  background-color: var(--border-color);
+  content: "";
+  display: block;
+  height: 1px;
+  margin: auto;
+  width: 3rem;
 }
 
 .list li:last-child::after {
-    content: '';
-    display: block;
-    height: 0;
-    width: 0;
+  content: "";
+  display: block;
+  height: 0;
+  width: 0;
 }
 
 .list li article {
-    padding-bottom: 1rem;
+  padding-bottom: 1rem;
 }

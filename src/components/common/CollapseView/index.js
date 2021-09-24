@@ -2,16 +2,15 @@ import React, {useRef} from 'react'
 
 import useAccordion from 'hooks/useAccordion';
 
-import "./CollapseView.module.css"
+import styles from "./CollapseView.module.css"
 
-const CollapseView = ({summary, children, open = true, contentRef, classNames }) => {
-    const detailsRef = useRef();
-    const summaryRef = useRef();
-    const {toggleAccordion} = useAccordion({detailsRef, summaryRef, contentRef})
-    
+const CollapseView = ({summary, children, open = true}) => {
+    const detailsRef = useRef(null);
+    const summaryRef = useRef(null);
+    const {toggleAccordion} = useAccordion({detailsRef, summaryRef})
     return (
        <details ref={detailsRef} open={open}>
-           <summary ref={summaryRef} className={classNames?.summary || ""} onClick={toggleAccordion}>{summary}</summary>
+           <summary id={styles.summary} ref={summaryRef} onClick={toggleAccordion}>{summary}</summary>
            {children}
        </details>
     )

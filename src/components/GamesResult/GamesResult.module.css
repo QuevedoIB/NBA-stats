@@ -1,38 +1,53 @@
 .container {
-    display: flex;
-    flex-direction: column;
-    text-align: center;
-    height: fit-content;
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  height: fit-content;
 }
 
 .container li {
-    padding-left: 1rem;
-    padding-right: 1rem;
-    border-top: 1px solid var(--border-color);
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+}
+
+.container li p {
+  padding-left: 0.2rem;
+  padding-right: 0.2rem;
+  margin: 0;
+}
+
+.textContainer {
+  display: grid;
+  grid-template-columns: 5fr 1fr 5fr;
+  align-items: center;
+}
+
+.textContainer:not(:last-child) {
+  margin-bottom: 1rem;
 }
 
 .title {
-    padding-left: 1rem;
-    padding-right: 1rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .title input {
-    font: inherit;
-    margin-left: 1rem;
-    padding-right: 0.25rem;
-    padding-left: 0.25rem;
+  font: inherit;
+  margin-left: 1rem;
+  padding-right: 0.25rem;
+  padding-left: 0.25rem;
 }
 
 .title input::-webkit-calendar-picker-indicator {
-    font-size: 1rem;
-    cursor: pointer;
-    margin-left: -1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-left: -1rem;
 }
 
 .container .title input {
-    line-height: 1rem;
+  line-height: 1rem;
 }
 
 .container .title input:focus {
-    outline: none;
+  outline: none;
 }

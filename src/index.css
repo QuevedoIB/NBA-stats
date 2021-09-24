@@ -1,10 +1,10 @@
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto',
-    'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
-    'Helvetica Neue', sans-serif;
-    margin: 0;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
+    "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
+    sans-serif;
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 /* * {
@@ -16,129 +16,129 @@ body {
 html,
 body,
 #root {
-    height: 100%;
-    width: 100%;
+  height: 100%;
+  width: 100%;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+  color: inherit;
+  text-decoration: none;
 }
 
 .centered-container {
-    align-items: center;
-    display: flex;
-    justify-content: center;
+  align-items: center;
+  display: flex;
+  justify-content: center;
 }
 
 .layout-container {
-    padding: 2rem 4rem 2rem 4rem;
+  padding: 2rem 4rem 2rem 4rem;
 }
 
 @media only screen and (max-width: 992px) {
-    .layout-container {
-        padding: 1rem;
-    }
+  .layout-container {
+    padding: 1rem;
+  }
 }
 
 ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
 }
 
 button {
-    background: none;
-    border: none;
-    color: inherit;
-    cursor: pointer;
-    font: inherit;
-    outline: inherit;
-    padding: 0;
+  background: none;
+  border: none;
+  color: inherit;
+  cursor: pointer;
+  font: inherit;
+  outline: inherit;
+  padding: 0;
 }
 
 .disabled-scroll {
-    overflow: hidden;
+  overflow: hidden;
 }
 
 input {
-    font-family: inherit;
+  font-family: inherit;
 }
 
 table {
-    margin-bottom: 1rem;
+  margin-bottom: 1rem;
 }
 
 table,
 th,
 td {
-    border-collapse: collapse;
-    border: 1px solid var(--border-color);
+  border-collapse: collapse;
+  border: 1px solid var(--border-color);
 }
 
 td,
 th {
-    padding: 0.5rem;
+  padding: 0.5rem;
 }
 
 td:nth-child(even),
 th:nth-child(even) {
-    background-color: lightgray;
+  background-color: lightgray;
 }
 
 .title {
-    font-size: 1.2rem;
-    font-weight: bold;
-    margin: 0;
-    padding-bottom: 1rem;
-    padding-top: 1rem;
+  font-size: 1.2rem;
+  font-weight: bold;
+  margin: 0;
+  padding-bottom: 1rem;
+  padding-top: 1rem;
 }
 
 .border-container {
-    border: 1px solid var(--border-color);
+  border: 1px solid var(--border-color);
 }
 
 .home-container {
-    column-gap: 1rem;
-    display: grid;
-    grid-template-columns: minmax(min-content, 2fr) 1fr 1fr;
-    row-gap: 1rem;
+  column-gap: 1rem;
+  display: grid;
+  grid-template-columns: minmax(min-content, 2fr) 1fr 1fr;
+  row-gap: 1rem;
 }
 
 @media only screen and (max-width: 1024px) {
-    .home-container {
-        grid-template-columns: 1fr;
-    }
+  .home-container {
+    grid-template-columns: 1fr;
+  }
 }
 
 input {
-    line-height: inherit;
+  line-height: inherit;
 }
 
 ::-moz-selection {
-    background: rgba(var(--rgb-font), 0.2);
+  background: rgba(var(--rgb-font), 0.2);
 }
 
 ::selection {
-    background: rgba(var(--rgb-font), 0.2);
+  background: rgba(var(--rgb-font), 0.2);
 }
 
 body {
-    --bg-color: rgb(247, 249, 247);
-    --border-color: rgb(33, 128, 149);
-    --font-color: rgb(18, 18, 18);
-    --rgb-bg: 247, 249, 247;
-    --rgb-border: 33, 128, 149;
-    --rgb-font: 18, 18, 18;
-    background: var(--bg-color);
-    color: var(--font-color);
+  --bg-color: rgb(247, 249, 247);
+  --border-color: rgb(33, 128, 149);
+  --font-color: rgb(18, 18, 18);
+  --rgb-bg: 247, 249, 247;
+  --rgb-border: 33, 128, 149;
+  --rgb-font: 18, 18, 18;
+  background: var(--bg-color);
+  color: var(--font-color);
 }
 
 body.theme-dark {
-    --bg-color: rgb(38, 36, 46);
-    --border-color: rgb(201, 227, 233);
-    --font-color: rgb(204, 197, 197);
-    --rgb-bg: 38, 36, 46;
-    --rgb-border: 201, 227, 233;
-    --rgb-font: 102, 102, 102;
+  --bg-color: rgb(38, 36, 46);
+  --border-color: rgb(201, 227, 233);
+  --font-color: rgb(204, 197, 197);
+  --rgb-bg: 38, 36, 46;
+  --rgb-border: 201, 227, 233;
+  --rgb-font: 102, 102, 102;
 }
