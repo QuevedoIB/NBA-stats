@@ -1,34 +1,31 @@
-import { useState, useEffect } from 'react'
-import { useQuery } from 'react-query'
+import { useState, useEffect } from "react";
+import { useQuery } from "react-query";
 
-import CountriesService from 'services/CountriesService'
+import CountriesService from "services/CountriesService";
 
-import { HOUR_MILLISECONDS } from 'constants.js'
+import { HOUR_MILLISECONDS } from "constants.js";
 
-export default function useCountryCodes ({ countryName, countryCode }) {
-  const [countryData, setCountryData] = useState()
+export default function useCountryCodes({ countryName, countryCode } = {}) {
+  const [countryData, setCountryData] = useState();
 
   const { data: countries } = useQuery(
-    'fetch-countries',
+    "fetch-countries",
     async () => {
-      const response = await CountriesService.fetchCountryCodes()
-      return response?.data
+      const response = await CountriesService.fetchCountryCodes();
+      return response?.data;
     },
     {
-      staleTime: HOUR_MILLISECONDS
+      staleTime: HOUR_MILLISECONDS,
     }
-  )
+  );
 
   useEffect(() => {
-    if (!countries) return
+    if (!countries) return;
     const matchCountry = countries.find(
-      ({ Name, Code }) =>
-        Name ===
-                    (countryName === 'USA' ? 'United States' : countryName) ||
-                Code === countryCode
-    )
-    setCountryData(matchCountry)
-  }, [countryName, countryCode, countries])
+      ({ Name, Code }) => Name === countryName || Code === countryCode
+    );
+    setCountryData(matchCountry);
+  }, [countryName, countryCode, countries]);
 
-  return { countries, code: countryData?.Code, name: countryData?.Name }
+  return { countries, code: countryData?.Code, name: countryData?.Name };
 }

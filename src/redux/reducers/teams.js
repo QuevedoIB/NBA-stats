@@ -9,7 +9,6 @@ export const teamsSlice = createSlice({
   initialState,
   reducers: {
     setTeams: (state, action) => {
-      console.log("SET TEAMS")
       state.teams = action.payload.filter(team => team.isNBAFranchise)
     }
   }

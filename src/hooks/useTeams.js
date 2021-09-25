@@ -1,33 +1,34 @@
-import { useMemo } from 'react'
-import { useQuery } from 'react-query'
-import { useSelector, useDispatch } from 'react-redux'
+import { useMemo } from "react";
+import { useQuery } from "react-query";
+import { useSelector, useDispatch } from "react-redux";
 
-import { setTeams } from 'redux/reducers/teams'
-import useErrorHandler from 'hooks/useErrorHandler'
-import NbaService from 'services/NbaService'
-import { filterItems } from 'helpers/filterItems'
+import { setTeams } from "redux/reducers/teams";
+import useErrorHandler from "hooks/useErrorHandler";
+import NbaService from "services/NbaService";
+import { filterItems } from "helpers/filterItems";
 
+import { HOUR_MILLISECONDS } from "constants.js";
 
-import { HOUR_MILLISECONDS } from 'constants.js'
-
-export default function useTeams ({refetch = true, filter = {key: "", value: ""}} = {})  {
-  const teams = useSelector(state => state.teams.teams)
-  const dispatch = useDispatch()
+export default function useTeams({ filter = { key: "", value: "" } } = {}) {
+  const teams = useSelector((state) => state.teams.teams);
+  const dispatch = useDispatch();
   const { isLoading, error } = useQuery(
-    'fetch-teams',
+    "fetch-teams",
     async () => {
-      if (!refetch) return
-      const response = await NbaService.fetchTeams()
-      dispatch(setTeams(response || []))
-      return response
+      const response = await NbaService.fetchTeams();
+      dispatch(setTeams(response || []));
+      return response;
     },
     {
-      staleTime: HOUR_MILLISECONDS
+      staleTime: HOUR_MILLISECONDS,
     }
-  )
-  useErrorHandler(error?.message)
+  );
+  useErrorHandler(error?.message);
 
-  const filteredTeams = useMemo(() => filterItems({filter, values: teams}), [filter, teams])
+  const filteredTeams = useMemo(
+    () => filterItems({ filter, values: teams }),
+    [filter, teams]
+  );
 
-  return { isLoading, error, teams, filteredTeams }
+  return { isLoading, error, teams, filteredTeams };
 }

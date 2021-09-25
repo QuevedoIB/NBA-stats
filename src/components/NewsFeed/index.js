@@ -28,7 +28,6 @@ const NewsFeed = () => {
   );
   useErrorHandler(error?.message);
 
-  console.log("RERENDER")
 
   return (
     <section className={`border-container ${styles.container}`}>
