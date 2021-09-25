@@ -1,13 +1,16 @@
+import { useMemo } from 'react'
 import { useQuery } from 'react-query'
 import { useSelector, useDispatch } from 'react-redux'
 
 import { setTeams } from 'redux/reducers/teams'
 import useErrorHandler from 'hooks/useErrorHandler'
 import NbaService from 'services/NbaService'
+import { filterItems } from 'helpers/filterItems'
+
 
 import { HOUR_MILLISECONDS } from 'constants.js'
 
-export default function useTeams (refetch = true) {
+export default function useTeams ({refetch = true, filter = {key: "", value: ""}} = {})  {
   const teams = useSelector(state => state.teams.teams)
   const dispatch = useDispatch()
   const { isLoading, error } = useQuery(
@@ -24,5 +27,7 @@ export default function useTeams (refetch = true) {
   )
   useErrorHandler(error?.message)
 
-  return { isLoading, error, teams }
+  const filteredTeams = useMemo(() => filterItems({filter, values: teams}), [filter, teams])
+
+  return { isLoading, error, teams, filteredTeams }
 }

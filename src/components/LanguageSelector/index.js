@@ -1,51 +1,50 @@
-import React, { useMemo, useCallback, useState } from 'react'
-import i18n from 'i18n'
-import { useTranslation } from 'react-i18next'
+import React, { useMemo, useCallback, useState, useRef } from "react";
+import i18n from "i18n";
 
-import { ReactComponent as EnglishFlag } from 'public/images/united-kingdom-flag.svg'
-import { ReactComponent as SpanishFlag } from 'public/images/spain-flag.svg'
+import LanguagesList from "./LanguagesList";
 
-import styles from './LanguageSelector.module.css'
+import { ReactComponent as EnglishFlag } from "public/images/united-kingdom-flag.svg";
+import { ReactComponent as SpanishFlag } from "public/images/spain-flag.svg";
+
+import useOutsideClick from "hooks/useOutsideClick";
+
+import styles from "./LanguageSelector.module.css";
 
 const languageOptions = {
   en: EnglishFlag,
-  es: SpanishFlag
-}
+  es: SpanishFlag,
+};
 
 const LanguageSelector = () => {
-  const [t] = useTranslation()
-  const [displayedOptions, setDisplayedOptions] = useState(false)
-  const toggleLanguageOptions = () => setDisplayedOptions(!displayedOptions)
-  const handleLanguageChange = useCallback(async language => {
-    await i18n.changeLanguage(language)
-  }, [])
-  const options = useMemo(
-    () =>
-      Object.entries(languageOptions).map(([key, Flag]) => (
-        <li key={key} onClick={() => handleLanguageChange(key)}>
-          <Flag /> <p>{t(`languages.${key}`)}</p>
-        </li>
-      )),
-    [handleLanguageChange, t]
-  )
+  const [displayedOptions, setDisplayedOptions] = useState(false);
+  const containerRef = useRef();
+  const toggleLanguageOptions = useCallback(
+    () => setDisplayedOptions((toggleStatus) => !toggleStatus),
+    []
+  );
+  const closeOptions = useCallback(() => setDisplayedOptions(false), []);
   const SelectedLanguage = useMemo(
     () => languageOptions[i18n.language],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [i18n.language]
-  )
+  );
+  useOutsideClick({ ref: containerRef, callback: closeOptions });
+
   return (
     <div
+      ref={containerRef}
       className={styles.container}
       onClick={toggleLanguageOptions}
     >
       <SelectedLanguage />
       {displayedOptions && (
-        <ul className={styles.optionsContainer}>
-          {options}
-        </ul>
+        <LanguagesList
+          languageOptions={languageOptions}
+          onClickOutside={closeOptions}
+        />
       )}
     </div>
-  )
-}
+  );
+};
 
-export default LanguageSelector
+export default LanguageSelector;

@@ -1,6 +1,7 @@
 import React, { Fragment } from "react";
 import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
 
 import Spinner from "components/common/Spinner";
 
@@ -71,7 +72,7 @@ const StandingsTable = () => {
                     </tr>
                     {teams.map((team) => (
                       <tr key={team.teamId}>
-                        <th>{`${team.teamSitesOnly.teamName} ${team.teamSitesOnly.teamNickname}`}</th>
+                        <th><Link to={`/team-detail/${team.teamId}`}>{`${team.teamSitesOnly.teamName} ${team.teamSitesOnly.teamNickname}`}</Link></th>
                         {standingHeaders.map((key) => (
                           <td key={key}>
                             <div className="centered-container">

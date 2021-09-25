@@ -17,7 +17,7 @@ const PlayerCard = ({ player }) => {
     countryName: player.country
   })
   const teams = useSelector(state => state.teams.teams)
-  useTeams(!Object.keys(teams).length)
+  useTeams({refetch: !Object.keys(teams).length})
 
   const getImageSource = useCallback(() => {
     const downloadingImage = new window.Image()

@@ -1,46 +1,67 @@
 import React from 'react'
 
-// import { useParams } from 'react-router';
-// import { useSelector } from 'react-redux';
-// import { useQuery } from 'react-query';
+import { useParams } from 'react-router';
+import { useQuery } from 'react-query';
 
-// import NbaService from 'services/NbaService';
+import NbaService from 'services/NbaService';
 
-// import { HOUR_MILLISECONDS } from 'constants.js';
+import { HOUR_MILLISECONDS } from 'constants.js';
 import  useTeams  from 'hooks/useTeams'
+import usePlayers from "hooks/usePlayers"
 
 const TeamDetail = () => {
-  // const { teamId } = useParams();
-  useTeams()
-  // const teamData = useSelector(state =>
-  //     state.teams.teams.find(e => e.teamId === teamId)
-  // );
+  const { teamId } = useParams();
+  const { filteredTeams: [teamData] } = useTeams({filter: {key: "teamId", value: teamId}})
+  const {filteredPlayers} = usePlayers({ key: 'teamId', value: teamId })
 
-  // const { data: roster } = useQuery(
-  //     `fetch-${teamId}-roster`,
-  //     async () => {
-  //         const response = await NbaService.fetchTeamRoster(teamData.urlName);
-  //         return response?.data;
-  //     },
-  //     {
-  //         staleTime: HOUR_MILLISECONDS,
-  //     }
-  // );
+  const { data: roster } = useQuery(
+      `fetch-${teamId}-roster`,
+      async () => {
+          const response = await NbaService.fetchTeamRoster(teamData.urlName);
+          console.log(response)
 
-  // const { data: calendar } = useQuery(
-  //     `fetch-${teamId}-calendar`,
-  //     async () => {
-  //         const response = await NbaService.fetchTeamCalendar(
-  //             teamData.urlName
-  //         );
-  //         return response?.data;
-  //     },
-  //     {
-  //         staleTime: HOUR_MILLISECONDS,
-  //     }
-  // );
+          return response;
+          
+      },
+      {
+          staleTime: HOUR_MILLISECONDS,
+      }
+  );
 
-  return <div />
+  const { data: calendar } = useQuery(
+      `fetch-${teamId}-calendar`,
+      async () => {
+          const response = await NbaService.fetchTeamCalendar(
+              teamData.urlName
+          );
+          console.log(response)
+
+          return response;
+      },
+      {
+          staleTime: HOUR_MILLISECONDS,
+      }
+  );
+
+  const { data: leaders } = useQuery(
+    `fetch-${teamId}-leaders`,
+    async () => {
+        const response = await NbaService.fetchTeamLeaders(
+            teamId
+        );
+        console.log(response)
+        return response;
+    },
+    {
+        staleTime: HOUR_MILLISECONDS,
+    }
+);
+
+  console.log(calendar,roster, teamId, leaders, "TEAM PLAYERS", filteredPlayers, teamData)
+
+  return <section>
+      <h1></h1>
+  </section>
 }
 
 export default TeamDetail

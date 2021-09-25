@@ -38,6 +38,10 @@ class NbaService {
     return this.service.get(`/v1/2021/teams/${code}/schedule.json`)
   }
 
+  fetchTeamLeaders (code) {
+    return this.service.get(`/v1/2020/teams/${code}/leaders.json`)
+  }
+
   fetchStandings () {
     return this.service.get('/v1/current/standings_conference.json')
   }
