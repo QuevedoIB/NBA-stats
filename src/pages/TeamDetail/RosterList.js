@@ -1,7 +1,11 @@
 import React, { useMemo } from "react";
 
+import CollapseView from "components/common/CollapseView";
+
 import { getAge } from "helpers/getAge";
 import useCountryCodes from "hooks/useCountryCodes";
+
+import "./TeamDetail.module.css";
 
 const RosterList = ({ roster }) => {
   const { countries } = useCountryCodes();
@@ -26,45 +30,48 @@ const RosterList = ({ roster }) => {
   );
 
   return (
-    <table>
-      <thead></thead>
-      <tbody>
-        {sortedRoster.map((player) => {
-          return (
-            <tr key={player.personId}>
-              <th>
-                {player?.jersey !== "" && `${player.jersey} - `}
-                {player.temporaryDisplayName}
-              </th>
-              <td>
-                <div style={{ display: "flex" }}>
-                  <img
-                    src={`https://www.countryflags.io/${
-                      rosterCountries[player.country]
-                    }/flat/24.png`}
-                    alt="country"
-                    loading="lazy"
-                    title={player.country}
-                  />
-                </div>
-              </td>
-              <td>
-                <div>{getAge(player.dateOfBirthUTC)}</div>
-              </td>
-              <td>
-                <div>{player.pos}</div>
-              </td>
-              <td>
-                <div>{player.heightMeters}</div>
-              </td>
-              <td>
-                <div>{player.weightKilograms}</div>
-              </td>
-            </tr>
-          );
-        })}
-      </tbody>
-    </table>
+    <section>
+      <CollapseView summary={<h3 className="title">Roster</h3>}>
+        <table>
+          <tbody>
+            {sortedRoster.map((player) => {
+              return (
+                <tr key={player.personId}>
+                  <th>
+                    {player?.jersey !== "" && `${player.jersey} - `}
+                    {player.temporaryDisplayName}
+                  </th>
+                  <td>
+                    <div>
+                      <img
+                        src={`https://www.countryflags.io/${
+                          rosterCountries[player.country]
+                        }/flat/24.png`}
+                        alt="country"
+                        loading="lazy"
+                        title={player.country}
+                      />
+                    </div>
+                  </td>
+                  <td>
+                    <div>{getAge(player.dateOfBirthUTC)} años</div>
+                  </td>
+                  <td>
+                    <div>{player.pos}</div>
+                  </td>
+                  <td>
+                    <div>{player.heightMeters}m</div>
+                  </td>
+                  <td>
+                    <div>{player.weightKilograms}kg</div>
+                  </td>
+                </tr>
+              );
+            })}
+          </tbody>
+        </table>
+      </CollapseView>
+    </section>
   );
 };
 

@@ -25,16 +25,13 @@
   border-spacing: 0;
 }
 
-/* @media only screen and (max-width: 600px) {
-  .container table {
-    overflow-x: auto;
-    max-width: calc(100vw - 2rem);
-  }
-} */
-
 .container table th,
 .container table td {
   border-collapse: collapse;
+}
+
+.container details {
+  display: block;
 }
 
 .container summary {

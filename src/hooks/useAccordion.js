@@ -1,17 +1,19 @@
-import { useCallback, useRef,  } from "react";
+import { useCallback, useRef } from "react";
 
 export default function useAccordion({ detailsRef, summaryRef }) {
   const animationRef = useRef();
   const isOpening = useRef(false);
   const isClosing = useRef(false);
-  
+
   const getContentHeight = useCallback(() => {
-    if (!detailsRef.current) return
-    return detailsRef.current.querySelector(`:scope > :not(#${summaryRef.current.id})`).offsetHeight;
-  }, [detailsRef, summaryRef])
+    if (!detailsRef.current) return;
+    return detailsRef.current.querySelector(
+      `:scope > :not(#${summaryRef.current.id})`
+    ).offsetHeight;
+  }, [detailsRef, summaryRef]);
 
   const getAnimationDuration = useCallback((start, end) => {
-    return ((start > end ? start - end : end - start)) / 2;
+    return (start > end ? start - end : end - start) / 2;
   }, []);
 
   const generateAnimation = useCallback(

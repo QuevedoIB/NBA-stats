@@ -10,6 +10,8 @@ import { HOUR_MILLISECONDS } from "constants.js";
 import useTeams from "hooks/useTeams";
 import usePlayers from "hooks/usePlayers";
 
+import styles from "./TeamDetail.module.css";
+
 const TeamDetail = () => {
   const { teamId } = useParams();
   const {
@@ -50,21 +52,23 @@ const TeamDetail = () => {
     }
   );
 
-  console.log(
-    calendar,
-    roster,
-    teamId,
-    leaders,
-    "TEAM PLAYERS",
-    filteredPlayers,
-    teamData
-  );
+  // console.log(
+  //   calendar,
+  //   roster,
+  //   teamId,
+  //   leaders,
+  //   "TEAM PLAYERS",
+  //   filteredPlayers,
+  //   teamData
+  // );
 
   return (
-    <section>
-      <h1>{teamData?.fullName}</h1>
-      <RosterList roster={filteredPlayers} />
-    </section>
+    <>
+      <h2>{teamData?.fullName}</h2>
+      <section className={styles.container}>
+        <RosterList roster={filteredPlayers} />
+      </section>
+    </>
   );
 };
 

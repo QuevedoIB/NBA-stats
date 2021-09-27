@@ -1,9 +1,14 @@
 #summary {
+  flex-grow: 1;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
   position: relative;
+}
+
+details {
+  display: inline-block;
 }
 
 details #summary::-webkit-details-marker {
