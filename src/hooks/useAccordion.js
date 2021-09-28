@@ -5,11 +5,11 @@ export default function useAccordion({ detailsRef, summaryRef }) {
   const isOpening = useRef(false);
   const isClosing = useRef(false);
 
-  const getContentHeight = useCallback(() => {
+  const getContent = useCallback(() => {
     if (!detailsRef.current) return;
     return detailsRef.current.querySelector(
       `:scope > :not(#${summaryRef.current.id})`
-    ).offsetHeight;
+    );
   }, [detailsRef, summaryRef]);
 
   const getAnimationDuration = useCallback((start, end) => {
@@ -43,12 +43,15 @@ export default function useAccordion({ detailsRef, summaryRef }) {
 
   const handleClose = useCallback(() => {
     isClosing.current = true;
+    if (!detailsRef.current.style.width) {
+      detailsRef.current.style.width = `${getContent()?.offsetWidth}px`;
+    }
     generateAnimation({
       start: detailsRef.current.offsetHeight,
       end: summaryRef.current.offsetHeight,
       statusRef: isClosing,
     });
-  }, [detailsRef, generateAnimation, summaryRef]);
+  }, [detailsRef, generateAnimation, getContent, summaryRef]);
 
   const handleOpen = useCallback(() => {
     isOpening.current = true;
@@ -58,14 +61,15 @@ export default function useAccordion({ detailsRef, summaryRef }) {
     window.requestAnimationFrame(() =>
       generateAnimation({
         start: detailsRef.current.offsetHeight,
-        end: summaryRef.current.offsetHeight + getContentHeight(),
+        end: summaryRef.current.offsetHeight + getContent()?.offsetHeight,
         statusRef: isOpening,
       })
     );
-  }, [detailsRef, generateAnimation, getContentHeight, summaryRef]);
+  }, [detailsRef, generateAnimation, getContent, summaryRef]);
 
   const toggleAccordion = useCallback(
     (e) => {
+      if (!getContent()) return;
       e.preventDefault();
       detailsRef.current.style.overflow = "hidden";
 
@@ -84,7 +88,7 @@ export default function useAccordion({ detailsRef, summaryRef }) {
         }
       }
     },
-    [detailsRef, handleClose, handleOpen]
+    [detailsRef, getContent, handleClose, handleOpen]
   );
 
   return { toggleAccordion };

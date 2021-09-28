@@ -1,6 +1,7 @@
 import React, { useMemo } from "react";
 
 import CollapseView from "components/common/CollapseView";
+import Spinner from "components/common/Spinner";
 
 import { getAge } from "helpers/getAge";
 import useCountryCodes from "hooks/useCountryCodes";
@@ -28,6 +29,8 @@ const RosterList = ({ roster }) => {
       ),
     [roster]
   );
+
+  if (!sortedRoster?.length) return <Spinner />;
 
   return (
     <section>

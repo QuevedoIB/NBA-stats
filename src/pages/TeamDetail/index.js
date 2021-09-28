@@ -11,6 +11,7 @@ import useTeams from "hooks/useTeams";
 import usePlayers from "hooks/usePlayers";
 
 import styles from "./TeamDetail.module.css";
+import Calendar from "./Calendar";
 
 const TeamDetail = () => {
   const { teamId } = useParams();
@@ -22,7 +23,7 @@ const TeamDetail = () => {
   const { data: roster } = useQuery(
     `fetch-${teamId}-roster`,
     async () => {
-      const response = await NbaService.fetchTeamRoster(teamData.urlName);
+      const response = await NbaService.fetchTeamRoster(teamData?.urlName);
       return response;
     },
     {
@@ -33,7 +34,7 @@ const TeamDetail = () => {
   const { data: calendar } = useQuery(
     `fetch-${teamId}-calendar`,
     async () => {
-      const response = await NbaService.fetchTeamCalendar(teamData.urlName);
+      const response = await NbaService.fetchTeamCalendar(teamData?.urlName);
       return response;
     },
     {
@@ -52,21 +53,23 @@ const TeamDetail = () => {
     }
   );
 
-  // console.log(
-  //   calendar,
-  //   roster,
-  //   teamId,
-  //   leaders,
-  //   "TEAM PLAYERS",
-  //   filteredPlayers,
-  //   teamData
-  // );
+  // console
+  //   .log
+  //   // calendar
+  //   // roster,
+  //   // teamId,
+  //   // leaders,
+  //   // "TEAM PLAYERS",
+  //   // filteredPlayers,
+  //   // teamData
+  //   ();
 
   return (
     <>
       <h2>{teamData?.fullName}</h2>
       <section className={styles.container}>
         <RosterList roster={filteredPlayers} />
+        <Calendar calendar={calendar} />
       </section>
     </>
   );
