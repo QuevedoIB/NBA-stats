@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 
 import Spinner from "components/common/Spinner";
+import GameCard from "components/cards/GameCard";
 
 import NbaService from "services/NbaService";
 
@@ -74,27 +75,9 @@ const GamesResult = () => {
             </li>
           ) : (
             data.games.map((game) => {
-              const visitorTeam = teams.find(
-                ({ teamId }) => teamId === game.vTeam.teamId
-              );
-
-              const homeTeam = teams.find(
-                ({ teamId }) => teamId === game.hTeam.teamId
-              );
               return (
                 <li key={game.gameId}>
-                  <div className={styles.textContainer}>
-                    <p>{homeTeam?.fullName}</p>
-                    <p>vs</p>
-                    <p>{visitorTeam?.fullName}</p>
-                  </div>
-                  {(game.hTeam?.score || game.vTeam?.score) && (
-                    <div className={styles.textContainer}>
-                      <p>{game.hTeam?.score}</p>
-                      <p>-</p>
-                      <p>{game.vTeam?.score}</p>
-                    </div>
-                  )}
+                  <GameCard game={game} />
                 </li>
               );
             })
