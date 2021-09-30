@@ -1,4 +1,5 @@
 {
+    "code": "en",
     "title": "NBA STATS",
     "routes": {
         "teams": "Teams",
@@ -30,5 +31,8 @@
     "gamesResult": {
         "title": "Results",
         "noResults": "No results found for this date"
+    },
+    "newsFeed" : {
+        "noResults": "No se han encontrado artículos"
     }
 }

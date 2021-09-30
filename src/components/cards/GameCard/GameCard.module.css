@@ -20,6 +20,8 @@
   display: grid;
   grid-template-columns: 5fr 1fr 5fr;
   align-items: center;
+  justify-content: center;
+  column-gap: 0.4rem;
 }
 
 .infoContainer:not(:last-child) {

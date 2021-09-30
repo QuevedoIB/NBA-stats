@@ -1,20 +1,26 @@
-import React from "react";
+import React, { useMemo } from "react";
 
 import CollapseView from "components/common/CollapseView";
-
-import styles from "./TeamDetail.module.css";
 import GameCard from "components/cards/GameCard";
 
-const Calendar = ({ calendar }) => {
-  console.log(calendar);
+import styles from "./TeamDetail.module.css";
+
+const Calendar = ({ teams, calendar }) => {
+  const parsedIdTeams = useMemo(() => {
+    return teams?.reduce((acc, team) => {
+      acc[team.teamId] = team;
+      return acc;
+    }, {});
+  }, [teams]);
+
   return (
     <section>
       <CollapseView summary={<h3 className="title">Calendar</h3>}>
-        <ul>
+        <ul className={styles.calendarContainer}>
           {calendar?.map((game) => {
             return (
               <li key={game.gameId}>
-                <GameCard game={game} />
+                <GameCard teams={parsedIdTeams} game={game} />
               </li>
             );
           })}

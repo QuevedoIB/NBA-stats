@@ -1,5 +1,4 @@
 import { useQuery } from "react-query";
-import i18n from "i18n";
 import { useTranslation } from "react-i18next";
 
 import Spinner from "components/common/Spinner";
@@ -15,11 +14,11 @@ import styles from "./NewsFeed.module.css";
 import CollapseView from "components/common/CollapseView";
 
 const NewsFeed = () => {
-  useTranslation();
+  const [t] = useTranslation();
   const { isLoading, error, data } = useQuery(
-    `fetch-news-${i18n.language}`,
+    `fetch-news-${t("code")}`,
     async () => {
-      const { data } = await NewsFeedService.fetchNews(i18n.language);
+      const { data } = await NewsFeedService.fetchNews(t("code"));
       return data;
     },
     {
@@ -27,7 +26,6 @@ const NewsFeed = () => {
     }
   );
   useErrorHandler(error?.message);
-
 
   return (
     <section className={`border-container ${styles.container}`}>
@@ -38,13 +36,21 @@ const NewsFeed = () => {
           summary={<h3 className={`title ${styles.title}`}>{data.header}</h3>}
         >
           <ul className={styles.list}>
-            {data.articles?.map((article, i) => {
-              return (
-                <li key={`${article.headline}${i}`}>
-                  <NewsCard article={article} />
-                </li>
-              );
-            })}
+            {!data?.articles?.length ? (
+              <li>
+                <p className={styles.withoutDataPlaceholder}>
+                  {t("newsFeed.noResults")}
+                </p>
+              </li>
+            ) : (
+              data.articles.map((article, i) => {
+                return (
+                  <li key={`${article.headline}${i}`}>
+                    <NewsCard article={article} />
+                  </li>
+                );
+              })
+            )}
           </ul>
         </CollapseView>
       )}
