@@ -2,7 +2,8 @@
   display: flex;
   flex-direction: column;
   text-align: center;
-  height: fit-content;
+  height: 100%;
+  justify-content: space-between;
 }
 
 .container li {
@@ -20,6 +21,8 @@
   display: grid;
   grid-template-columns: 5fr 1fr 5fr;
   align-items: center;
+  justify-content: center;
+  column-gap: 0.4rem;
 }
 
 .infoContainer:not(:last-child) {

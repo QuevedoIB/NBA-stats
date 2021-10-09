@@ -48,6 +48,13 @@ const GamesResult = () => {
   const handleDateChange = ({ target: { value } }) => setDate(value);
   const handleClick = (e) => e.stopPropagation();
 
+  const parsedIdTeams = useMemo(() => {
+    return teams?.reduce((acc, team) => {
+      acc[team.teamId] = team;
+      return acc;
+    }, {});
+  }, [teams]);
+
   return (
     <section className={`${styles.container} border-container`}>
       <CollapseView
@@ -77,7 +84,7 @@ const GamesResult = () => {
             data.games.map((game) => {
               return (
                 <li key={game.gameId}>
-                  <GameCard game={game} />
+                  <GameCard teams={parsedIdTeams} game={game} />
                 </li>
               );
             })

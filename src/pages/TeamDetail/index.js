@@ -17,6 +17,7 @@ const TeamDetail = () => {
   const { teamId } = useParams();
   const {
     filteredTeams: [teamData],
+    teams,
   } = useTeams({ filter: { key: "teamId", value: teamId } });
   const { filteredPlayers } = usePlayers({ key: "teamId", value: teamId });
 
@@ -30,6 +31,8 @@ const TeamDetail = () => {
       staleTime: HOUR_MILLISECONDS,
     }
   );
+
+  console.log(teamData);
 
   const { data: calendar } = useQuery(
     `fetch-${teamId}-calendar`,
@@ -69,7 +72,7 @@ const TeamDetail = () => {
       <h2>{teamData?.fullName}</h2>
       <section className={styles.container}>
         <RosterList roster={filteredPlayers} />
-        <Calendar calendar={calendar} />
+        <Calendar teams={teams} calendar={calendar} />
       </section>
     </>
   );

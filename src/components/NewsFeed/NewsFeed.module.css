@@ -33,3 +33,8 @@
 .list li article {
   padding-bottom: 1rem;
 }
+
+.withoutDataPlaceholder {
+  text-align: center;
+  margin: 0;
+}

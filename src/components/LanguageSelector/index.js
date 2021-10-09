@@ -1,5 +1,6 @@
 import React, { useMemo, useCallback, useState, useRef } from "react";
 import i18n from "i18n";
+import { useTranslation } from "react-i18next";
 
 import LanguagesList from "./LanguagesList";
 
@@ -16,6 +17,7 @@ const languageOptions = {
 };
 
 const LanguageSelector = () => {
+  const [t] = useTranslation();
   const [displayedOptions, setDisplayedOptions] = useState(false);
   const containerRef = useRef();
   const toggleLanguageOptions = useCallback(
@@ -24,7 +26,7 @@ const LanguageSelector = () => {
   );
   const closeOptions = useCallback(() => setDisplayedOptions(false), []);
   const SelectedLanguage = useMemo(
-    () => languageOptions[i18n.language],
+    () => languageOptions[t("code")],
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [i18n.language]
   );
