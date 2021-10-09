@@ -1,38 +1,38 @@
 {
-    "code": "es",
-    "title": "NBA STATS",
-    "routes": {
-        "teams": "Equipos",
-        "players": "Jugadores"
-    },
-    "languages": {
-        "es": "Español",
-        "en": "Inglés"
-    }, 
-    "actions": {
-        "accept": "Aceptar",
-        "close": "Cerrar"
-    },
-    "errors": {
-        "modalTitle": "¡Vaya!",
-        "modalGenericMessage": "Parece que ha ocurrido un error. {{error}}"
-    }, 
-    "standings": {
-        "title": "Clasificación",
-        "win": "Victorias",
-        "loss": "Derrotas",
-        "winPctV2": "% Victorias",
-        "homeWin": "Victorias locales",
-        "homeLoss": "Derrotas locales",
-        "awayWin": "Victorias visitantes",
-        "awayLoss": "Derrotas visitantes"
-    },
-    "conferences": {"east": "Este", "west": "Oeste"},
-    "gamesResult": {
-        "title": "Resultados",
-        "noResults": "No hay resultados para esa fecha"
-    },
-    "newsFeed" : {
-        "noResults": "No se han encontrado artículos"
-    }
+  "code": "es",
+  "title": "NBA STATS",
+  "routes": {
+    "teams": "Equipos",
+    "players": "Jugadores"
+  },
+  "languages": {
+    "es": "Español",
+    "en": "Inglés"
+  },
+  "actions": {
+    "accept": "Aceptar",
+    "close": "Cerrar"
+  },
+  "errors": {
+    "modalTitle": "¡Vaya!",
+    "modalGenericMessage": "Parece que ha ocurrido un error. {{error}}"
+  },
+  "standings": {
+    "title": "Clasificación",
+    "win": "Victorias",
+    "loss": "Derrotas",
+    "winPctV2": "% Victorias",
+    "homeWin": "Victorias locales",
+    "homeLoss": "Derrotas locales",
+    "awayWin": "Victorias visitantes",
+    "awayLoss": "Derrotas visitantes"
+  },
+  "conferences": { "east": "Este", "west": "Oeste" },
+  "gamesResult": {
+    "title": "Resultados",
+    "noResults": "No hay resultados para esa fecha"
+  },
+  "newsFeed": {
+    "noResults": "No se han encontrado artículos"
+  }
 }

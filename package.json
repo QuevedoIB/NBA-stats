@@ -10,6 +10,7 @@
     "axios": "^0.21.1",
     "i18next": "^20.4.0",
     "i18next-browser-languagedetector": "^6.1.2",
+    "prettier": "^2.4.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-i18next": "^11.11.4",
@@ -24,7 +25,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "standard && react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "prepare": "husky install"
   },
   "browserslist": {
     "production": [
@@ -45,6 +47,8 @@
     "eslint-plugin-node": "^11.1.0",
     "eslint-plugin-promise": "^5.1.0",
     "eslint-plugin-react": "^7.25.3",
-    "standard": "^16.0.3"
+    "husky": "^7.0.0",
+    "pretty-quick": "^3.1.1",
+    "standard": "^16.0.4"
   }
 }
