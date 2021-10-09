@@ -21,16 +21,16 @@ const TeamDetail = () => {
   } = useTeams({ filter: { key: "teamId", value: teamId } });
   const { filteredPlayers } = usePlayers({ key: "teamId", value: teamId });
 
-  const { data: roster } = useQuery(
-    `fetch-${teamId}-roster`,
-    async () => {
-      const response = await NbaService.fetchTeamRoster(teamData?.urlName);
-      return response;
-    },
-    {
-      staleTime: HOUR_MILLISECONDS,
-    }
-  );
+  // const { data: roster } = useQuery(
+  //   `fetch-${teamId}-roster`,
+  //   async () => {
+  //     const response = await NbaService.fetchTeamRoster(teamData?.urlName);
+  //     return response;
+  //   },
+  //   {
+  //     staleTime: HOUR_MILLISECONDS,
+  //   }
+  // );
 
   console.log(teamData);
 
@@ -45,16 +45,16 @@ const TeamDetail = () => {
     }
   );
 
-  const { data: leaders } = useQuery(
-    `fetch-${teamId}-leaders`,
-    async () => {
-      const response = await NbaService.fetchTeamLeaders(teamId);
-      return response;
-    },
-    {
-      staleTime: HOUR_MILLISECONDS,
-    }
-  );
+  // const { data: leaders } = useQuery(
+  //   `fetch-${teamId}-leaders`,
+  //   async () => {
+  //     const response = await NbaService.fetchTeamLeaders(teamId);
+  //     return response;
+  //   },
+  //   {
+  //     staleTime: HOUR_MILLISECONDS,
+  //   }
+  // );
 
   // console
   //   .log

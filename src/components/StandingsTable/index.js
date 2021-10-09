@@ -3,7 +3,7 @@ import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 
-import Spinner from "components/common/Spinner";
+// import Spinner from "components/common/Spinner";
 import Shimmer from "components/common/Shimmer";
 
 import NbaService from "services/NbaService";
