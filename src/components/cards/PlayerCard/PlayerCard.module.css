@@ -1,18 +1,16 @@
-
-
 .container {
-    align-items: flex-end;
-    border-radius: 1rem;
-    border: 1px solid var(--border-color);
-    display: flex;
-    max-width: 100%;
-    padding: 1rem 1rem 0 1rem;
-    overflow: hidden;
+  align-items: flex-end;
+  border-radius: 1rem;
+  border: 1px solid var(--border-color);
+  display: flex;
+  max-width: 100%;
+  padding: 1rem 1rem 0 1rem;
+  overflow: hidden;
 }
 
 .image {
-    height: 8rem;
-    filter: url('data:image/svg+xml,\
+  height: 7rem;
+  filter: url('data:image/svg+xml,\
     <svg xmlns="http://www.w3.org/2000/svg">\
       <filter id="naturalShadow" x="0" y="0" width="1" height="1">\
         <feOffset in="SourceGraphic" dx="1" dy="1" />\
@@ -26,65 +24,61 @@
 }
 
 .infoContainer {
-    align-self: flex-start;
-    display: flex;
+  align-self: flex-start;
+  display: flex;
+  padding-left: 1rem;
+}
+
+.centeredInfoContainer {
+  display: flex;
+  align-items: center;
 }
 
 .title {
-    font-weight: bold;
-    margin: 0;
+  font-weight: bold;
+  margin: 0;
 }
 
 .subtitle {
-    margin: 0;
+  margin: 0;
 }
 
 body:global(.theme-dark) :local(.image.placeholderImage) {
-    filter: invert(100%);
+  filter: invert(100%);
 }
 
 .countryIcon {
-    margin-left: 0.25rem;
-    width: 1.5rem;
+  margin-left: 0.25rem;
+  width: 1.5rem;
 }
 
 .country {
-    align-items: center;
-    display: flex;
-}
-
-.team {
-    display: flex;
-    flex-direction: column;
-    margin: 0 0 1rem 1rem;
+  align-items: center;
+  display: flex;
 }
 
 .team img {
-    margin: auto;
-    width: 5rem;
+  width: 3rem;
 }
 
 .team p {
-    margin: 0;
-    text-align: center;
+  margin: 0;
+  text-align: center;
 }
 
 @media only screen and (max-width: 600px) {
-    .image {
-        height: 6rem;
-    }
-    .team {
-        flex-direction: row;
-        margin-left: 0;
-    }
-    .team p {
-        text-align: left;
-        width: min-content;
-    }
-    .team img {
-        width: 2rem;
-    }
-    .infoContainer {
-        flex-direction: column;
-    }
+  .image {
+    height: 6rem;
+  }
+  .team {
+    flex-direction: row;
+    margin-left: 0;
+  }
+  .team p {
+    text-align: left;
+    width: min-content;
+  }
+  .infoContainer {
+    flex-direction: column;
+  }
 }

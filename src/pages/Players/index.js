@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useMemo } from "react";
 
 import SearchBar from "components/SearchBar";
 import PlayersList from "components/lists/PlayersList";
@@ -20,17 +20,22 @@ const Players = () => {
     setSearchPlayer(temporaryDisplayName);
   }, []);
 
-  const displayedSuggestions =
-    !(
-      filteredPlayers?.length === 1 &&
-      filteredPlayers[0].temporaryDisplayName === searchPlayer
-    ) && filteredPlayers;
+  const suggestions = useMemo(
+    () =>
+      !(
+        filteredPlayers?.length === 1 &&
+        filteredPlayers[0].temporaryDisplayName === searchPlayer
+      )
+        ? filteredPlayers
+        : [],
+    [filteredPlayers, searchPlayer]
+  );
 
   return (
     <section>
       <SearchBar
         searchText={searchPlayer}
-        suggestions={displayedSuggestions}
+        suggestions={suggestions}
         keyword="temporaryDisplayName"
         onSuggestionClick={onSelectSuggestedPlayer}
         onSearchChange={updateSearchedPlayer}

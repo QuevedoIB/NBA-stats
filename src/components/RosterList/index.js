@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { Link } from "react-router-dom";
 
 import CollapseView from "components/common/CollapseView";
 import Shimmer from "components/common/Shimmer";
@@ -16,7 +17,7 @@ const RosterList = ({ roster, isLoading }) => {
       if (!acc[player.country]) {
         acc[player.country] = countries?.find(
           (country) => country.Name === player.country
-        ).Code;
+        )?.Code;
       }
       return acc;
     }, {});
@@ -47,32 +48,44 @@ const RosterList = ({ roster, isLoading }) => {
                 return (
                   <tr key={player.personId}>
                     <th>
-                      {player?.jersey !== "" && `${player.jersey} - `}
-                      {player.temporaryDisplayName}
+                      <Link to={`/player-detail/${player.personId}`}>
+                        {player?.jersey !== "" && `${player.jersey} - `}
+                        {player.temporaryDisplayName}
+                      </Link>
                     </th>
                     <td>
                       <div>
-                        <img
-                          src={`https://www.countryflags.io/${
-                            rosterCountries[player.country]
-                          }/flat/24.png`}
-                          alt="country"
-                          loading="lazy"
-                          title={player.country}
-                        />
+                        {player.country && (
+                          <img
+                            src={`https://www.countryflags.io/${
+                              rosterCountries[player.country]
+                            }/flat/24.png`}
+                            alt="country"
+                            loading="lazy"
+                            title={player.country}
+                          />
+                        )}
                       </div>
                     </td>
                     <td>
-                      <div>{getAge(player.dateOfBirthUTC)} años</div>
+                      <div>
+                        {player.dateOfBirthUTC &&
+                          `${getAge(player.dateOfBirthUTC)} años`}
+                      </div>
                     </td>
                     <td>
                       <div>{player.pos}</div>
                     </td>
                     <td>
-                      <div>{player.heightMeters}m</div>
+                      <div>
+                        {player.heightMeters && `${player.heightMeters}m`}
+                      </div>
                     </td>
                     <td>
-                      <div>{player.weightKilograms}kg</div>
+                      <div>
+                        {player.weightKilograms &&
+                          `${player.weightKilograms}kg`}
+                      </div>
                     </td>
                   </tr>
                 );

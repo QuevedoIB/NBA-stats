@@ -1,4 +1,5 @@
 import React, { useRef, useState, useEffect, useCallback } from "react";
+import { Link } from "react-router-dom";
 import Proptypes from "prop-types";
 
 import PlayerCard from "components/cards/PlayerCard";
@@ -43,11 +44,14 @@ const PlayersList = ({ list, amountRendered = 6, isLoading }) => {
               <Shimmer />
             </li>
           ))
-        : list
-            .slice(0, itemsDisplayed)
-            .map((player) => (
-              <PlayerCard key={player.personId} player={player} />
-            ))}
+        : list.slice(0, itemsDisplayed).map((player) => (
+            <Link
+              key={player.personId}
+              to={`/player-detail/${player.personId}`}
+            >
+              <PlayerCard player={player} />
+            </Link>
+          ))}
       <li ref={observerItem} id="list-observer" />
     </ul>
   );

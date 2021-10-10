@@ -35,8 +35,6 @@ const PlayerCard = ({ player }) => {
     [player.teamId, teams]
   );
 
-  // {player.pos} -
-
   return (
     <li className={styles.container}>
       <img
@@ -50,26 +48,27 @@ const PlayerCard = ({ player }) => {
       <div className={styles.infoContainer}>
         <div>
           <p className={styles.title}>{player.temporaryDisplayName}</p>
-          <p className={styles.subtitle}>
+          <p className={`${styles.subtitle} ${styles.centeredInfoContainer}`}>
             {formatDate(player.dateOfBirthUTC, i18n.language)}
+            {countryFlagCode && (
+              <img
+                className={styles.countryIcon}
+                src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
+                alt="country"
+                loading="lazy"
+                title={player.country}
+              />
+            )}
           </p>
-          {countryFlagCode && (
-            <img
-              className={styles.countryIcon}
-              src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
-              alt="country"
-              loading="lazy"
-              title={player.country}
-            />
-          )}
           {playerTeam && (
-            <div className={styles.team}>
+            <div className={`${styles.team} ${styles.centeredInfoContainer}`}>
               <img
                 loading="lazy"
                 src={`https://cdn.nba.com/logos/nba/${playerTeam.teamId}/global/L/logo.svg`}
                 alt={`${playerTeam.fullName} logo`}
                 title={playerTeam.fullName}
               />
+              {player.pos}
             </div>
           )}
         </div>
