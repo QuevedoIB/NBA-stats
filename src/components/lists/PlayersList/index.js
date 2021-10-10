@@ -2,6 +2,7 @@ import React, { useRef, useState, useEffect, useCallback } from "react";
 import Proptypes from "prop-types";
 
 import PlayerCard from "components/cards/PlayerCard";
+import Shimmer from "components/common/Shimmer";
 
 import useObserver from "hooks/useObserver";
 
@@ -9,7 +10,7 @@ import { playerProptypes } from "components/types";
 
 import styles from "./PlayersList.module.css";
 
-const PlayersList = ({ list, amountRendered = 6 }) => {
+const PlayersList = ({ list, amountRendered = 6, isLoading }) => {
   const [itemsDisplayed, setItemsDisplayed] = useState(amountRendered);
   const observerItem = useRef();
 
@@ -36,9 +37,17 @@ const PlayersList = ({ list, amountRendered = 6 }) => {
 
   return (
     <ul className={styles.container}>
-      {list.slice(0, itemsDisplayed).map((player) => (
-        <PlayerCard key={player.personId} player={player} />
-      ))}
+      {isLoading
+        ? new Array(amountRendered).fill().map((_, i) => (
+            <li key={i} className={styles.playerShimmer}>
+              <Shimmer />
+            </li>
+          ))
+        : list
+            .slice(0, itemsDisplayed)
+            .map((player) => (
+              <PlayerCard key={player.personId} player={player} />
+            ))}
       <li ref={observerItem} id="list-observer" />
     </ul>
   );

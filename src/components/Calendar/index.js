@@ -4,7 +4,7 @@ import CollapseView from "components/common/CollapseView";
 import GameCard from "components/cards/GameCard";
 import Shimmer from "components/common/Shimmer";
 
-import styles from "./TeamDetail.module.css";
+import styles from "./Calendar.module.css";
 
 const Calendar = ({ teams, calendar, isLoading }) => {
   const parsedIdTeams = useMemo(() => {
@@ -17,7 +17,7 @@ const Calendar = ({ teams, calendar, isLoading }) => {
   if (isLoading || !calendar?.length) return <Shimmer height="80vh" />;
 
   return (
-    <section>
+    <section className={styles.container}>
       <CollapseView summary={<h3 className="title">Calendar</h3>}>
         <ul className={styles.calendarContainer}>
           {calendar?.map((game) => {

@@ -2,7 +2,6 @@ import React, { useState, useMemo } from "react";
 import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 
-import Spinner from "components/common/Spinner";
 import GameCard from "components/cards/GameCard";
 
 import NbaService from "services/NbaService";
@@ -14,6 +13,7 @@ import useTeams from "hooks/useTeams";
 
 import styles from "./GamesResult.module.css";
 import CollapseView from "components/common/CollapseView";
+import Shimmer from "components/common/Shimmer";
 
 const GamesResult = () => {
   const [t] = useTranslation();
@@ -55,6 +55,8 @@ const GamesResult = () => {
     }, {});
   }, [teams]);
 
+  if (isLoading) return <Shimmer />;
+
   return (
     <section className={`${styles.container} border-container`}>
       <CollapseView
@@ -74,9 +76,7 @@ const GamesResult = () => {
         }
       >
         <ul>
-          {isLoading ? (
-            <Spinner />
-          ) : !data?.numGames ? (
+          {!data?.numGames ? (
             <li>
               <p>{t("gamesResult.noResults")}</p>
             </li>

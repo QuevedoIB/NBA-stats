@@ -6,7 +6,7 @@ import Shimmer from "components/common/Shimmer";
 import { getAge } from "helpers/getAge";
 import useCountryCodes from "hooks/useCountryCodes";
 
-import styles from "./TeamDetail.module.css";
+import styles from "./RosterList.module.css";
 
 const RosterList = ({ roster, isLoading }) => {
   const { countries } = useCountryCodes();
@@ -30,13 +30,18 @@ const RosterList = ({ roster, isLoading }) => {
     [roster]
   );
 
-  if (isLoading) return <Shimmer height="80vh" />;
+  if (isLoading)
+    return (
+      <Shimmer>
+        <div className={styles.loadingContainer} />
+      </Shimmer>
+    );
 
   return (
-    <section>
+    <section className={styles.container}>
       <CollapseView summary={<h3 className="title">Roster</h3>}>
         <div className={styles.scrollContainer}>
-          <table>
+          <table className={styles.rosterTable}>
             <tbody>
               {sortedRoster.map((player) => {
                 return (

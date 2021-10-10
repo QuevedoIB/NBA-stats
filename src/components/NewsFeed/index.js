@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 
-import Spinner from "components/common/Spinner";
 import NewsCard from "components/cards/NewsCard";
 
 import useErrorHandler from "hooks/useErrorHandler";
@@ -12,6 +11,7 @@ import NewsFeedService from "services/NewsFeedService";
 
 import styles from "./NewsFeed.module.css";
 import CollapseView from "components/common/CollapseView";
+import Shimmer from "components/common/Shimmer";
 
 const NewsFeed = () => {
   const [t] = useTranslation();
@@ -27,33 +27,31 @@ const NewsFeed = () => {
   );
   useErrorHandler(error?.message);
 
+  if (isLoading) return <Shimmer />;
+
   return (
     <section className={`border-container ${styles.container}`}>
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        <CollapseView
-          summary={<h3 className={`title ${styles.title}`}>{data.header}</h3>}
-        >
-          <ul className={styles.list}>
-            {!data?.articles?.length ? (
-              <li>
-                <p className={styles.withoutDataPlaceholder}>
-                  {t("newsFeed.noResults")}
-                </p>
-              </li>
-            ) : (
-              data.articles.map((article, i) => {
-                return (
-                  <li key={`${article.headline}${i}`}>
-                    <NewsCard article={article} />
-                  </li>
-                );
-              })
-            )}
-          </ul>
-        </CollapseView>
-      )}
+      <CollapseView
+        summary={<h3 className={`title ${styles.title}`}>{data.header}</h3>}
+      >
+        <ul className={styles.list}>
+          {!data?.articles?.length ? (
+            <li>
+              <p className={styles.withoutDataPlaceholder}>
+                {t("newsFeed.noResults")}
+              </p>
+            </li>
+          ) : (
+            data.articles.map((article, i) => {
+              return (
+                <li key={`${article.headline}${i}`}>
+                  <NewsCard article={article} />
+                </li>
+              );
+            })
+          )}
+        </ul>
+      </CollapseView>
     </section>
   );
 };

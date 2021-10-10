@@ -1,0 +1,23 @@
+.calendarContainer {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  box-sizing: border-box;
+  border-left: 1px solid var(--border-color);
+}
+
+@media only screen and (max-width: 1024px) {
+  .calendarContainer {
+    grid-template-columns: 1fr;
+  }
+}
+
+.calendarContainer li {
+  border-bottom: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  padding: 1rem;
+}
+
+.calendarContainer p {
+  margin: 0;
+}

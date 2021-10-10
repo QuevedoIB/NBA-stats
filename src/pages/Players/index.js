@@ -1,7 +1,6 @@
 import React, { useState, useCallback } from "react";
 
 import SearchBar from "components/SearchBar";
-import Spinner from "components/common/Spinner";
 import PlayersList from "components/lists/PlayersList";
 
 import usePlayers from "hooks/usePlayers";
@@ -27,9 +26,7 @@ const Players = () => {
       filteredPlayers[0].temporaryDisplayName === searchPlayer
     ) && filteredPlayers;
 
-  return isLoading ? (
-    <Spinner />
-  ) : (
+  return (
     <section>
       <SearchBar
         searchText={searchPlayer}
@@ -38,7 +35,10 @@ const Players = () => {
         onSuggestionClick={onSelectSuggestedPlayer}
         onSearchChange={updateSearchedPlayer}
       />
-      <PlayersList list={searchPlayer ? filteredPlayers : players} />
+      <PlayersList
+        list={searchPlayer ? filteredPlayers : players}
+        isLoading={isLoading}
+      />
     </section>
   );
 };

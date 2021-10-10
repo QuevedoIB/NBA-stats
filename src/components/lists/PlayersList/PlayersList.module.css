@@ -12,3 +12,9 @@
     grid-template-columns: 1fr;
   }
 }
+
+.playerShimmer {
+  border-radius: 1rem;
+  overflow: hidden;
+  height: 11rem;
+}

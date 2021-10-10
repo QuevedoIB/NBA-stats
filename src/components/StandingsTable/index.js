@@ -39,12 +39,7 @@ const StandingsTable = () => {
   );
   useErrorHandler(error?.message);
 
-  if (isLoading)
-    return (
-      <Shimmer>
-        <section className={styles.container}></section>
-      </Shimmer>
-    );
+  if (isLoading) return <Shimmer height="90vh" />;
 
   return (
     <section className={styles.container}>

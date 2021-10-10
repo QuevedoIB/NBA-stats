@@ -1,0 +1,27 @@
+.scrollContainer {
+  overflow-x: auto;
+  width: 100%;
+}
+
+.container .rosterTable th div,
+.container .rosterTable td div {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container .rosterTable tr:first-child {
+  border-top: hidden;
+}
+
+.loadingContainer {
+  width: 400px;
+  height: 80vh;
+  margin-bottom: 1rem;
+}
+
+@media only screen and (max-width: 1024px) {
+  .loadingContainer {
+    width: 100%;
+  }
+}
