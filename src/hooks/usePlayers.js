@@ -22,9 +22,9 @@ export default function usePlayers(filter = { key: "", value: "" }) {
           response?.map((player) => ({
             ...player,
             temporaryDisplayName: player.temporaryDisplayName
-              .split(", ")
-              .reverse()
-              .join(" "),
+              ?.split(", ")
+              ?.reverse()
+              ?.join(" "),
             country:
               player.country === "USA" ? "United States" : player.country,
           })) || []

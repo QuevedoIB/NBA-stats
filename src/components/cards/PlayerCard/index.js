@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useMemo } from "react";
+import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import PlaceholderImage from "public/images/player-placeholder.png";
@@ -8,27 +8,20 @@ import styles from "./PlayerCard.module.css";
 import { formatDate } from "helpers/formatDate";
 import useCountryCodes from "hooks/useCountryCodes";
 import useTeams from "hooks/useTeams";
+import usePlaceHolderSource from "hooks/usePlaceholderSource";
 
 const PlayerCard = ({ player }) => {
   const { i18n } = useTranslation();
-  const [imageSource, setImageSource] = useState();
   const { code: countryFlagCode } = useCountryCodes({
     countryName: player.country,
   });
 
+  const { src, loaded: loadedImage } = usePlaceHolderSource({
+    src: `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`,
+    placeHolderSrc: PlaceholderImage,
+  });
+
   const { teams } = useTeams();
-
-  const getImageSource = useCallback(() => {
-    const downloadingImage = new window.Image();
-    downloadingImage.onload = function () {
-      setImageSource(this.src);
-    };
-    downloadingImage.src = `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`;
-  }, [player.personId]);
-
-  useEffect(() => {
-    getImageSource();
-  }, [getImageSource]);
 
   const playerTeam = useMemo(
     () => teams?.find((team) => team.teamId === player.teamId),
@@ -38,10 +31,10 @@ const PlayerCard = ({ player }) => {
   return (
     <li className={styles.container}>
       <img
-        src={imageSource ?? PlaceholderImage}
+        src={src}
         alt={`${player.temporaryDisplayName}`}
         className={`${styles.image} ${
-          imageSource ? "" : styles.placeholderImage
+          loadedImage ? "" : styles.placeholderImage
         }`}
         loading="lazy"
       />
