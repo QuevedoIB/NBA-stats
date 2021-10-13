@@ -1,0 +1,8 @@
+.image {
+  height: 12rem;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: auto;
+}
