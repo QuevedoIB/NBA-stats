@@ -1,38 +1,46 @@
-import { useState, useCallback, useMemo } from "react";
+import { useState } from "react";
 import { useParams } from "react-router";
 
-import SearchBar from "components/SearchBar";
+import SearchBar from "components/common/SearchBar";
 
 import usePlayers from "hooks/usePlayers";
 import usePlaceHolderSource from "hooks/usePlaceholderSource";
+import useSearchPlayer from "hooks/useSearchPlayer";
 
 import PlaceholderImage from "public/images/player-placeholder.png";
 
 import styles from "./PlayerDetail.module.css";
 
 const PlayerDetail = () => {
-  const [searchPlayer, setSearchPlayer] = useState("");
   const { playerId } = useParams();
   const {
     filteredPlayers: [player],
   } = usePlayers({ key: "personId", value: playerId });
+
+  const {
+    searchValue,
+    suggestions,
+    selectedSuggestion,
+    handleSearchChange,
+    handleSelectSuggestion,
+    players,
+    searchKey,
+  } = useSearchPlayer();
 
   const { src, loaded: loadedImage } = usePlaceHolderSource({
     src: `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`,
     placeHolderSrc: PlaceholderImage,
   });
 
-  const suggestions = useMemo(() => [], [searchPlayer]);
+  const { src: comparedPlayerImage, loaded: comparedPlayerImageLoaded } =
+    usePlaceHolderSource({
+      src:
+        selectedSuggestion &&
+        `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${selectedSuggestion.personId}.png`,
+      placeHolderSrc: PlaceholderImage,
+    });
 
-  const updateSearchedPlayer = useCallback(({ target: { value } }) => {
-    setSearchPlayer(value);
-  }, []);
-
-  const onSelectSuggestedPlayer = useCallback(({ temporaryDisplayName }) => {
-    setSearchPlayer(temporaryDisplayName);
-  }, []);
-
-  console.log(player);
+  console.log(players);
   return (
     <section className={styles.container}>
       <div
@@ -56,12 +64,22 @@ const PlayerDetail = () => {
       </div>
       <div>
         <SearchBar
-          searchText={searchPlayer}
+          searchValue={searchValue}
           suggestions={suggestions}
-          keyword="temporaryDisplayName"
-          onSuggestionClick={onSelectSuggestedPlayer}
-          onSearchChange={updateSearchedPlayer}
+          keyword={searchKey}
+          onSearchChange={handleSearchChange}
+          onSuggestionClick={handleSelectSuggestion}
         />
+        {selectedSuggestion && (
+          <img
+            src={comparedPlayerImage}
+            alt={`${selectedSuggestion.temporaryDisplayName}`}
+            className={`${styles.image} ${
+              comparedPlayerImageLoaded ? "" : styles.placeholderImage
+            }`}
+            loading="lazy"
+          />
+        )}
       </div>
     </section>
   );

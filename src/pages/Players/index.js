@@ -1,49 +1,29 @@
-import React, { useState, useCallback, useMemo } from "react";
-
-import SearchBar from "components/SearchBar";
+import SearchBar from "components/common/SearchBar";
 import PlayersList from "components/lists/PlayersList";
 
-import usePlayers from "hooks/usePlayers";
+import useSearchPlayer from "hooks/useSearchPlayer";
 
 const Players = () => {
-  const [searchPlayer, setSearchPlayer] = useState("");
-  const { isLoading, players, filteredPlayers } = usePlayers({
-    key: "temporaryDisplayName",
-    value: searchPlayer,
-  });
-
-  const updateSearchedPlayer = useCallback(({ target: { value } }) => {
-    setSearchPlayer(value);
-  }, []);
-
-  const onSelectSuggestedPlayer = useCallback(({ temporaryDisplayName }) => {
-    setSearchPlayer(temporaryDisplayName);
-  }, []);
-
-  const suggestions = useMemo(
-    () =>
-      !(
-        filteredPlayers?.length === 1 &&
-        filteredPlayers[0].temporaryDisplayName === searchPlayer
-      )
-        ? filteredPlayers
-        : [],
-    [filteredPlayers, searchPlayer]
-  );
+  const {
+    isLoading,
+    players,
+    searchValue,
+    suggestions,
+    handleSearchChange,
+    handleSelectSuggestion,
+    searchKey,
+  } = useSearchPlayer();
 
   return (
     <section>
       <SearchBar
-        searchText={searchPlayer}
+        keyword={searchKey}
+        onSearchChange={handleSearchChange}
+        onSuggestionClick={handleSelectSuggestion}
+        searchValue={searchValue}
         suggestions={suggestions}
-        keyword="temporaryDisplayName"
-        onSuggestionClick={onSelectSuggestedPlayer}
-        onSearchChange={updateSearchedPlayer}
       />
-      <PlayersList
-        list={searchPlayer ? filteredPlayers : players}
-        isLoading={isLoading}
-      />
+      <PlayersList list={players} isLoading={isLoading} />
     </section>
   );
 };
