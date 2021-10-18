@@ -1,24 +1,18 @@
 import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
-import PlaceholderImage from "public/images/player-placeholder.png";
+import PlayerImage from "components/common/images/PlayerImage";
 
 import styles from "./PlayerCard.module.css";
 
 import { formatDate } from "helpers/formatDate";
 import useCountryCodes from "hooks/useCountryCodes";
 import useTeams from "hooks/useTeams";
-import usePlaceHolderSource from "hooks/usePlaceholderSource";
 
 const PlayerCard = ({ player }) => {
   const { i18n } = useTranslation();
   const { code: countryFlagCode } = useCountryCodes({
     countryName: player.country,
-  });
-
-  const { src, loaded: loadedImage } = usePlaceHolderSource({
-    src: `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`,
-    placeHolderSrc: PlaceholderImage,
   });
 
   const { teams } = useTeams();
@@ -30,14 +24,7 @@ const PlayerCard = ({ player }) => {
 
   return (
     <li className={styles.container}>
-      <img
-        src={src}
-        alt={`${player.temporaryDisplayName}`}
-        className={`${styles.image} ${
-          loadedImage ? "" : styles.placeholderImage
-        }`}
-        loading="lazy"
-      />
+      <PlayerImage player={player} />
       <div className={styles.infoContainer}>
         <div>
           <p className={styles.title}>{player.temporaryDisplayName}</p>
@@ -79,3 +66,12 @@ export default PlayerCard;
 // alero -> F
 // ala pivot -> F-C
 // pivot -> C-F
+
+/*
+C= Pivot
+PF= Ala pivot
+SF= Alero
+SG= Escolta
+PG= Base
+
+*/

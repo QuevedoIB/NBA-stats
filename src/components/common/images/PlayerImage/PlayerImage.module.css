@@ -1,0 +1,18 @@
+.image {
+  height: 7rem;
+  filter: url('data:image/svg+xml,\
+      <svg xmlns="http://www.w3.org/2000/svg">\
+        <filter id="naturalShadow" x="0" y="0" width="1" height="1">\
+          <feOffset in="SourceGraphic" dx="1" dy="1" />\
+          <feGaussianBlur stdDeviation="3" result="blur" />\
+          <feMerge>\
+            <feMergeNode in="blur"/>\
+            <feMergeNode in="SourceGraphic"/>\
+          </feMerge>\
+        </filter>\
+      </svg>#naturalShadow');
+}
+
+body:global(.theme-dark) :local(.image.placeholderImage) {
+  filter: invert(100%);
+}

@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { useEffect } from "react";
+
+import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 
 import SearchBar from "components/common/SearchBar";
+import PlayerImage from "components/common/images/PlayerImage";
 
 import usePlayers from "hooks/usePlayers";
-import usePlaceHolderSource from "hooks/usePlaceholderSource";
 import useSearchPlayer from "hooks/useSearchPlayer";
-
-import PlaceholderImage from "public/images/player-placeholder.png";
 
 import styles from "./PlayerDetail.module.css";
 
@@ -23,64 +23,39 @@ const PlayerDetail = () => {
     selectedSuggestion,
     handleSearchChange,
     handleSelectSuggestion,
-    players,
     searchKey,
+    handleReset,
   } = useSearchPlayer();
 
-  const { src, loaded: loadedImage } = usePlaceHolderSource({
-    src: `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player.personId}.png`,
-    placeHolderSrc: PlaceholderImage,
-  });
+  useEffect(() => {
+    handleReset();
+  }, [handleReset, playerId]);
 
-  const { src: comparedPlayerImage, loaded: comparedPlayerImageLoaded } =
-    usePlaceHolderSource({
-      src:
-        selectedSuggestion &&
-        `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${selectedSuggestion.personId}.png`,
-      placeHolderSrc: PlaceholderImage,
-    });
-
-  console.log(players);
   return (
     <section className={styles.container}>
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          flexDirection: "column",
-          width: "fit-content",
-        }}
-      >
-        <h3>{player?.temporaryDisplayName}</h3>
-        <img
-          src={src}
-          alt={`${player.temporaryDisplayName}`}
-          className={`${styles.image} ${
-            loadedImage ? "" : styles.placeholderImage
-          }`}
-          loading="lazy"
-        />
-      </div>
-      <div>
-        <SearchBar
-          searchValue={searchValue}
-          suggestions={suggestions}
-          keyword={searchKey}
-          onSearchChange={handleSearchChange}
-          onSuggestionClick={handleSelectSuggestion}
-        />
-        {selectedSuggestion && (
-          <img
-            src={comparedPlayerImage}
-            alt={`${selectedSuggestion.temporaryDisplayName}`}
-            className={`${styles.image} ${
-              comparedPlayerImageLoaded ? "" : styles.placeholderImage
-            }`}
-            loading="lazy"
+      <section className={styles.playersContainer}>
+        <article>
+          <h3 className={styles.title}>{player?.temporaryDisplayName}</h3>
+          <PlayerImage player={player} />
+        </article>
+        <article>
+          <SearchBar
+            searchValue={searchValue}
+            suggestions={suggestions}
+            keyword={searchKey}
+            onSearchChange={handleSearchChange}
+            onSuggestionClick={handleSelectSuggestion}
           />
-        )}
-      </div>
+          {selectedSuggestion && (
+            <Link
+              to={`/player-detail/${selectedSuggestion.personId}`}
+              className={styles.comparedPlayer}
+            >
+              <PlayerImage player={selectedSuggestion} />
+            </Link>
+          )}
+        </article>
+      </section>
     </section>
   );
 };
@@ -88,49 +63,127 @@ const PlayerDetail = () => {
 export default PlayerDetail;
 
 /*
+
+
+Estadísticas
+
+FGM Tiros de campo anotados
+FGA Tiros de campo intentados
+FTM Tiros libres anotados
+FTA Tiros libres intentados
+3PM Triples anotados
+3PA Triples intentados
+
+https://data.nba.net/10s/prod/v1/2020/players/2544_profile.json
+https://www.nba.com/stats/help/glossary/#dd2
+
+"careerSummary": {
+"tpp": "34.5", Three point %
+"ftp": "73.3", Free throw %
+"fgp": "50.4", 2pt throw %
+"ppg": "27", points per game
+"rpg": "7.4", rebounds per game
+"apg": "7.4", assists per game
+"bpg": "0.8", blocks per game
+"mpg": "38.2", minutes per game
+"spg": "1.6", steals per game
+"assists": "9696",
+"blocks": "982",
+"steals": "2063",
+"turnovers": "4592",
+"offReb": "1538",
+"defReb": "8213",
+"totReb": "9751",
+"fgm": "12903", Tiros de campo anotados
+"fga": "25604", Tiros de campo intentados
+"tpm": "1979", Triples anotados
+"tpa": "5738", Triples intentados
+"ftm": "7582", Tiros libres anotados
+"fta": "10337", Tiros libres intentados
+"pFouls": "2395", Faltas hechas
+"points": "35367",
+"gamesPlayed": "1310",
+"gamesStarted": "1309",
+"plusMinus": "7136",
+"min": "50053",
+"dd2": "507", Double Doubles
+"td3": "99" Triple Doubles
+},
+
+
+"regularSeason": {
+"season": [
 {
-    "firstName": "Precious",
-    "lastName": "Achiuwa",
-    "temporaryDisplayName": "Precious Achiuwa",
-    "personId": "1630173",
-    "teamId": "1610612761",
-    "jersey": "5",
-    "isActive": true,
-    "pos": "F",
-    "heightFeet": "6",
-    "heightInches": "8",
-    "heightMeters": "2.03",
-    "weightPounds": "225",
-    "weightKilograms": "102.1",
-    "dateOfBirthUTC": "1999-09-19",
-    "teamSitesOnly": {
-        "playerCode": "precious_achiuwa",
-        "posFull": "Forward",
-        "displayAffiliation": "Memphis/Nigeria",
-        "freeAgentCode": ""
-    },
-    "teams": [
-        {
-            "teamId": "1610612748",
-            "seasonStart": "2020",
-            "seasonEnd": "2020"
-        },
-        {
-            "teamId": "1610612761",
-            "seasonStart": "2021",
-            "seasonEnd": "2021"
-        }
-    ],
-    "draft": {
-        "teamId": "1610612748",
-        "pickNum": "20",
-        "roundNum": "1",
-        "seasonYear": "2020"
-    },
-    "nbaDebutYear": "2020",
-    "yearsPro": "1",
-    "collegeName": "Memphis",
-    "lastAffiliation": "Memphis/Nigeria",
-    "country": "Nigeria"
+"seasonYear": 2020,
+"teams": [
+{
+"teamId": "1610612747",
+"ppg": "25",
+"rpg": "7.7",
+"apg": "7.8",
+"mpg": "33.4",
+"topg": "3.7",
+"spg": "1.1",
+"bpg": "0.6",
+"tpp": "36.5",
+"ftp": "69.8",
+"fgp": "51.3",
+"assists": "350",
+"blocks": "25",
+"steals": "48",
+"turnovers": "168",
+"offReb": "29",
+"defReb": "317",
+"totReb": "346",
+"fgm": "422",
+"fga": "823",
+"tpm": "104",
+"tpa": "285",
+"ftm": "178",
+"fta": "255",
+"pFouls": "70",
+"points": "1126",
+"gamesPlayed": "45",
+"gamesStarted": "45",
+"plusMinus": "290",
+"min": "1503",
+"dd2": "18",
+"td3": "5"
 }
+],
+"total": {
+"ppg": "25",
+"rpg": "7.7",
+"apg": "7.8",
+"mpg": "33.4",
+"topg": "3.7",
+"spg": "1.1",
+"bpg": "0.6",
+"tpp": "36.5",
+"ftp": "69.8",
+"fgp": "51.3",
+"assists": "350",
+"blocks": "25",
+"steals": "48",
+"turnovers": "168",
+"offReb": "29",
+"defReb": "317",
+"totReb": "346",
+"fgm": "422",
+"fga": "823",
+"tpm": "104",
+"tpa": "285",
+"ftm": "178",
+"fta": "255",
+"pFouls": "70",
+"points": "1126",
+"gamesPlayed": "45",
+"gamesStarted": "45",
+"plusMinus": "290",
+"min": "1503",
+"dd2": "18",
+"td3": "5"
+}
+},
+
 */

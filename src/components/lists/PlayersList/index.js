@@ -11,7 +11,7 @@ import { playerProptypes } from "components/types";
 
 import styles from "./PlayersList.module.css";
 
-const PlayersList = ({ list, amountRendered = 6, isLoading }) => {
+const PlayersList = ({ list, amountRendered = 12, isLoading }) => {
   const [itemsDisplayed, setItemsDisplayed] = useState(amountRendered);
   const observerItem = useRef();
 

@@ -1,8 +1,32 @@
-.image {
-  height: 12rem;
+.playersContainer {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: fit-content;
+}
+
+.playersContainer article {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1rem;
+}
+
+.playersContainer img {
+  height: 10rem;
 }
 
 .container {
   display: grid;
   grid-template-columns: auto;
+}
+
+.title {
+  margin: 0 0 1rem 0;
+}
+
+.comparedPlayer {
+  margin-top: 1rem;
 }
