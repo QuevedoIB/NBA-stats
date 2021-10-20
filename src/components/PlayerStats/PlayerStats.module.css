@@ -1,0 +1,22 @@
+.chartsContainer {
+  display: flex;
+  justify-content: space-evenly;
+  height: 100%;
+  width: 100%;
+}
+
+.chart {
+  height: 100%;
+  width: 100%;
+}
+
+@media only screen and (max-width: 600px) {
+  .chartsContainer {
+    flex-direction: column;
+    height: 75vh;
+    justify-content: initial;
+  }
+  .chart {
+    width: calc(100vw - 2rem);
+  }
+}

@@ -6,7 +6,9 @@ import styles from "./PlayerImage.module.css";
 
 const PlayerImage = ({ player, ...rest }) => {
   const { src, loaded: loadedImage } = usePlaceHolderSource({
-    src: `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player?.personId}.png`,
+    src:
+      player &&
+      `https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/${player?.personId}.png`,
     placeHolderSrc: PlaceholderImage,
   });
   return (

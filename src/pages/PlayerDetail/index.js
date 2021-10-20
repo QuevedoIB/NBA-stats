@@ -1,18 +1,21 @@
-import { useEffect } from "react";
-
+import { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
 
 import SearchBar from "components/common/SearchBar";
 import PlayerImage from "components/common/images/PlayerImage";
+import PlayerStats from "components/PlayerStats";
+import Select from "components/common/Select";
 
 import usePlayers from "hooks/usePlayers";
 import useSearchPlayer from "hooks/useSearchPlayer";
 
 import styles from "./PlayerDetail.module.css";
+import useTeams from "hooks/useTeams";
 
 const PlayerDetail = () => {
   const { playerId } = useParams();
+  const [seasonStats, setSeasonStats] = useState("careerSummary");
   const {
     filteredPlayers: [player],
   } = usePlayers({ key: "personId", value: playerId });
@@ -27,9 +30,42 @@ const PlayerDetail = () => {
     handleReset,
   } = useSearchPlayer();
 
+  const {
+    filteredTeams: [team1, team2],
+  } = useTeams({
+    filter: {
+      key: "teamId",
+      value: [player?.teamId, selectedSuggestion?.teamId],
+    },
+  });
+
   useEffect(() => {
     handleReset();
   }, [handleReset, playerId]);
+
+  const seasonYearsOptions = useMemo(() => {
+    const currentYear = new Date().getFullYear();
+    const yearsBetween = [
+      {
+        value: "careerSummary",
+        name: "All",
+      },
+      {
+        value: "latest",
+        name: currentYear,
+      },
+    ];
+    for (let year = currentYear - 1; year >= +player?.nbaDebutYear; year--) {
+      yearsBetween.push({ name: year, value: year });
+    }
+    return yearsBetween;
+  }, [player?.nbaDebutYear]);
+
+  const handleSeasonYearChange = useCallback(({ target: { value } }) => {
+    setSeasonStats(value);
+  }, []);
+
+  //console.log(player, chartsData, seasonYearsOptions, data);
 
   return (
     <section className={styles.container}>
@@ -37,6 +73,23 @@ const PlayerDetail = () => {
         <article>
           <h3 className={styles.title}>{player?.temporaryDisplayName}</h3>
           <PlayerImage player={player} />
+          <div>
+            <div className={styles.seasonSelect}>
+              <label htmlFor="season-year">Season stats: </label>
+              <Select
+                id="season-year"
+                options={seasonYearsOptions}
+                value={seasonStats}
+                onChange={handleSeasonYearChange}
+              />
+            </div>
+            <p>Position: {player?.pos}</p>
+            <p>Debut: {player?.nbaDebutYear || "-"}</p>
+            <p>
+              Team:{" "}
+              {(team1?.teamId === player?.teamId ? team1 : team2)?.fullName}
+            </p>
+          </div>
         </article>
         <article>
           <SearchBar
@@ -47,15 +100,33 @@ const PlayerDetail = () => {
             onSuggestionClick={handleSelectSuggestion}
           />
           {selectedSuggestion && (
-            <Link
-              to={`/player-detail/${selectedSuggestion.personId}`}
-              className={styles.comparedPlayer}
-            >
-              <PlayerImage player={selectedSuggestion} />
-            </Link>
+            <>
+              <Link
+                to={`/player-detail/${selectedSuggestion.personId}`}
+                className={styles.comparedPlayer}
+              >
+                <PlayerImage player={selectedSuggestion} />
+              </Link>
+              <div>
+                <p>Position: {selectedSuggestion?.pos}</p>
+                <p>Debut: {selectedSuggestion?.nbaDebutYear || "-"}</p>
+                <p>
+                  Team:{" "}
+                  {
+                    (team1.teamId === selectedSuggestion.teamId ? team1 : team2)
+                      ?.fullName
+                  }
+                </p>
+              </div>
+            </>
           )}
         </article>
       </section>
+      <PlayerStats
+        playerA={player}
+        playerB={selectedSuggestion}
+        season={seasonStats}
+      />
     </section>
   );
 };
