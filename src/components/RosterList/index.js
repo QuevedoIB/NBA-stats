@@ -1,28 +1,17 @@
 import { useMemo } from "react";
 import { Link } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import CollapseView from "components/common/CollapseView";
 import Shimmer from "components/common/Shimmer";
 
 import { getAge } from "helpers/getAge";
-import useCountryCodes from "hooks/useCountryCodes";
 
 import styles from "./RosterList.module.css";
+import CountryFlag from "components/common/images/CountryFlag";
 
 const RosterList = ({ roster, isLoading }) => {
-  const { countries } = useCountryCodes();
-
-  const rosterCountries = useMemo(() => {
-    return roster.reduce((acc, player) => {
-      if (!acc[player.country]) {
-        acc[player.country] = countries?.find(
-          (country) => country.Name === player.country
-        )?.Code;
-      }
-      return acc;
-    }, {});
-  }, [countries, roster]);
-
+  const { t } = useTranslation();
   const sortedRoster = useMemo(
     () =>
       roster.sort((a, b) =>
@@ -55,16 +44,7 @@ const RosterList = ({ roster, isLoading }) => {
                     </th>
                     <td>
                       <div>
-                        {player.country && (
-                          <img
-                            src={`https://www.countryflags.io/${
-                              rosterCountries[player.country]
-                            }/flat/24.png`}
-                            alt="country"
-                            loading="lazy"
-                            title={player.country}
-                          />
-                        )}
+                        <CountryFlag player={player} />
                       </div>
                     </td>
                     <td>
@@ -74,7 +54,7 @@ const RosterList = ({ roster, isLoading }) => {
                       </div>
                     </td>
                     <td>
-                      <div>{player.pos}</div>
+                      <div>{t(`basketballPositions.${player.pos}`)}</div>
                     </td>
                     <td>
                       <div>

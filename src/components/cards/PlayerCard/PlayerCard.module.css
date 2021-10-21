@@ -47,11 +47,6 @@ body:global(.theme-dark) :local(.image.placeholderImage) {
   filter: invert(100%);
 }
 
-.countryIcon {
-  margin-left: 0.25rem;
-  width: 1.5rem;
-}
-
 .country {
   align-items: center;
   display: flex;

@@ -34,5 +34,14 @@
   },
   "newsFeed": {
     "noResults": "No se han encontrado artículos"
+  },
+  "basketballPositions": {
+    "G": "Point guard / Shooting guard",
+    "F": "Forward",
+    "F-C": "Power forward",
+    "G-F": "Shooting guard / Forward",
+    "F-G": "Forward / shooting guard",
+    "C-F": "Power forward",
+    "C": "Center"
   }
 }

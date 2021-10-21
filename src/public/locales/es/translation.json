@@ -34,5 +34,14 @@
   },
   "newsFeed": {
     "noResults": "No se han encontrado artículos"
+  },
+  "basketballPositions": {
+    "G": "Base / Escolta",
+    "F": "Alero",
+    "F-C": "Ala-pívot",
+    "G-F": "Escolta / alero",
+    "F-G": "Alero / escolta",
+    "C-F": "Ala-pívot",
+    "C": "Pívot"
   }
 }

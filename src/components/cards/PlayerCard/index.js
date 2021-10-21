@@ -2,18 +2,15 @@ import React, { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import PlayerImage from "components/common/images/PlayerImage";
+import CountryFlag from "components/common/images/CountryFlag";
 
 import styles from "./PlayerCard.module.css";
 
 import { formatDate } from "helpers/formatDate";
-import useCountryCodes from "hooks/useCountryCodes";
 import useTeams from "hooks/useTeams";
 
 const PlayerCard = ({ player }) => {
-  const { i18n } = useTranslation();
-  const { code: countryFlagCode } = useCountryCodes({
-    countryName: player.country,
-  });
+  const { t, i18n } = useTranslation();
 
   const { teams } = useTeams();
 
@@ -30,15 +27,7 @@ const PlayerCard = ({ player }) => {
           <p className={styles.title}>{player.temporaryDisplayName}</p>
           <p className={`${styles.subtitle} ${styles.centeredInfoContainer}`}>
             {formatDate(player.dateOfBirthUTC, i18n.language)}
-            {countryFlagCode && (
-              <img
-                className={styles.countryIcon}
-                src={`https://www.countryflags.io/${countryFlagCode}/flat/24.png`}
-                alt="country"
-                loading="lazy"
-                title={player.country}
-              />
-            )}
+            <CountryFlag player={player} />
           </p>
           {playerTeam && (
             <div className={`${styles.team} ${styles.centeredInfoContainer}`}>
@@ -48,7 +37,7 @@ const PlayerCard = ({ player }) => {
                 alt={`${playerTeam.fullName} logo`}
                 title={playerTeam.fullName}
               />
-              {player.pos}
+              {t(`basketballPositions.${player.pos}`)}
             </div>
           )}
         </div>
@@ -58,20 +47,3 @@ const PlayerCard = ({ player }) => {
 };
 
 export default PlayerCard;
-
-// C F G
-
-// base -> G
-// escolta -> G
-// alero -> F
-// ala pivot -> F-C
-// pivot -> C-F
-
-/*
-C= Pivot
-PF= Ala pivot
-SF= Alero
-SG= Escolta
-PG= Base
-
-*/

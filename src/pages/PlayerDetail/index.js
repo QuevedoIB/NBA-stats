@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router";
+import { useTranslation } from "react-i18next";
 
 import SearchBar from "components/common/SearchBar";
 import PlayerImage from "components/common/images/PlayerImage";
@@ -14,6 +15,7 @@ import styles from "./PlayerDetail.module.css";
 import useTeams from "hooks/useTeams";
 
 const PlayerDetail = () => {
+  const { t } = useTranslation();
   const { playerId } = useParams();
   const [seasonStats, setSeasonStats] = useState("careerSummary");
   const {
@@ -83,7 +85,7 @@ const PlayerDetail = () => {
                 onChange={handleSeasonYearChange}
               />
             </div>
-            <p>Position: {player?.pos}</p>
+            <p>Position: {t(`basketballPositions.${player.pos}`)}</p>
             <p>Debut: {player?.nbaDebutYear || "-"}</p>
             <p>
               Team:{" "}
@@ -108,7 +110,9 @@ const PlayerDetail = () => {
                 <PlayerImage player={selectedSuggestion} />
               </Link>
               <div>
-                <p>Position: {selectedSuggestion?.pos}</p>
+                <p>
+                  Position: {t(`basketballPositions.${selectedSuggestion.pos}`)}
+                </p>
                 <p>Debut: {selectedSuggestion?.nbaDebutYear || "-"}</p>
                 <p>
                   Team:{" "}
