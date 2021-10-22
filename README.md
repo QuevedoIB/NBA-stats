@@ -13,4 +13,7 @@ TODO:
 - FILTERS IN PLAYERS LIST FOR POSITION / TEAM ETC
 
 Fixes:
-Dropdown Team detail roser
+Dropdown Team detail roster
+Responsiveness player detail charts
+IPAD SIZE players list
+Keep last selected calendar day?¿

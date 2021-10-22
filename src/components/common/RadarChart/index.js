@@ -6,6 +6,7 @@ import {
   PolarRadiusAxis,
   ResponsiveContainer,
   Tooltip,
+  Legend,
 } from "recharts";
 
 const RadarChart = ({ data, domain, labelKey, players, palette }) => {
@@ -13,6 +14,7 @@ const RadarChart = ({ data, domain, labelKey, players, palette }) => {
     <ResponsiveContainer width="100%" height="100%">
       <RadarChartComponent cx="50%" cy="50%" outerRadius="80%" data={data}>
         <Tooltip />
+        <Legend />
         <PolarGrid />
         <PolarAngleAxis
           dataKey={labelKey}

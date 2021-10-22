@@ -28,9 +28,9 @@ const PlayerStats = ({ players, season }) => {
   const labels = useMemo(
     () => ({
       shootPercent: {
-        tpp: t("stats.3pts", { ending: "%" }),
-        fgp: t("stats.2pts", { ending: "%" }),
-        ftp: t("stats.1pts", { ending: "%" }),
+        tpp: t("stats.3pts"),
+        fgp: t("stats.2pts"),
+        ftp: t("stats.1pts"),
       },
       statsPerMinute: {
         ppg: t("stats.points"),
@@ -116,6 +116,7 @@ const PlayerStats = ({ players, season }) => {
   return (
     <section className={styles.chartsContainer}>
       <div className={styles.chart}>
+        <h3>{t("stats.titles.percentChart")}</h3>
         <RadarChart
           domain={shootDomain}
           data={shootData}
@@ -125,6 +126,7 @@ const PlayerStats = ({ players, season }) => {
         />
       </div>
       <div className={styles.chart}>
+        <h3>{t("stats.titles.overallPerMinute")}</h3>
         <RadarChart
           domain={overallMinutesDomain}
           data={overallMinutesData}
@@ -133,13 +135,16 @@ const PlayerStats = ({ players, season }) => {
           palette={playersPalette}
         />
       </div>
-      <BarChart
-        domain={overallDomain}
-        data={overallData}
-        players={players}
-        labelKey={labelKey}
-        palette={playersPalette}
-      />
+      <div className={`${styles.chart} ${styles.barChart}`}>
+        <h3>{t("stats.titles.overall")}</h3>
+        <BarChart
+          domain={overallDomain}
+          data={overallData}
+          players={players}
+          labelKey={labelKey}
+          palette={playersPalette}
+        />
+      </div>
     </section>
   );
 };

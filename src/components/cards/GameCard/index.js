@@ -1,12 +1,12 @@
-import React from "react";
+import { Link } from "react-router-dom";
 import i18n from "i18n";
 
 import { formatDate } from "helpers/formatDate";
 
 import styles from "./GameCard.module.css";
 
-const GameCard = ({ teams, game: { hTeam, vTeam, startTimeUTC } }) => {
-  return (
+const GameCard = ({ teams, game: { hTeam, vTeam, startTimeUTC, gameId } }) => (
+  <Link to={`/game-detail/${gameId}`}>
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <p>{teams[hTeam.teamId]?.fullName}</p>
@@ -23,7 +23,7 @@ const GameCard = ({ teams, game: { hTeam, vTeam, startTimeUTC } }) => {
         <p> {formatDate(startTimeUTC, i18n.language)}</p>
       )}
     </div>
-  );
-};
+  </Link>
+);
 
 export default GameCard;

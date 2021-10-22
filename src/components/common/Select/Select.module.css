@@ -1,0 +1,7 @@
+.containerSelect {
+  border-radius: 5px;
+  padding: 0.2rem;
+}
+.containerSelect:focus {
+  outline: none;
+}

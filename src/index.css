@@ -84,6 +84,12 @@ th:nth-child(even) {
   padding-top: 1rem;
 }
 
+.recharts-polar-angle-axis-tick-value,
+.recharts-cartesian-axis-tick-value {
+  fill: var(--font-color);
+  font-size: 1rem;
+}
+
 .border-container {
   border: 1px solid var(--border-color);
 }

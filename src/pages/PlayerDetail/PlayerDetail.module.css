@@ -4,6 +4,7 @@
   flex-direction: column;
   justify-content: center;
   width: fit-content;
+  margin-bottom: 1rem;
 }
 
 .playersContainer article {
@@ -23,7 +24,7 @@
   align-items: flex-start;
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 1024px) {
   .container {
     grid-template-columns: 1fr;
   }

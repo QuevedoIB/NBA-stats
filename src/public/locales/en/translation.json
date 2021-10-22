@@ -17,6 +17,13 @@
     "modalTitle": "Woops!",
     "modalGenericMessage": "Looks like an error happened. {{error}}"
   },
+  "common": {
+    "season": "Season",
+    "debut": "Debut",
+    "position": "Position",
+    "team": "Team",
+    "all": "All"
+  },
   "standings": {
     "title": "Standings",
     "win": "Wins",
@@ -45,17 +52,22 @@
     "C": "Center"
   },
   "stats": {
+    "titles": {
+      "percentChart": "Accuracy rate",
+      "overallPerMinute": "Per minute",
+      "overall": "Overall"
+    },
     "points": "Points",
     "assists": "Assists",
     "blocks": "Blocks",
     "steals": "Steals",
-    "rebounds": "Rebounds",
+    "rebounds": "Rebounds {{ending}}",
     "3pts": "Three points",
     "2pts": "Field shots",
     "1pts": "Free throws",
     "fouls": "Fouls",
     "turnovers": "Turnovers",
-    "games": "Games",
+    "games": "Games {{ending}}",
     "minutes": "Minutes",
     "doubles": "Double-double",
     "triples": "Triple-double",

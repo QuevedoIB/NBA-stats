@@ -33,7 +33,7 @@ const BarChart = ({ data, domain, labelKey, players, palette }) => {
             dominantBaseline: "ideographic",
           }}
           interval={0}
-          height={100}
+          height={150}
         />
         <YAxis domain={domain} />
         <Tooltip />

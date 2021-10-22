@@ -50,7 +50,7 @@ const PlayerDetail = () => {
     const yearsBetween = [
       {
         value: "careerSummary",
-        name: "All",
+        name: t("common.all"),
       },
       {
         value: "latest",
@@ -63,7 +63,7 @@ const PlayerDetail = () => {
       }
     }
     return yearsBetween;
-  }, [player?.nbaDebutYear]);
+  }, [player?.nbaDebutYear, t]);
 
   const handleSeasonYearChange = useCallback(({ target: { value } }) => {
     setSeasonStats(value);
@@ -84,7 +84,7 @@ const PlayerDetail = () => {
           <PlayerImage player={player} />
           <div>
             <div className={styles.seasonSelect}>
-              <label htmlFor="season-year">Season stats: </label>
+              <label htmlFor="season-year">{t("common.season")}: </label>
               <Select
                 id="season-year"
                 options={seasonYearsOptions}
@@ -92,10 +92,14 @@ const PlayerDetail = () => {
                 onChange={handleSeasonYearChange}
               />
             </div>
-            <p>Position: {t(`basketballPositions.${player?.pos}`)}</p>
-            <p>Debut: {player?.nbaDebutYear || "-"}</p>
             <p>
-              Team:{" "}
+              {t("common.position")}: {t(`basketballPositions.${player?.pos}`)}
+            </p>
+            <p>
+              {t("common.debut")}: {player?.nbaDebutYear || "-"}
+            </p>
+            <p>
+              {t("common.team")}:{" "}
               {(team1?.teamId === player?.teamId ? team1 : team2)?.fullName}
             </p>
           </div>

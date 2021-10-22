@@ -17,6 +17,13 @@
     "modalTitle": "¡Vaya!",
     "modalGenericMessage": "Parece que ha ocurrido un error. {{error}}"
   },
+  "common": {
+    "season": "Temporada",
+    "debut": "Debut",
+    "position": "Posición",
+    "team": "Equipo",
+    "all": "Todas"
+  },
   "standings": {
     "title": "Clasificación",
     "win": "Victorias",
@@ -45,17 +52,22 @@
     "C": "Pívot"
   },
   "stats": {
+    "titles": {
+      "percentChart": "Porcentaje de acierto",
+      "overallPerMinute": "Por minuto",
+      "overall": "Totales"
+    },
     "points": "Puntos",
     "assists": "Asistencias",
     "blocks": "Tapones",
     "steals": "Robos",
-    "rebounds": "Rebotes",
-    "3pts": "Triples {{ending}}",
-    "2pts": "Tiros de campo {{ending}}",
-    "1pts": "Tiros libres {{ending}}",
+    "rebounds": "Rebotes {{ending}}",
+    "3pts": "Triples",
+    "2pts": "Tiros de campo",
+    "1pts": "Tiros libres",
     "fouls": "Faltas",
     "turnovers": "Pérdidas",
-    "games": "Partidos",
+    "games": "Partidos {{ending}}",
     "minutes": "Minutos",
     "doubles": "Dobles-dobles",
     "triples": "Triple-dobles",
