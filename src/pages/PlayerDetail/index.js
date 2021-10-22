@@ -57,8 +57,10 @@ const PlayerDetail = () => {
         name: currentYear,
       },
     ];
-    for (let year = currentYear - 1; year >= +player?.nbaDebutYear; year--) {
-      yearsBetween.push({ name: year, value: year });
+    if (player?.nbaDebutYear) {
+      for (let year = currentYear - 1; year >= +player?.nbaDebutYear; year--) {
+        yearsBetween.push({ name: year, value: year });
+      }
     }
     return yearsBetween;
   }, [player?.nbaDebutYear]);
@@ -67,7 +69,12 @@ const PlayerDetail = () => {
     setSeasonStats(value);
   }, []);
 
-  //console.log(player, chartsData, seasonYearsOptions, data);
+  const players = useMemo(() => {
+    const acc = [];
+    player && acc.push(player);
+    selectedSuggestion && acc.push(selectedSuggestion);
+    return acc;
+  }, [player, selectedSuggestion]);
 
   return (
     <section className={styles.container}>
@@ -85,7 +92,7 @@ const PlayerDetail = () => {
                 onChange={handleSeasonYearChange}
               />
             </div>
-            <p>Position: {t(`basketballPositions.${player.pos}`)}</p>
+            <p>Position: {t(`basketballPositions.${player?.pos}`)}</p>
             <p>Debut: {player?.nbaDebutYear || "-"}</p>
             <p>
               Team:{" "}
@@ -126,11 +133,7 @@ const PlayerDetail = () => {
           )}
         </article>
       </section>
-      <PlayerStats
-        playerA={player}
-        playerB={selectedSuggestion}
-        season={seasonStats}
-      />
+      <PlayerStats players={players} season={seasonStats} />
     </section>
   );
 };
@@ -153,36 +156,36 @@ https://data.nba.net/10s/prod/v1/2020/players/2544_profile.json
 https://www.nba.com/stats/help/glossary/#dd2
 
 "careerSummary": {
-"tpp": "34.5", Three point %
-"ftp": "73.3", Free throw %
-"fgp": "50.4", 2pt throw %
-"ppg": "27", points per game
-"rpg": "7.4", rebounds per game
-"apg": "7.4", assists per game
-"bpg": "0.8", blocks per game
+"tpp": "34.5", Three point % x
+"ftp": "73.3", Free throw % x
+"fgp": "50.4", 2pt throw % x
+"ppg": "27", points per game x
+"rpg": "7.4", rebounds per game x
+"apg": "7.4", assists per game x
+"bpg": "0.8", blocks per game x
 "mpg": "38.2", minutes per game
-"spg": "1.6", steals per game
-"assists": "9696",
-"blocks": "982",
-"steals": "2063",
-"turnovers": "4592",
-"offReb": "1538",
-"defReb": "8213",
-"totReb": "9751",
+"spg": "1.6", steals per game x
+"assists": "9696", <-
+"blocks": "982", <-
+"steals": "2063", <-
+"turnovers": "4592", <-
+"offReb": "1538", <-
+"defReb": "8213", <-
+"totReb": "9751", <-
 "fgm": "12903", Tiros de campo anotados
 "fga": "25604", Tiros de campo intentados
 "tpm": "1979", Triples anotados
 "tpa": "5738", Triples intentados
 "ftm": "7582", Tiros libres anotados
 "fta": "10337", Tiros libres intentados
-"pFouls": "2395", Faltas hechas
-"points": "35367",
-"gamesPlayed": "1310",
-"gamesStarted": "1309",
-"plusMinus": "7136",
-"min": "50053",
-"dd2": "507", Double Doubles
-"td3": "99" Triple Doubles
+"pFouls": "2395", Faltas hechas <-
+"points": "35367", <-
+"gamesPlayed": "1310", <-
+"gamesStarted": "1309", <-
+"plusMinus": "7136", <-
+"min": "50053", <-
+"dd2": "507", Double Doubles <-
+"td3": "99" Triple Doubles <-
 },
 
 

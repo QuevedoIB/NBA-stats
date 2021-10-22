@@ -43,5 +43,22 @@
     "F-G": "Forward / shooting guard",
     "C-F": "Power forward",
     "C": "Center"
+  },
+  "stats": {
+    "points": "Points",
+    "assists": "Assists",
+    "blocks": "Blocks",
+    "steals": "Steals",
+    "rebounds": "Rebounds",
+    "3pts": "Three points",
+    "2pts": "Field shots",
+    "1pts": "Free throws",
+    "fouls": "Fouls",
+    "turnovers": "Turnovers",
+    "games": "Games",
+    "minutes": "Minutes",
+    "doubles": "Double-double",
+    "triples": "Triple-double",
+    "plusMinus": "Plus minus"
   }
 }

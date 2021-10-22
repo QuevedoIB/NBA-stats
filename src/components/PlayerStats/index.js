@@ -1,112 +1,145 @@
 import { useMemo } from "react";
-import { useQuery } from "react-query";
+import { useTranslation } from "react-i18next";
+import distinctColors from "distinct-colors";
 
 import RadarChart from "components/common/RadarChart";
+import BarChart from "components/common/BarChart";
 
-import NbaService from "services/NbaService";
-import { HOUR_MILLISECONDS } from "constants.js";
+import usePlayerStats from "hooks/usePlayerStats";
 
 import styles from "./PlayerStats.module.css";
 
-const PlayerStats = ({ playerA, playerB, season }) => {
-  const { isLoading, data } = useQuery(
-    `fetch-${playerA?.personId}-profile`,
-    async () => {
-      if (!playerA?.personId) return;
-      const { stats } = await NbaService.fetchPlayerStats(playerA?.personId);
+const PlayerStats = ({ players, season }) => {
+  const { t } = useTranslation();
+  const {
+    isLoading,
+    generateData,
+    generateDomain,
+    labelKey,
+    queries,
+    getStats,
+  } = usePlayerStats({
+    season,
+    players,
+  });
 
-      return stats;
-    },
-    {
-      staleTime: HOUR_MILLISECONDS,
-    }
+  const playersPalette = useMemo(() => distinctColors({ count: 2 }), []); //2 players is the max amount, to make palette dynamically use players array
+
+  const labels = useMemo(
+    () => ({
+      shootPercent: {
+        tpp: t("stats.3pts", { ending: "%" }),
+        fgp: t("stats.2pts", { ending: "%" }),
+        ftp: t("stats.1pts", { ending: "%" }),
+      },
+      statsPerMinute: {
+        ppg: t("stats.points"),
+        rpg: t("stats.rebounds"),
+        apg: t("stats.assists"),
+        bpg: t("stats.blocks"),
+        spg: t("stats.steals"),
+      },
+      overall: {
+        assists: t("stats.assists"),
+        blocks: t("stats.blocks"),
+        steals: t("stats.steals"),
+        turnovers: t("stats.turnovers"),
+        offReb: t("stats.rebounds", { ending: "Ofensivos" }),
+        defReb: t("stats.rebounds", { ending: "Defensivos" }),
+        totReb: t("stats.rebounds", { ending: "Totales" }),
+        pFouls: t("stats.fouls"),
+        points: t("stats.points"),
+        gamesPlayed: t("stats.games", { ending: "Totales" }),
+        gamesStarted: t("stats.games", { ending: "Titular" }),
+        plusMinus: t("stats.plusMinus"),
+        min: t("stats.minutes"),
+        dd2: t("stats.doubles"),
+        td3: t("stats.triples"),
+      },
+    }),
+    [t]
   );
 
-  const { data: selectedSuggestionStats } = useQuery(
-    `fetch-${playerB?.personId}-profile`,
-    async () => {
-      if (!playerB) return;
-      const { stats } = await NbaService.fetchPlayerStats(playerB?.personId);
+  const stats = useMemo(() => {
+    if (isLoading || !players?.length) return;
+    const shoots = generateDomain({
+      values: generateData(labels.shootPercent),
+      roundValue: 100,
+    });
 
-      return stats;
-    },
-    {
-      staleTime: HOUR_MILLISECONDS,
-    }
-  );
+    const overallMinutesData = generateData(labels.statsPerMinute);
 
-  const chartsData = useMemo(() => {
-    if (isLoading || !data) return;
-    console.log(data, "DATA");
-    const shootPercentLabels = {
-      tpp: "3pts",
-      ftp: "2pts",
-      fgp: "1pts",
-    };
-    const overallLabels = {
-      ppg: "Puntos",
-      rpg: "Rebotes",
-      apg: "Asistencias",
-      bpg: "Tapones",
-      spg: "Robos",
-    };
+    const parsedToMinutesValues = overallMinutesData?.map(
+      ({ [labelKey]: subject, ...rest }) => ({
+        [labelKey]: subject,
+        ...Object.entries(rest).reduce((acc, [key, value]) => {
+          const playerQuery = queries.find(
+            (query) => query.data.player.personId === key
+          );
+          acc[key] = (value / getStats(playerQuery.data.stats).mpg).toFixed(2);
+          return acc;
+        }, {}),
+      })
+    );
 
-    const getStats = (apiData) =>
-      apiData?.[season] ||
-      apiData.regularSeason.season.find((e) => e.seasonYear === +season)?.total;
+    const overallMinutes = generateDomain({
+      values: parsedToMinutesValues,
+    });
 
-    const playerAstats = getStats(data);
-    const playerBstats =
-      selectedSuggestionStats && getStats(selectedSuggestionStats);
+    const overall = generateDomain({
+      values: generateData(labels.overall),
+      roundValue: 100,
+    });
 
-    const generateData = (labels) =>
-      Object.entries(labels).map(([key, subject]) => ({
-        subject,
-        playerA: +playerAstats[key],
-        playerB: playerBstats ? +playerBstats?.[key] : 0,
-      }));
+    return { shoots, overallMinutes, overall };
+  }, [
+    generateData,
+    generateDomain,
+    getStats,
+    isLoading,
+    labelKey,
+    labels.overall,
+    labels.shootPercent,
+    labels.statsPerMinute,
+    players?.length,
+    queries,
+  ]);
 
-    const generateDomain = (values, percent) => {
-      const amounts = values.flatMap((e) =>
-        e.playerB ? [e.playerA, e.playerB] : [e.playerA]
-      );
-      const max = Math.max(...amounts);
-      const roundValue = percent ? 100 : 1;
-      return [[0, Math.ceil(max / roundValue) * roundValue], values];
-    };
+  if (!stats) return null;
 
-    const overall = generateData(overallLabels).map((e) => ({
-      ...e,
-      playerA: (e.playerA / playerAstats.mpg).toFixed(2),
-      playerB: playerBstats
-        ? (e.playerB / playerBstats.mpg).toFixed(2)
-        : e.playerB,
-    }));
-
-    console.log(overall, "OVERALL");
-
-    return {
-      shootPercentData: generateDomain(generateData(shootPercentLabels), true),
-      overallData: generateDomain(overall),
-    };
-  }, [data, isLoading, season, selectedSuggestionStats]);
-
-  console.log(chartsData, selectedSuggestionStats);
-
-  if (!chartsData) return null;
+  const {
+    shoots: [shootDomain, shootData],
+    overallMinutes: [overallMinutesDomain, overallMinutesData],
+    overall: [overallDomain, overallData],
+  } = stats;
 
   return (
     <section className={styles.chartsContainer}>
-      {Object.entries(chartsData).map(([key, [domain, data]]) => (
-        <div className={styles.chart} key={key}>
-          <RadarChart
-            data={data}
-            domain={domain}
-            playerA={playerA}
-            playerB={playerB}
-          />
-        </div>
-      ))}
+      <div className={styles.chart}>
+        <RadarChart
+          domain={shootDomain}
+          data={shootData}
+          players={players}
+          labelKey={labelKey}
+          palette={playersPalette}
+        />
+      </div>
+      <div className={styles.chart}>
+        <RadarChart
+          domain={overallMinutesDomain}
+          data={overallMinutesData}
+          players={players}
+          labelKey={labelKey}
+          palette={playersPalette}
+        />
+      </div>
+      <BarChart
+        domain={overallDomain}
+        data={overallData}
+        players={players}
+        labelKey={labelKey}
+        palette={playersPalette}
+      />
     </section>
   );
 };

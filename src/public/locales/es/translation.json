@@ -43,5 +43,22 @@
     "F-G": "Alero / escolta",
     "C-F": "Ala-pívot",
     "C": "Pívot"
+  },
+  "stats": {
+    "points": "Puntos",
+    "assists": "Asistencias",
+    "blocks": "Tapones",
+    "steals": "Robos",
+    "rebounds": "Rebotes",
+    "3pts": "Triples {{ending}}",
+    "2pts": "Tiros de campo {{ending}}",
+    "1pts": "Tiros libres {{ending}}",
+    "fouls": "Faltas",
+    "turnovers": "Pérdidas",
+    "games": "Partidos",
+    "minutes": "Minutos",
+    "doubles": "Dobles-dobles",
+    "triples": "Triple-dobles",
+    "plusMinus": "Plus minus"
   }
 }

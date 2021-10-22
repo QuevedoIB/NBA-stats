@@ -8,39 +8,27 @@ import {
   Tooltip,
 } from "recharts";
 
-const RadarChart = ({
-  data,
-  domain,
-  dataKey = "subject",
-  playerA,
-  playerB,
-}) => {
+const RadarChart = ({ data, domain, labelKey, players, palette }) => {
   return (
     <ResponsiveContainer width="100%" height="100%">
       <RadarChartComponent cx="50%" cy="50%" outerRadius="80%" data={data}>
         <Tooltip />
         <PolarGrid />
         <PolarAngleAxis
-          dataKey={dataKey}
+          dataKey={labelKey}
           // tick={{ fill: "red", fontSize: 16 }}
         />
         <PolarRadiusAxis domain={domain} />
-        <Radar
-          name={playerA.temporaryDisplayName}
-          dataKey="playerA"
-          stroke="#8884d8"
-          fill="#8884d8"
-          fillOpacity={0.6}
-        />
-        {playerB && (
+        {players.map((player, i) => (
           <Radar
-            name={playerB.temporaryDisplayName}
-            dataKey="playerB"
-            stroke="#663"
-            fill="#663"
+            key={player.personId}
+            name={player.temporaryDisplayName}
+            dataKey={player.personId}
+            stroke={palette[i]}
+            fill={palette[i]}
             fillOpacity={0.6}
           />
-        )}
+        ))}
       </RadarChartComponent>
     </ResponsiveContainer>
   );
