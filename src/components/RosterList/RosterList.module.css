@@ -3,6 +3,10 @@
   width: 100%;
 }
 
+.rosterTable {
+  width: 100%;
+}
+
 .container .rosterTable th div,
 .container .rosterTable td div {
   display: flex;
