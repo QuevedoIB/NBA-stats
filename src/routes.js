@@ -23,6 +23,6 @@ export const generalRoutes = {
   },
   gameDetail: {
     component: GameDetail,
-    path: "/game-detail/:gameId",
+    path: "/game-detail/:date/:gameId",
   },
 };

@@ -5,8 +5,11 @@ import { formatDate } from "helpers/formatDate";
 
 import styles from "./GameCard.module.css";
 
-const GameCard = ({ teams, game: { hTeam, vTeam, startTimeUTC, gameId } }) => (
-  <Link to={`/game-detail/${gameId}`}>
+const GameCard = ({
+  teams,
+  game: { hTeam, vTeam, startTimeUTC, gameId, homeStartDate },
+}) => (
+  <Link to={`/game-detail/${homeStartDate}/${gameId}`}>
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <p>{teams[hTeam.teamId]?.fullName}</p>
