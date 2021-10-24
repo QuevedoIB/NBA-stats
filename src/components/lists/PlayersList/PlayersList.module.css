@@ -1,7 +1,7 @@
 .container {
   column-gap: 4rem;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(20vw, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
   margin-top: 2rem;
   max-width: 100%;
   row-gap: 4rem;
