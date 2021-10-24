@@ -16,7 +16,7 @@ const TeamDetail = () => {
   const {
     filteredTeams: [teamData],
     teams,
-  } = useTeams({ filter: { key: "teamId", value: teamId } });
+  } = useTeams({ key: "teamId", value: teamId });
   const { filteredPlayers } = usePlayers({ key: "teamId", value: teamId });
 
   const { data: calendar, isLoading: isLoadingCalendar } = useQuery(

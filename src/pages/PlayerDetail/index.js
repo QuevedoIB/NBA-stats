@@ -35,10 +35,8 @@ const PlayerDetail = () => {
   const {
     filteredTeams: [team1, team2],
   } = useTeams({
-    filter: {
-      key: "teamId",
-      value: [player?.teamId, selectedSuggestion?.teamId],
-    },
+    key: "teamId",
+    value: [player?.teamId, selectedSuggestion?.teamId],
   });
 
   useEffect(() => {

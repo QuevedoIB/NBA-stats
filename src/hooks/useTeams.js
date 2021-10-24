@@ -9,7 +9,7 @@ import { filterItems } from "helpers/filterItems";
 
 import { HOUR_MILLISECONDS } from "constants.js";
 
-export default function useTeams({ filter = { key: "", value: "" } } = {}) {
+export default function useTeams(filter = { key: "", value: "" }) {
   const teams = useSelector((state) => state.teams.teams);
   const dispatch = useDispatch();
   const { isLoading, error } = useQuery(

@@ -53,6 +53,14 @@ class NbaService {
   fetchDayGames(date) {
     return this.service.get(`/v1/${date}/scoreboard.json`);
   }
+
+  fetchGame({ date, gameId }) {
+    return this.service.get(`/v1/${date}/${gameId}_boxscore.json`);
+  }
+
+  fetchPeriodPlays({ date, gameId, period }) {
+    return this.service.get(`/v1/${date}/${gameId}_pbp_${period}.json`);
+  }
 }
 
 const service = new NbaService();
