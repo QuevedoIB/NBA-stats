@@ -28,3 +28,17 @@
 .infoContainer:not(:last-child) {
   margin-bottom: 1rem;
 }
+
+.team {
+  font-weight: bold;
+  font-size: 1.125rem;
+}
+
+.separator {
+  font-size: 1rem;
+  font-style: italic;
+}
+
+.date {
+  font-size: 0.75rem;
+}
