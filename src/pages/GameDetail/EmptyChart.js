@@ -9,7 +9,6 @@ import {
 
 const EmptyChart = ({ palette, teams, players }) => {
   if (!players.length) return null;
-  console.log(players, "PLAYERS");
 
   const renderLegend = () => {
     return (
