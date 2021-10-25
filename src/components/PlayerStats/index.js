@@ -116,7 +116,7 @@ const PlayerStats = ({ players, season }) => {
   return (
     <section className={styles.chartsContainer}>
       <div className={styles.chart}>
-        <h3>{t("stats.titles.percentChart")}</h3>
+        <h3 className={styles.chartTitle}>{t("stats.titles.percentChart")}</h3>
         <RadarChart
           domain={shootDomain}
           data={shootData}
@@ -126,7 +126,9 @@ const PlayerStats = ({ players, season }) => {
         />
       </div>
       <div className={styles.chart}>
-        <h3>{t("stats.titles.overallPerMinute")}</h3>
+        <h3 className={styles.chartTitle}>
+          {t("stats.titles.overallPerMinute")}
+        </h3>
         <RadarChart
           domain={overallMinutesDomain}
           data={overallMinutesData}
@@ -136,7 +138,7 @@ const PlayerStats = ({ players, season }) => {
         />
       </div>
       <div className={`${styles.chart} ${styles.barChart}`}>
-        <h3>{t("stats.titles.overall")}</h3>
+        <h3 className={styles.chartTitle}>{t("stats.titles.overall")}</h3>
         <BarChart
           domain={overallDomain}
           data={overallData}

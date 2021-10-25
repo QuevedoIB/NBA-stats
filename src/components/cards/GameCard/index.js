@@ -12,18 +12,18 @@ const GameCard = ({
   <Link to={`/game-detail/${homeStartDate}/${gameId}`}>
     <div className={styles.container}>
       <div className={styles.infoContainer}>
-        <p>{teams[hTeam.teamId]?.fullName}</p>
-        <p>vs</p>
-        <p>{teams[vTeam.teamId]?.fullName}</p>
+        <p className={styles.team}>{teams[hTeam.teamId]?.fullName}</p>
+        <p className={styles.separator}>vs</p>
+        <p className={styles.team}>{teams[vTeam.teamId]?.fullName}</p>
       </div>
       {hTeam.score || vTeam.score ? (
         <div className={styles.infoContainer}>
-          <p>{hTeam.score}</p>
-          <p>-</p>
-          <p>{vTeam.score}</p>
+          <p className={styles.team}>{hTeam.score}</p>
+          <p className={styles.separator}>-</p>
+          <p className={styles.team}>{vTeam.score}</p>
         </div>
       ) : (
-        <p> {formatDate(startTimeUTC, i18n.language)}</p>
+        <p className={styles.date}>{formatDate(startTimeUTC, i18n.language)}</p>
       )}
     </div>
   </Link>
