@@ -13,17 +13,21 @@
   position: absolute;
   margin-top: 2rem;
   width: 8rem;
-  background-color: lightgray;
-  border-radius: 5px;
+  background-color: var(--white-50);
+  border-radius: 1rem;
   z-index: 10;
+  overflow: hidden;
+  box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.12);
 }
 
 .optionsContainer li {
   display: flex;
   align-items: center;
   padding: 0 1rem;
+  transition: all ease 0.25s;
 }
 
 .optionsContainer li:hover {
   background-color: red;
+  background-color: var(--white-100);
 }

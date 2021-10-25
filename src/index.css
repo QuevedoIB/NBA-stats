@@ -113,6 +113,8 @@ body {
   --rgb-bg: 247, 249, 247;
   --rgb-border: 33, 128, 149;
   --rgb-font: 18, 18, 18;
+  --white-50: #ffffff;
+  --white-100: #f5f5f5;
   background: var(--bg-color);
   color: var(--font-color);
 }
@@ -124,4 +126,6 @@ body.theme-dark {
   --rgb-bg: 38, 36, 46;
   --rgb-border: 201, 227, 233;
   --rgb-font: 102, 102, 102;
+  --white-50: #000000;
+  --white-100: #121212;
 }
