@@ -1,4 +1,6 @@
-import React, { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useMemo } from "react";
+import { useTranslation } from "react-i18next";
+
 import SearchBar from "components/common/SearchBar";
 import PlayersList from "components/lists/PlayersList";
 import Button from "components/common/Button";
@@ -7,15 +9,14 @@ import Select from "components/common/Select";
 
 import useSearchPlayer from "hooks/useSearchPlayer";
 import useTeams from "hooks/useTeams";
+import useToggle from "hooks/useToggle";
 
 import styles from "./Players.module.css";
 
 const Players = () => {
-  const [showModal, setShowModal] = useState(false);
-  const [selectedPosition, setSelectedPosition] = useState("");
-  const [selectedTeam, setSelectedTeam] = useState("");
-  const [currentPlayers, setCurrentPlayers] = useState([]);
-
+  const [t] = useTranslation();
+  const { teams } = useTeams();
+  const { toggled, handleToggle } = useToggle();
   const {
     isLoading,
     players,
@@ -26,17 +27,20 @@ const Players = () => {
     searchKey,
   } = useSearchPlayer();
 
-  const { teams } = useTeams();
+  const [selectedPosition, setSelectedPosition] = useState("");
+  const [selectedTeam, setSelectedTeam] = useState("");
 
-  useEffect(() => {
-    if (!isLoading && players) {
-      setCurrentPlayers(players);
-    }
-  }, [players, isLoading]);
+  const filteredPlayers = useMemo(() => {
+    return players?.filter(
+      (player) =>
+        (!selectedPosition || player.pos === selectedPosition) &&
+        (!selectedTeam || player.teamId === selectedTeam)
+    );
+  }, [players, selectedPosition, selectedTeam]);
 
   const teamOptions = [
     {
-      name: "Filter by teams",
+      name: t("common.team"),
       value: "",
     },
     ...teams.map((team) => ({
@@ -45,36 +49,14 @@ const Players = () => {
     })),
   ];
 
+  const positions = t("basketballPositions", { returnObjects: true });
+
   const positionOptions = [
     {
-      name: "Filter by positions",
+      name: t("common.position"),
       value: "",
     },
-    {
-      name: "Point guard / Shooting guard",
-      value: "G",
-    },
-    {
-      name: "Forward",
-      value: "F",
-    },
-    { name: "Power forward", value: "F-C" },
-    {
-      name: "Shooting guard / Forward",
-      value: "G-F",
-    },
-    {
-      name: "Forward / shooting guard",
-      value: "F-G",
-    },
-    {
-      name: "Power forward",
-      value: "C-F",
-    },
-    {
-      name: "Center",
-      value: "C",
-    },
+    ...Object.entries(positions).map(([value, name]) => ({ name, value })),
   ];
 
   const handlePositionChange = useCallback(({ target: { value } }) => {
@@ -85,49 +67,10 @@ const Players = () => {
     setSelectedTeam(value);
   }, []);
 
-  const resetFilter = () => {
+  const resetFilters = useCallback(() => {
     setSelectedTeam("");
     setSelectedPosition("");
-  };
-
-  const handleFilters = () => {
-    if (!selectedPosition && !selectedTeam) {
-      setCurrentPlayers(players);
-      resetFilter();
-      setShowModal(false);
-      return;
-    }
-
-    let tempPlayers = [...players];
-
-    if (selectedPosition) {
-      tempPlayers = tempPlayers.filter(
-        (player) => player.pos === selectedPosition
-      );
-    }
-
-    if (selectedTeam) {
-      tempPlayers = tempPlayers.filter(
-        (player) => player.teamId === selectedTeam
-      );
-    }
-
-    if (selectedPosition && selectedTeam) {
-      tempPlayers = tempPlayers.filter(
-        (player) =>
-          player.teamId === selectedTeam && player.pos === selectedPosition
-      );
-    }
-
-    setCurrentPlayers(tempPlayers);
-    resetFilter();
-    setShowModal(false);
-  };
-
-  const closeModal = () => {
-    resetFilter();
-    setShowModal(false);
-  };
+  }, []);
 
   return (
     <section>
@@ -139,28 +82,25 @@ const Players = () => {
           searchValue={searchValue}
           suggestions={suggestions}
         />
-        <Button onClick={() => setShowModal(true)}>Show Filter</Button>
-        <Button onClick={() => setCurrentPlayers(players)}>Clear Filter</Button>
+        <Button onClick={handleToggle}>{t("filters.title")}</Button>
+        <Button onClick={resetFilters}>{t("filters.clear")}</Button>
       </div>
-      <PlayersList list={currentPlayers} isLoading={isLoading} />
+      <PlayersList list={filteredPlayers} isLoading={isLoading} />
       <Modal
         content={{
-          title: "Filter",
-          message: "Select filters you want to use",
+          title: t("filters.title"),
         }}
-        visible={showModal}
-        onCancelClick={closeModal}
-        onActionClick={handleFilters}
+        visible={toggled}
+        onCancelClick={handleToggle}
+        onActionClick={handleToggle}
       >
         <div className={styles.listModalFilters}>
           <Select
-            id="teams"
             options={teamOptions}
             value={selectedTeam}
             onChange={handleTeamChange}
           />
           <Select
-            id="positions"
             options={positionOptions}
             value={selectedPosition}
             onChange={handlePositionChange}
@@ -172,5 +112,3 @@ const Players = () => {
 };
 
 export default Players;
-
-// IMAGES https://ak-static.cms.nba.com/wp-content/uploads/headshots/nba/latest/260x190/{PLAYERID}.png

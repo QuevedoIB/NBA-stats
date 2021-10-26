@@ -200,7 +200,9 @@ const GameDetail = () => {
     return { parsedPlays, playerTicks, ticks: playersEntries.map((_, i) => i) };
   }, [data, players, plays]);
 
-  if (isLoading) return <Shimmer height="80vh" />;
+  const isLoadingPlays = plays.some((result) => result.isLoading);
+
+  if (isLoading || isLoadingPlays) return <Shimmer height="80vh" />;
 
   if (!data.stats || !parsedPlays.length) {
     return (

@@ -5,7 +5,7 @@ const Select = ({ options, selected, ...props }) => {
     <select className={styles.containerSelect} {...props}>
       {options.map((option, i) => (
         <option key={`${option.value}${i}`} {...option}>
-          {option.name || option.fullName}
+          {option.name}
         </option>
       ))}
     </select>

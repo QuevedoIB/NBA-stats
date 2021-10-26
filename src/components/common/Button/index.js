@@ -1,15 +1,15 @@
-import React from 'react'
-import Proptypes from 'prop-types'
+import React from "react";
+import Proptypes from "prop-types";
 
-import styles from './Button.module.css'
+import styles from "./Button.module.css";
 
 const Button = ({
-  role = 'primary',
+  role = "primary",
   onClick,
-  type = 'button',
+  type = "button",
   text,
-  classes = '',
-  children
+  classes = "",
+  children,
 }) => {
   return (
     <button
@@ -19,16 +19,16 @@ const Button = ({
     >
       {children || text}
     </button>
-  )
-}
+  );
+};
 
 Button.propTypes = {
-  role: Proptypes.oneOf(['primary', 'secondary']).isRequired,
+  role: Proptypes.oneOf(["primary", "secondary"]),
   onClick: Proptypes.func.isRequired,
-  type: Proptypes.oneOf(['button, submit']).isRequired,
+  type: Proptypes.oneOf(["button, submit"]),
   text: Proptypes.string,
   classes: Proptypes.string,
-  children: Proptypes.elementType
-}
+  children: Proptypes.elementType,
+};
 
-export default Button
+export default Button;

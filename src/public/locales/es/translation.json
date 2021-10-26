@@ -24,6 +24,10 @@
     "team": "Equipo",
     "all": "Todas"
   },
+  "filters": {
+    "title": "Filtros",
+    "clear": "Borrar filtros"
+  },
   "standings": {
     "title": "Clasificación",
     "win": "Victorias",

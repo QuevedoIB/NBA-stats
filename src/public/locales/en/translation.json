@@ -24,6 +24,10 @@
     "team": "Team",
     "all": "All"
   },
+  "filters": {
+    "title": "Filters",
+    "clear": "Clear filters"
+  },
   "standings": {
     "title": "Standings",
     "win": "Wins",

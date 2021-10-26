@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
-import ReactDOM from 'react-dom'
-import { useTranslation } from 'react-i18next'
-import Proptypes from 'prop-types'
+import React, { useEffect } from "react";
+import ReactDOM from "react-dom";
+import { useTranslation } from "react-i18next";
+import Proptypes from "prop-types";
 
-import Button from 'components/common/Button'
+import Button from "components/common/Button";
 
-import styles from './Modal.module.css'
+import styles from "./Modal.module.css";
 
 const Modal = ({
   content,
@@ -14,28 +14,25 @@ const Modal = ({
   onActionClick,
   actionLabel,
   cancelLabel,
-  onCancelClick
+  onCancelClick,
 }) => {
-  const [t] = useTranslation()
+  const [t] = useTranslation();
 
   useEffect(() => {
     if (visible) {
-      document.querySelector('body').classList.add('disabled-scroll')
+      document.querySelector("body").classList.add("disabled-scroll");
     } else {
-      document.querySelector('body').classList.remove('disabled-scroll')
+      document.querySelector("body").classList.remove("disabled-scroll");
     }
-  }, [visible])
+  }, [visible]);
 
-  if (!content || !visible) return null
+  if (!content || !visible) return null;
 
   return ReactDOM.createPortal(
     <div className={`${styles.overlay} centered-container`}>
       <section className={styles.section}>
         <header className={styles.header}>
-          <button
-            onClick={onCancelClick}
-            className={styles.closeButton}
-          >
+          <button onClick={onCancelClick} className={styles.closeButton}>
             x
           </button>
         </header>
@@ -45,14 +42,14 @@ const Modal = ({
         <footer className={styles.footer}>
           {onCancelClick && (
             <Button
-              text={cancelLabel || t('actions.close')}
+              text={cancelLabel || t("actions.close")}
               onClick={onCancelClick}
-              role='secondary'
+              role="secondary"
             />
           )}
           {onActionClick && (
             <Button
-              text={actionLabel || t('actions.accept')}
+              text={actionLabel || t("actions.accept")}
               onClick={onActionClick}
             />
           )}
@@ -60,20 +57,20 @@ const Modal = ({
       </section>
     </div>,
     document.body
-  )
-}
+  );
+};
 
 Modal.propTypes = {
   content: Proptypes.shape({
     title: Proptypes.string,
-    message: Proptypes.string
+    message: Proptypes.string,
   }),
   visible: Proptypes.any,
-  children: Proptypes.elementType,
+  children: Proptypes.node,
   onActionClick: Proptypes.func,
   actionLabel: Proptypes.string,
   cancelLabel: Proptypes.string,
-  onCancelClick: Proptypes.func
-}
+  onCancelClick: Proptypes.func,
+};
 
-export default Modal
+export default Modal;
