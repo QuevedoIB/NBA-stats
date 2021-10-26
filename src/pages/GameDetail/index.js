@@ -1,9 +1,11 @@
-import { useMemo } from "react";
+import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery, useQueries } from "react-query";
 import distinctColors from "distinct-colors";
 
 import EmptyChart from "./EmptyChart";
+import CustomTooltip from "./CustomTooltip";
+import CustomLegend from "./CustomLegend";
 import Shimmer from "components/common/Shimmer";
 
 import useTeams from "hooks/useTeams";
@@ -18,7 +20,6 @@ import {
   NBA_PERIOD_SECONDS,
   NBA_OVERTIME_SECONDS,
   NBA_PERIOD_AMOUNT,
-  PLAY_BY_PLAY_EVENTS,
 } from "constants.js";
 
 import {
@@ -26,31 +27,23 @@ import {
   Area,
   XAxis,
   YAxis,
-  //CartesianGrid,
   Tooltip,
-  //Legend,
+  Legend,
   Scatter,
   Cell,
   ResponsiveContainer,
 } from "recharts";
 
-function CustomTooltip({ payload, label, active }) {
-  if (active && payload?.[0]?.payload.hasEvent) {
-    //console.log(payload, label);
-    return (
-      <div className="custom-tooltip">
-        <p className="label">{`${label} : ${payload[0].value}`}</p>
-        <p className="desc">Anything you want can be displayed here.</p>
-      </div>
-    );
-  }
-
-  return null;
-}
-
 const GameDetail = () => {
   const { gameId, date } = useParams();
-  const teamsPalette = useMemo(() => distinctColors({ count: 2 }), []); //2 players is the max amount, to make palette dynamically use players array
+  const [tooltipData, setTooltipData] = useState();
+
+  const updateTooltip = useCallback(
+    ({ payload }, index) => {
+      setTooltipData(index === tooltipData?.index ? null : { payload, index });
+    },
+    [tooltipData]
+  );
 
   const { isLoading, error, data } = useQuery(
     `fetch-${date}-${gameId}`,
@@ -104,6 +97,11 @@ const GameDetail = () => {
     ],
   });
 
+  const teamsPalette = useMemo(
+    () => distinctColors({ count: teams?.length }),
+    [teams]
+  );
+
   const { filteredPlayers: players } = usePlayers({
     key: "teamId",
     value: data && [
@@ -133,9 +131,18 @@ const GameDetail = () => {
   );
 
   const { parsedPlays, playerTicks, ticks } = useMemo(() => {
-    if (!plays.length) return {};
+    if (!plays.length || !data) return {};
 
-    const sortedPlayers = players.slice().sort((a, b) => a.teamId - b.teamId);
+    const isAscendingOrder =
+      data?.basicGameData.hTeam.teamId.localeCompare(
+        data?.basicGameData.vTeam.teamId
+      ) > 0;
+
+    const sortedPlayers = players
+      .slice()
+      .sort((a, b) =>
+        isAscendingOrder ? a.teamId - b.teamId : b.teamId - a.teamId
+      );
 
     const playerNames = sortedPlayers.reduce((acc, player, index) => {
       acc[player.personId] = {
@@ -148,6 +155,7 @@ const GameDetail = () => {
     const validateEventImpact = ({ eventMsgType, hasScoreChange }) => {
       if (+eventMsgType === 3 && hasScoreChange) return true;
       const positiveEvents = [1, 4, 10];
+      //Review unnecessary events ex: substitution
       return positiveEvents.includes(+eventMsgType);
     };
 
@@ -169,12 +177,12 @@ const GameDetail = () => {
         acc.push({
           time: baseTime - parseMins(play.clock),
           name,
-          event: PLAY_BY_PLAY_EVENTS[play.eventMsgType],
+          event: play.eventMsgType,
           score: play.hTeamScore - play.vTeamScore,
           hScore: play.hTeamScore,
           vScore: play.vTeamScore,
           x: time,
-          y: index || 0,
+          y: index || null,
           hasEvent: index,
           positive: index && validateEventImpact(play),
         });
@@ -190,7 +198,7 @@ const GameDetail = () => {
     const playerTicks = Object.fromEntries(playersEntries);
 
     return { parsedPlays, playerTicks, ticks: playersEntries.map((_, i) => i) };
-  }, [players, plays]);
+  }, [data, players, plays]);
 
   if (isLoading) return <Shimmer height="80vh" />;
 
@@ -215,10 +223,8 @@ const GameDetail = () => {
 
   const off = gradientOffset();
 
-  const colors = distinctColors({ count: 10 }); //ADJUST
-
   return (
-    <section style={{ height: "100vh", width: "100vh" }}>
+    <section style={{ height: "90vh", width: "90vw" }}>
       <ResponsiveContainer>
         <ComposedChart
           width={600}
@@ -226,7 +232,6 @@ const GameDetail = () => {
           margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
           data={parsedPlays}
         >
-          {/* <CartesianGrid strokeDasharray="3 3" /> */}
           <XAxis
             dataKey="time"
             type="number"
@@ -252,7 +257,25 @@ const GameDetail = () => {
             ticks={ticks}
             width={200}
           />
-          <Tooltip content={<CustomTooltip />} />
+          <Tooltip
+            content={
+              <CustomTooltip
+                customContent={tooltipData}
+                gameData={data}
+                teamsPalette={teamsPalette}
+              />
+            }
+          />
+          <Legend
+            verticalAlign="top"
+            content={
+              <CustomLegend
+                game={data?.basicGameData}
+                teams={teams}
+                teamsPalette={teamsPalette}
+              />
+            }
+          />
           <defs>
             <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
               <stop offset={off} stopColor={teamsPalette[0]} stopOpacity={1} />
@@ -266,18 +289,22 @@ const GameDetail = () => {
             stroke="url(#splitColor)"
             fill="url(#splitColor)"
           />
-          <Scatter yAxisId="left" dataKey="event" height={1000}>
+          <Scatter
+            yAxisId="left"
+            dataKey="event"
+            height={1000}
+            onMouseLeave={updateTooltip}
+            onMouseEnter={updateTooltip}
+          >
             {parsedPlays.map((entry, index) => {
+              const hoveredStatus = index === tooltipData?.index;
+              const dotColor = entry.positive ? "#b6ed51" : "#d6483e";
               return (
                 <Cell
                   key={`cell-${index}`}
-                  fill={
-                    entry.hasEvent
-                      ? entry.positive
-                        ? "#00802b"
-                        : "#800000"
-                      : "#00000000"
-                  }
+                  fill={dotColor}
+                  stroke={hoveredStatus ? dotColor : ""}
+                  strokeWidth={8}
                 />
               );
             })}

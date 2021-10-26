@@ -41,8 +41,8 @@ const EmptyChart = ({ palette, teams, players }) => {
   };
 
   const formatQuarters = (val) => {
-    const quarter = val + 1;
-    return quarter <= 4 ? quarter : "";
+    if (!val) return "";
+    return val <= 4 ? `Q${val}` : "";
   };
 
   return (
@@ -60,6 +60,7 @@ const EmptyChart = ({ palette, teams, players }) => {
             interval={0}
             type="number"
             tickFormatter={formatQuarters}
+            padding={{ right: 20 }}
           />
           <YAxis
             dataKey="temporaryDisplayName"
@@ -71,22 +72,6 @@ const EmptyChart = ({ palette, teams, players }) => {
         </BarChart>
       </ResponsiveContainer>
     </div>
-
-    // <BarChart
-    //   //   width={window.innerWidth * 0.8}
-    //   //   height={window.innerHeight * 0.8}
-    //   data={players}
-    // >
-    //   <CartesianGrid strokeDasharray="3 3" />
-    //   <XAxis
-    //     domain={[1, 4]}
-    //     interval={0}
-    //     type="number"
-    //     tickFormatter={formatQuarters}
-    //   />
-    //   <YAxis dataKey="temporaryDisplayName" type="category" width={180} />
-    //   <Legend verticalAlign="top" align="center" content={renderLegend} />
-    // </BarChart>
   );
 };
 
