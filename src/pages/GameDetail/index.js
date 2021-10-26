@@ -2,6 +2,17 @@ import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery, useQueries } from "react-query";
 import distinctColors from "distinct-colors";
+import {
+  ComposedChart,
+  Area,
+  XAxis,
+  YAxis,
+  Tooltip,
+  Legend,
+  Scatter,
+  Cell,
+  ResponsiveContainer,
+} from "recharts";
 
 import EmptyChart from "./EmptyChart";
 import CustomTooltip from "./CustomTooltip";
@@ -22,17 +33,7 @@ import {
   NBA_PERIOD_AMOUNT,
 } from "constants.js";
 
-import {
-  ComposedChart,
-  Area,
-  XAxis,
-  YAxis,
-  Tooltip,
-  Legend,
-  Scatter,
-  Cell,
-  ResponsiveContainer,
-} from "recharts";
+import styles from "./GameDetail.module.css";
 
 const GameDetail = () => {
   const { gameId, date } = useParams();
@@ -224,95 +225,107 @@ const GameDetail = () => {
   };
 
   const off = gradientOffset();
+  const isMobile = window.innerWidth <= 600;
 
   return (
-    <section style={{ height: "90vh", width: "90vw" }}>
-      <ResponsiveContainer>
-        <ComposedChart
-          width={600}
-          height={400}
-          margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-          data={parsedPlays}
-        >
-          <XAxis
-            dataKey="time"
-            type="number"
-            domain={[0, timerTicks[timerTicks.length - 1]]}
-            ticks={timerTicks}
-            interval={0}
-            tickFormatter={(_, i) => `Q${i + 1}`}
-          />
-          <YAxis
-            dataKey="score"
-            type="number"
-            yAxisId="right"
-            orientation="right"
-            width={50}
-            domain={scoreDomain}
-          />
-          <YAxis
-            yAxisId="left"
-            dataKey="y"
-            type="number"
-            tickFormatter={(val) => playerTicks[val] || ""}
-            interval={0}
-            ticks={ticks}
-            width={200}
-          />
-          <Tooltip
-            content={
-              <CustomTooltip
-                customContent={tooltipData}
-                gameData={data}
-                teamsPalette={teamsPalette}
-              />
-            }
-          />
-          <Legend
-            verticalAlign="top"
-            content={
-              <CustomLegend
-                game={data?.basicGameData}
-                teams={teams}
-                teamsPalette={teamsPalette}
-              />
-            }
-          />
-          <defs>
-            <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
-              <stop offset={off} stopColor={teamsPalette[0]} stopOpacity={1} />
-              <stop offset={off} stopColor={teamsPalette[1]} stopOpacity={1} />
-            </linearGradient>
-          </defs>
-          <Area
-            yAxisId="right"
-            type="monotone"
-            dataKey="score"
-            stroke="url(#splitColor)"
-            fill="url(#splitColor)"
-          />
-          <Scatter
-            yAxisId="left"
-            dataKey="event"
-            height={1000}
-            onMouseLeave={updateTooltip}
-            onMouseEnter={updateTooltip}
+    <section>
+      <section className={styles.graphContainer}>
+        <ResponsiveContainer width={isMobile ? 800 : "100%"}>
+          <ComposedChart
+            width={600}
+            height={400}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            data={parsedPlays}
           >
-            {parsedPlays.map((entry, index) => {
-              const hoveredStatus = index === tooltipData?.index;
-              const dotColor = entry.positive ? "#b6ed51" : "#d6483e";
-              return (
-                <Cell
-                  key={`cell-${index}`}
-                  fill={dotColor}
-                  stroke={hoveredStatus ? dotColor : ""}
-                  strokeWidth={8}
+            <XAxis
+              dataKey="time"
+              type="number"
+              domain={[0, timerTicks[timerTicks.length - 1]]}
+              ticks={timerTicks}
+              interval={0}
+              tickFormatter={(_, i) => `Q${i + 1}`}
+            />
+            <YAxis
+              dataKey="score"
+              type="number"
+              yAxisId="right"
+              orientation="right"
+              width={50}
+              domain={scoreDomain}
+              tickFormatter={(val) => Math.abs(+val)}
+            />
+            <YAxis
+              yAxisId="left"
+              dataKey="y"
+              type="number"
+              tickFormatter={(val) => playerTicks[val] || ""}
+              interval={0}
+              ticks={ticks}
+              width={200}
+            />
+            <Tooltip
+              content={
+                <CustomTooltip
+                  customContent={tooltipData}
+                  gameData={data}
+                  teamsPalette={teamsPalette}
                 />
-              );
-            })}
-          </Scatter>
-        </ComposedChart>
-      </ResponsiveContainer>
+              }
+            />
+            <Legend
+              verticalAlign="top"
+              content={
+                <CustomLegend
+                  game={data?.basicGameData}
+                  teams={teams}
+                  teamsPalette={teamsPalette}
+                />
+              }
+            />
+            <defs>
+              <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+                <stop
+                  offset={off}
+                  stopColor={teamsPalette[0]}
+                  stopOpacity={1}
+                />
+                <stop
+                  offset={off}
+                  stopColor={teamsPalette[1]}
+                  stopOpacity={1}
+                />
+              </linearGradient>
+            </defs>
+            <Area
+              yAxisId="right"
+              type="monotone"
+              dataKey="score"
+              stroke="url(#splitColor)"
+              fill="url(#splitColor)"
+            />
+            <Scatter
+              yAxisId="left"
+              dataKey="event"
+              height={1000}
+              onMouseLeave={updateTooltip}
+              onMouseEnter={updateTooltip}
+            >
+              {parsedPlays.map((entry, index) => {
+                const hoveredStatus = index === tooltipData?.index;
+                const dotColor = entry.positive ? "#b6ed51" : "#d6483e";
+                return (
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={dotColor}
+                    stroke={hoveredStatus ? dotColor : ""}
+                    strokeWidth={8}
+                  />
+                );
+              })}
+            </Scatter>
+          </ComposedChart>
+        </ResponsiveContainer>
+      </section>
     </section>
   );
 };

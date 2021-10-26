@@ -36,8 +36,10 @@ const Modal = ({
             x
           </button>
         </header>
-        <h1 className={styles.title}>{content.title}</h1>
-        <p className={styles.message}>{content.message}</p>
+        {content?.title && <h1 className={styles.title}>{content.title}</h1>}
+        {content?.message && (
+          <p className={styles.message}>{content.message}</p>
+        )}
         {children}
         <footer className={styles.footer}>
           {onCancelClick && (

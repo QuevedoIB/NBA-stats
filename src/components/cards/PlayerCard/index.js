@@ -26,7 +26,7 @@ const PlayerCard = ({ player }) => {
         <div>
           <p className={styles.title}>{player.temporaryDisplayName}</p>
           <p className={`${styles.subtitle} ${styles.centeredInfoContainer}`}>
-            {formatDate(player.dateOfBirthUTC, i18n.language)}
+            {formatDate(player.dateOfBirthUTC, i18n.language, false)}
             <CountryFlag player={player} />
           </p>
           {playerTeam && (
