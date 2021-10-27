@@ -117,35 +117,41 @@ const PlayerStats = ({ players, season }) => {
     <section className={styles.chartsContainer}>
       <div className={styles.chart}>
         <h3 className={styles.chartTitle}>{t("stats.titles.percentChart")}</h3>
-        <RadarChart
-          domain={shootDomain}
-          data={shootData}
-          players={players}
-          labelKey={labelKey}
-          palette={playersPalette}
-        />
+        <div>
+          <RadarChart
+            domain={shootDomain}
+            data={shootData}
+            players={players}
+            labelKey={labelKey}
+            palette={playersPalette}
+          />
+        </div>
       </div>
       <div className={styles.chart}>
         <h3 className={styles.chartTitle}>
           {t("stats.titles.overallPerMinute")}
         </h3>
-        <RadarChart
-          domain={overallMinutesDomain}
-          data={overallMinutesData}
-          players={players}
-          labelKey={labelKey}
-          palette={playersPalette}
-        />
+        <div>
+          <RadarChart
+            domain={overallMinutesDomain}
+            data={overallMinutesData}
+            players={players}
+            labelKey={labelKey}
+            palette={playersPalette}
+          />
+        </div>
       </div>
       <div className={`${styles.chart} ${styles.barChart}`}>
         <h3 className={styles.chartTitle}>{t("stats.titles.overall")}</h3>
-        <BarChart
-          domain={overallDomain}
-          data={overallData}
-          players={players}
-          labelKey={labelKey}
-          palette={playersPalette}
-        />
+        <div>
+          <BarChart
+            domain={overallDomain}
+            data={overallData}
+            players={players}
+            labelKey={labelKey}
+            palette={playersPalette}
+          />
+        </div>
       </div>
     </section>
   );

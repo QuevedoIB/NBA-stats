@@ -14,7 +14,7 @@
   margin-top: 2rem;
   width: 8rem;
   background-color: var(--white-50);
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
   z-index: 10;
   overflow: hidden;
   box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.12);

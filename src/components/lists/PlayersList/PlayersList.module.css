@@ -14,7 +14,7 @@
 }
 
 .playerShimmer {
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
   overflow: hidden;
   height: 11rem;
 }

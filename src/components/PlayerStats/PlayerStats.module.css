@@ -17,9 +17,21 @@
   justify-content: center;
   align-items: center;
   background: var(--white-50);
-  border-radius: 1rem;
+  border-radius: var(--border-radius);
   padding: 2rem 0;
   box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.12);
+}
+
+.chart > div {
+  height: 90%;
+  width: 100%;
+  overflow: auto;
+}
+
+@media only screen and (max-width: 600px) {
+  .chart div :global .recharts-responsive-container {
+    width: 100vh !important;
+  }
 }
 
 .chartTitle {

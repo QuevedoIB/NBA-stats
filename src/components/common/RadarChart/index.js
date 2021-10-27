@@ -16,10 +16,7 @@ const RadarChart = ({ data, domain, labelKey, players, palette }) => {
         <Tooltip />
         <Legend />
         <PolarGrid />
-        <PolarAngleAxis
-          dataKey={labelKey}
-          // tick={{ fill: "red", fontSize: 16 }}
-        />
+        <PolarAngleAxis dataKey={labelKey} />
         <PolarRadiusAxis domain={domain} />
         {players.map((player, i) => (
           <Radar

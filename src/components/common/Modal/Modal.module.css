@@ -1,61 +1,61 @@
 .overlay {
-    background-color: rgba(var(--rgb-font), 0.2);
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    width: 100vw;
-    z-index: 1000;
+  background-color: rgba(var(--rgb-font), 0.2);
+  height: 100vh;
+  position: absolute;
+  top: 0;
+  width: 100vw;
+  z-index: 1000;
 }
 
 .section {
-    background-color: var(--bg-color);
-    border-radius: 1rem;
-    display: flex;
-    flex-direction: column;
-    max-height: 60vh;
-    max-width: 80vw;
-    min-height: 40vh;
-    min-width: 50vw;
-    padding: 1rem 1.5rem;
+  background-color: var(--bg-color);
+  border-radius: var(--border-radius);
+  display: flex;
+  flex-direction: column;
+  max-height: 60vh;
+  max-width: 80vw;
+  min-height: 40vh;
+  min-width: 50vw;
+  padding: 1rem 1.5rem;
 }
 
 @media only screen and (min-width: 992px) {
-    .section {
-        max-height: 50vh;
-        max-width: 30vw;
-        min-height: 30vh;
-        min-width: 20vw;
-    }
+  .section {
+    max-height: 50vh;
+    max-width: 30vw;
+    min-height: 30vh;
+    min-width: 20vw;
+  }
 }
 
 .header {
-    display: flex;
-    justify-content: flex-end;
-    width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  width: 100%;
 }
 
 .footer {
-    align-items: flex-end;
-    display: flex;
-    flex: 1;
-    justify-content: space-evenly;
-    margin-bottom: 2rem;
-    width: 100%;
+  align-items: flex-end;
+  display: flex;
+  flex: 1;
+  justify-content: space-evenly;
+  margin-bottom: 2rem;
+  width: 100%;
 }
 
 .title {
-    margin-bottom: 2rem;
-    text-align: center;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .message {
-    margin-bottom: 2rem;
-    text-align: center;
+  margin-bottom: 2rem;
+  text-align: center;
 }
 
 .closeButton {
-    background-color: transparent;
-    border: none;
-    color: var(--font-color);
-    font-size: 1.5rem;
+  background-color: transparent;
+  border: none;
+  color: var(--font-color);
+  font-size: 1.5rem;
 }

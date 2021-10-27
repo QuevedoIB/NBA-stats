@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 import styles from "./GameDetail.module.css";
 
 export default function CustomLegend({ game, teams, teamsPalette }) {
@@ -9,9 +11,13 @@ export default function CustomLegend({ game, teams, teamsPalette }) {
   return (
     <div className={styles.legendContainer}>
       <div style={{ backgroundColor: teamsPalette[0] }} />
-      <p>{homeTeam}</p>
+      <Link to={`/team-detail/${game.hTeam.teamId}`}>
+        <p>{homeTeam}</p>
+      </Link>
       <div style={{ backgroundColor: teamsPalette[1] }} />
-      <p>{visitorTeam}</p>
+      <Link to={`/team-detail/${game.vTeam.teamId}`}>
+        <p>{visitorTeam}</p>
+      </Link>
     </div>
   );
 }

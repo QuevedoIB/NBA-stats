@@ -1,5 +1,5 @@
 .containerSelect {
-  border-radius: 5px;
+  border-radius: var(--border-radius);
   padding: 0.2rem;
 }
 .containerSelect:focus {

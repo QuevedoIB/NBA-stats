@@ -131,15 +131,20 @@ const GameDetail = () => {
       })
   );
 
+  const isLoadingPlays = useMemo(
+    () => plays.some((result) => result.isLoading),
+    [plays]
+  );
+
   const { parsedPlays, playerTicks, ticks } = useMemo(() => {
-    if (!plays.length || !data) return {};
+    if (isLoadingPlays || isLoading) return {};
 
     const isAscendingOrder =
       data?.basicGameData.hTeam.teamId.localeCompare(
         data?.basicGameData.vTeam.teamId
       ) > 0;
 
-    const sortedPlayers = players
+    const sortedPlayers = data.stats.activePlayers
       .slice()
       .sort((a, b) =>
         isAscendingOrder ? a.teamId - b.teamId : b.teamId - a.teamId
@@ -148,7 +153,7 @@ const GameDetail = () => {
     const playerNames = sortedPlayers.reduce((acc, player, index) => {
       acc[player.personId] = {
         index: index + 1,
-        name: player.temporaryDisplayName,
+        name: `${player.firstName} ${player.lastName}`,
       };
       return acc;
     }, {});
@@ -198,10 +203,12 @@ const GameDetail = () => {
 
     const playerTicks = Object.fromEntries(playersEntries);
 
-    return { parsedPlays, playerTicks, ticks: playersEntries.map((_, i) => i) };
-  }, [data, players, plays]);
-
-  const isLoadingPlays = plays.some((result) => result.isLoading);
+    return {
+      parsedPlays,
+      playerTicks,
+      ticks: playersEntries.map((_, i) => i + 1),
+    };
+  }, [data, isLoading, isLoadingPlays, plays]);
 
   if (isLoading || isLoadingPlays) return <Shimmer height="80vh" />;
 
