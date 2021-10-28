@@ -1,6 +1,7 @@
 import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery, useQueries } from "react-query";
+import { useTranslation } from "react-i18next";
 import {
   ComposedChart,
   Area,
@@ -35,6 +36,7 @@ import {
 import styles from "./GameDetail.module.css";
 
 const GameDetail = () => {
+  const [t] = useTranslation();
   const { gameId, date } = useParams();
   const [tooltipData, setTooltipData] = useState();
 
@@ -105,7 +107,7 @@ const GameDetail = () => {
     ];
   }, []);
 
-  const { filteredPlayers: players } = usePlayers({
+  const { filteredPlayers: players, players: allNBAplayers } = usePlayers({
     key: "teamId",
     value: data && [
       data.basicGameData.hTeam.teamId,
@@ -153,9 +155,19 @@ const GameDetail = () => {
       );
 
     const playerNames = sortedPlayers.reduce((acc, player, index) => {
+      let name = `${player.firstName} ${player.lastName}`;
+      /* 2018 players don't return firstName and lastName, some are retired or not NBA players anymore so no data available about their names */
+      if (!player.firstName || !player.lastName) {
+        const playerData = allNBAplayers.find(
+          (e) => e.personId === player.personId
+        );
+        name = playerData
+          ? `${playerData?.firstName} ${playerData?.lastName}`
+          : t("common.retired");
+      }
       acc[player.personId] = {
         index: index + 1,
-        name: `${player.firstName} ${player.lastName}`,
+        name,
       };
       return acc;
     }, {});
@@ -210,7 +222,7 @@ const GameDetail = () => {
       playerTicks,
       ticks: playersEntries.map((_, i) => i + 1),
     };
-  }, [data, isLoading, isLoadingPlays, plays]);
+  }, [allNBAplayers, data, isLoading, isLoadingPlays, plays, t]);
 
   if (isLoading || isLoadingPlays) return <Shimmer height="80vh" />;
 

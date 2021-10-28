@@ -22,7 +22,8 @@
     "debut": "Debut",
     "position": "Position",
     "team": "Team",
-    "all": "All"
+    "all": "All",
+    "retired": "Retired"
   },
   "filters": {
     "title": "Filters",

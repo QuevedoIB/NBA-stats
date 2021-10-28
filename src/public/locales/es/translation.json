@@ -22,7 +22,8 @@
     "debut": "Debut",
     "position": "Posición",
     "team": "Equipo",
-    "all": "Todas"
+    "all": "Todas",
+    "retired": "Retirado"
   },
   "filters": {
     "title": "Filtros",

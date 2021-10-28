@@ -22,9 +22,8 @@ export default function usePlayers(filter = { key: "", value: "" }) {
           response?.map((player) => ({
             ...player,
             temporaryDisplayName: player.temporaryDisplayName
-              ?.split(", ")
-              ?.reverse()
-              ?.join(" "),
+              ? player.temporaryDisplayName?.split(", ")?.reverse()?.join(" ")
+              : `${player.firstName} ${player.lastName}`,
             country:
               player.country === "USA" ? "United States" : player.country,
           })) || []
