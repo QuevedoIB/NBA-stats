@@ -8,6 +8,9 @@ import {
   Tooltip,
   Legend,
 } from "recharts";
+import PropTypes from "prop-types";
+
+import { playerProptypes } from "components/types";
 
 const RadarChart = ({ data, domain, labelKey, players, palette }) => {
   return (
@@ -31,6 +34,14 @@ const RadarChart = ({ data, domain, labelKey, players, palette }) => {
       </RadarChartComponent>
     </ResponsiveContainer>
   );
+};
+
+RadarChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  domain: PropTypes.arrayOf(PropTypes.number).isRequired,
+  labelKey: PropTypes.string.isRequired,
+  players: PropTypes.arrayOf(playerProptypes),
+  palette: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default RadarChart;

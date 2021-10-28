@@ -1,6 +1,4 @@
-import React from 'react'
-
-import styles from './BasketBall.module.css'
+import styles from "./BasketBall.module.css";
 
 const BasketBall = () => {
   return (
@@ -8,7 +6,7 @@ const BasketBall = () => {
       <div className={styles.line1} />
       <div className={styles.line2} />
     </div>
-  )
-}
+  );
+};
 
-export default BasketBall
+export default BasketBall;

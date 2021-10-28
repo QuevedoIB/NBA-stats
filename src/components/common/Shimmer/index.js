@@ -1,4 +1,5 @@
-import React from "react";
+import { Children, cloneElement } from "react";
+import PropTypes from "prop-types";
 
 import styles from "./Shimmer.module.css";
 
@@ -6,8 +7,8 @@ const Shimmer = ({ children, height = "100%", width = "100%" }) => {
   return (
     <>
       {children ? (
-        React.Children?.map(children, (child) =>
-          React.cloneElement(child, {
+        Children?.map(children, (child) =>
+          cloneElement(child, {
             className: `${child.props.className} ${styles.shimmer}`,
           })
         )
@@ -16,6 +17,15 @@ const Shimmer = ({ children, height = "100%", width = "100%" }) => {
       )}
     </>
   );
+};
+
+Shimmer.propTypes = {
+  children: PropTypes.oneOfType([
+    PropTypes.node,
+    PropTypes.arrayOf(PropTypes.node),
+  ]),
+  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
 };
 
 export default Shimmer;

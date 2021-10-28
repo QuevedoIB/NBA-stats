@@ -16,7 +16,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: var(--white-50);
+  background: rgb(var(--rgb-bg-color-secondary));
   border-radius: var(--border-radius);
   padding: 2rem 0;
   box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.12);

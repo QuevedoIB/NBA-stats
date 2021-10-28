@@ -1,6 +1,7 @@
-import React, { useMemo, useCallback } from "react";
+import { useMemo, useCallback } from "react";
 import i18n from "i18n";
 import { useTranslation } from "react-i18next";
+import PropTypes from "prop-types";
 
 import styles from "./LanguageSelector.module.css";
 
@@ -21,6 +22,10 @@ const LanguagesList = ({ languageOptions }) => {
     [handleLanguageChange, languageOptions, t]
   );
   return <ul className={styles.optionsContainer}>{options}</ul>;
+};
+
+LanguagesList.propTypes = {
+  languageOptions: PropTypes.objectOf(PropTypes.elementType),
 };
 
 export default LanguagesList;

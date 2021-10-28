@@ -7,11 +7,11 @@
 }
 
 .conference.conference-east {
-  background-color: lightsalmon;
+  background-color: var(--primary-color);
 }
 
 .conference.conference-west {
-  background-color: lightcyan;
+  background-color: var(--secondary-color);
 }
 
 .container,

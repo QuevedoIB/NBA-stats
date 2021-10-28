@@ -1,6 +1,21 @@
+import PropTypes from "prop-types";
+
 import { PLAY_BY_PLAY_EVENTS } from "constants.js";
 
 import styles from "./GameDetail.module.css";
+
+const gameChartBulletTypes = PropTypes.shape({
+  event: PropTypes.string,
+  hScore: PropTypes.string.isRequired,
+  hasEvent: PropTypes.any,
+  name: PropTypes.string,
+  positive: PropTypes.bool,
+  score: PropTypes.number.isRequired,
+  time: PropTypes.number.isRequired,
+  vScore: PropTypes.string.isRequired,
+  x: PropTypes.string.isRequired,
+  y: PropTypes.oneOfType([PropTypes.number, PropTypes.oneOf([null])]),
+});
 
 export default function CustomTooltip({
   payload,
@@ -43,3 +58,24 @@ export default function CustomTooltip({
 
   return null;
 }
+
+CustomTooltip.propTypes = {
+  payload: PropTypes.arrayOf(
+    PropTypes.shape({
+      payload: gameChartBulletTypes.isRequired,
+    })
+  ),
+  active: PropTypes.bool,
+  customContent: PropTypes.shape({
+    payload: gameChartBulletTypes.isRequired,
+  }),
+  gameData: PropTypes.shape({
+    basicGameData: PropTypes.shape({
+      hTeam: PropTypes.shape({ triCode: PropTypes.string.isRequired })
+        .isRequired,
+      vTeam: PropTypes.shape({ triCode: PropTypes.string.isRequired })
+        .isRequired,
+    }).isRequired,
+  }),
+  teamsPalette: PropTypes.arrayOf(PropTypes.string).isRequired,
+};

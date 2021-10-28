@@ -73,7 +73,7 @@ th {
 
 td:nth-child(even),
 th:nth-child(even) {
-  background-color: lightgray;
+  background-color: var(--tertiary-color);
 }
 
 .title {
@@ -108,13 +108,15 @@ input {
 
 body {
   --bg-color: rgb(247, 249, 247);
-  --border-color: rgb(33, 128, 149);
+  --rgb-bg-color-secondary: 255, 255, 255;
+  --border-color: #d6d6d6;
   --font-color: rgb(18, 18, 18);
   --rgb-bg: 247, 249, 247;
   --rgb-border: 33, 128, 149;
   --rgb-font: 18, 18, 18;
-  --white-50: #ffffff;
-  --white-100: #f5f5f5;
+  --primary-color: #6f4a6d;
+  --secondary-color: #7abebf; /* Recharts bars not working with rgb */
+  --tertiary-color: #e6e6e6;
   --border-radius: 1rem;
   background: var(--bg-color);
   color: var(--font-color);
@@ -122,11 +124,11 @@ body {
 
 body.theme-dark {
   --bg-color: rgb(38, 36, 46);
-  --border-color: rgb(201, 227, 233);
+  --rgb-bg-color-secondary: 26, 26, 26;
+  --border-color: #d6d6d6;
   --font-color: rgb(204, 197, 197);
   --rgb-bg: 38, 36, 46;
   --rgb-border: 201, 227, 233;
   --rgb-font: 102, 102, 102;
-  --white-50: #000000;
-  --white-100: #121212;
+  --tertiary-color: #353538;
 }

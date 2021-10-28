@@ -1,13 +1,15 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 import PlayerImage from "components/common/images/PlayerImage";
 import CountryFlag from "components/common/images/CountryFlag";
 
-import styles from "./PlayerCard.module.css";
-
 import { formatDate } from "helpers/formatDate";
 import useTeams from "hooks/useTeams";
+
+import { playerProptypes } from "components/types";
+
+import styles from "./PlayerCard.module.css";
 
 const PlayerCard = ({ player }) => {
   const { t, i18n } = useTranslation();
@@ -44,6 +46,10 @@ const PlayerCard = ({ player }) => {
       </div>
     </li>
   );
+};
+
+PlayerCard.propTypes = {
+  player: playerProptypes.isRequired,
 };
 
 export default PlayerCard;

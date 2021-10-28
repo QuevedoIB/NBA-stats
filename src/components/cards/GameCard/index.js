@@ -1,15 +1,18 @@
 import { Link } from "react-router-dom";
 import i18n from "i18n";
+import PropTypes from "prop-types";
 
 import { formatDate } from "helpers/formatDate";
+
+import { gamePropTypes, teamProptypes } from "components/types";
 
 import styles from "./GameCard.module.css";
 
 const GameCard = ({
   teams,
-  game: { hTeam, vTeam, startTimeUTC, gameId, homeStartDate },
+  game: { hTeam, vTeam, startTimeUTC, gameId, startDateEastern },
 }) => (
-  <Link to={`/game-detail/${homeStartDate}/${gameId}`}>
+  <Link to={`/game-detail/${startDateEastern}/${gameId}`}>
     <div className={styles.container}>
       <div className={styles.infoContainer}>
         <p className={styles.team}>{teams[hTeam.teamId]?.fullName}</p>
@@ -28,5 +31,10 @@ const GameCard = ({
     </div>
   </Link>
 );
+
+GameCard.propTypes = {
+  teams: PropTypes.objectOf(teamProptypes),
+  game: gamePropTypes,
+};
 
 export default GameCard;

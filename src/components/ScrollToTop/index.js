@@ -1,39 +1,38 @@
-import React, { useEffect, useState, useCallback } from 'react'
+import { useEffect, useState, useCallback } from "react";
 
-import styles from './ScrollToTop.module.css'
+import styles from "./ScrollToTop.module.css";
 
 const ScrollToTop = () => {
-  const [visible, setVisible] = useState(false)
+  const [visible, setVisible] = useState(false);
 
   const updateVisibility = useCallback(() => {
     if (
-      document.documentElement.scrollTop >
-            document.documentElement.clientHeight
+      document.documentElement.scrollTop > document.documentElement.clientHeight
     ) {
-      setVisible(true)
+      setVisible(true);
     }
 
     if (
       document.documentElement.scrollTop <=
-            document.documentElement.clientHeight
+      document.documentElement.clientHeight
     ) {
-      setVisible(false)
+      setVisible(false);
     }
-  }, [])
+  }, []);
 
   const onScrollToTop = () => {
     window.scrollTo({
       top: 0,
-      behavior: 'smooth'
-    })
-  }
+      behavior: "smooth",
+    });
+  };
 
   useEffect(() => {
-    window.addEventListener('scroll', updateVisibility)
+    window.addEventListener("scroll", updateVisibility);
     return () => {
-      window.removeEventListener('scroll', updateVisibility)
-    }
-  }, [updateVisibility])
+      window.removeEventListener("scroll", updateVisibility);
+    };
+  }, [updateVisibility]);
 
   return (
     visible && (
@@ -44,7 +43,7 @@ const ScrollToTop = () => {
         <span>&#8593;</span>
       </button>
     )
-  )
-}
+  );
+};
 
-export default ScrollToTop
+export default ScrollToTop;

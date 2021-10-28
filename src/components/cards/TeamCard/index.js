@@ -1,29 +1,16 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link } from "react-router-dom";
 
-import styles from './TeamCard.module.css'
+import { teamProptypes } from "components/types";
 
-const TeamCard = ({
-  team: {
-    altCityName,
-    city,
-    confName,
-    divName,
-    fullName,
-    isAllStar,
-    nickname,
-    teamId,
-    teamShortName,
-    tricode,
-    urlName
-  }
-}) => {
+import styles from "./TeamCard.module.css";
+
+const TeamCard = ({ team: { fullName, teamId } }) => {
   return (
     <div className={styles.container}>
       <Link to={`/team-detail/${teamId}`}>
         <img
           className={styles.logo}
-          loading='lazy'
+          loading="lazy"
           src={`https://cdn.nba.com/logos/nba/${teamId}/global/L/logo.svg`}
           alt={`${fullName} logo`}
         />
@@ -32,7 +19,11 @@ const TeamCard = ({
         </div>
       </Link>
     </div>
-  )
-}
+  );
+};
 
-export default TeamCard
+TeamCard.propTypes = {
+  team: teamProptypes.isRequired,
+};
+
+export default TeamCard;

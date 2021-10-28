@@ -1,4 +1,4 @@
-import React, { Fragment } from "react";
+import { Fragment } from "react";
 import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
@@ -62,7 +62,7 @@ const StandingsTable = () => {
             </thead>
             <tbody>
               {Object.entries(data?.conference || {}).map(
-                ([conference, teams]) => {
+                ([conference, teams], i) => {
                   return (
                     <Fragment key={conference}>
                       <tr>

@@ -1,5 +1,7 @@
 import useCountryCodes from "hooks/useCountryCodes";
 
+import { playerProptypes } from "components/types";
+
 import styles from "./CountryFlag.module.css";
 
 const CountryFlag = ({ player }) => {
@@ -23,6 +25,10 @@ const CountryFlag = ({ player }) => {
       title={player.country}
     />
   );
+};
+
+CountryFlag.propTypes = {
+  player: playerProptypes.isRequired,
 };
 
 export default CountryFlag;

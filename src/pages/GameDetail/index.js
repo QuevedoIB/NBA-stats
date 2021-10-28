@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery, useQueries } from "react-query";
-import distinctColors from "distinct-colors";
 import {
   ComposedChart,
   Area,
@@ -98,10 +97,13 @@ const GameDetail = () => {
     ],
   });
 
-  const teamsPalette = useMemo(
-    () => distinctColors({ count: teams?.length }),
-    [teams]
-  );
+  const teamsPalette = useMemo(() => {
+    const bodyStyles = getComputedStyle(document.body);
+    return [
+      bodyStyles.getPropertyValue("--primary-color"),
+      bodyStyles.getPropertyValue("--secondary-color"),
+    ];
+  }, []);
 
   const { filteredPlayers: players } = usePlayers({
     key: "teamId",
@@ -137,7 +139,7 @@ const GameDetail = () => {
   );
 
   const { parsedPlays, playerTicks, ticks } = useMemo(() => {
-    if (isLoadingPlays || isLoading) return {};
+    if (isLoadingPlays || isLoading || !data?.stats) return {};
 
     const isAscendingOrder =
       data?.basicGameData.hTeam.teamId.localeCompare(
@@ -212,7 +214,7 @@ const GameDetail = () => {
 
   if (isLoading || isLoadingPlays) return <Shimmer height="80vh" />;
 
-  if (!data.stats || !parsedPlays.length) {
+  if (!data?.stats || !parsedPlays?.length) {
     return (
       <EmptyChart teams={teams} players={players} palette={teamsPalette} />
     );

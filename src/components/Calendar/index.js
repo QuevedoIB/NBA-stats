@@ -1,8 +1,11 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
+import PropTypes from "prop-types";
 
 import CollapseView from "components/common/CollapseView";
 import GameCard from "components/cards/GameCard";
 import Shimmer from "components/common/Shimmer";
+
+import { teamProptypes, gamePropTypes } from "components/types";
 
 import styles from "./Calendar.module.css";
 
@@ -31,6 +34,12 @@ const Calendar = ({ teams, calendar, isLoading }) => {
       </CollapseView>
     </section>
   );
+};
+
+Calendar.propTypes = {
+  teams: PropTypes.arrayOf(teamProptypes).isRequired,
+  calendar: PropTypes.arrayOf(gamePropTypes),
+  isLoading: PropTypes.bool,
 };
 
 export default Calendar;

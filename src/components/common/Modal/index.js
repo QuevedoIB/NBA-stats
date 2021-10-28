@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import ReactDOM from "react-dom";
 import { useTranslation } from "react-i18next";
 import Proptypes from "prop-types";
 
 import Button from "components/common/Button";
+
+import useOutsideClick from "hooks/useOutsideClick";
 
 import styles from "./Modal.module.css";
 
@@ -15,8 +17,14 @@ const Modal = ({
   actionLabel,
   cancelLabel,
   onCancelClick,
+  backdropClose = true,
 }) => {
   const [t] = useTranslation();
+  const modalContainer = useRef();
+  useOutsideClick({
+    ref: modalContainer,
+    callback: backdropClose && onCancelClick,
+  });
 
   useEffect(() => {
     if (visible) {
@@ -30,7 +38,7 @@ const Modal = ({
 
   return ReactDOM.createPortal(
     <div className={`${styles.overlay} centered-container`}>
-      <section className={styles.section}>
+      <section ref={modalContainer} className={styles.section}>
         <header className={styles.header}>
           <button onClick={onCancelClick} className={styles.closeButton}>
             x
@@ -68,6 +76,7 @@ Modal.propTypes = {
     message: Proptypes.string,
   }),
   visible: Proptypes.any,
+  backdropClose: Proptypes.bool,
   children: Proptypes.node,
   onActionClick: Proptypes.func,
   actionLabel: Proptypes.string,

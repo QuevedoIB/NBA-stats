@@ -6,6 +6,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import PropTypes from "prop-types";
+
+import { playerProptypes, teamProptypes } from "components/types";
 
 const EmptyChart = ({ palette, teams, players }) => {
   if (!players.length) return null;
@@ -73,6 +76,12 @@ const EmptyChart = ({ palette, teams, players }) => {
       </ResponsiveContainer>
     </div>
   );
+};
+
+EmptyChart.propTypes = {
+  palette: PropTypes.arrayOf(PropTypes.string).isRequired,
+  teams: PropTypes.arrayOf(teamProptypes).isRequired,
+  players: PropTypes.arrayOf(playerProptypes).isRequired,
 };
 
 export default EmptyChart;

@@ -1,6 +1,8 @@
 import styles from "./Select.module.css";
 
-const Select = ({ options, selected, ...props }) => {
+import PropTypes from "prop-types";
+
+const Select = ({ options, ...props }) => {
   return (
     <select className={styles.containerSelect} {...props}>
       {options.map((option, i) => (
@@ -10,6 +12,15 @@ const Select = ({ options, selected, ...props }) => {
       ))}
     </select>
   );
+};
+
+Select.propTypes = {
+  options: PropTypes.arrayOf(
+    PropTypes.shape({
+      value: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+      name: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    })
+  ).isRequired,
 };
 
 export default Select;

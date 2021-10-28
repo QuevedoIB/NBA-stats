@@ -7,7 +7,7 @@
   overflow: hidden;
   height: 100%;
   box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.12);
-  background: var(--white-50);
+  background: rgb(var(--rgb-bg-color-secondary));
   transition: all ease 0.25s;
 }
 

@@ -1,11 +1,13 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import distinctColors from "distinct-colors";
+import PropTypes from "prop-types";
 
 import RadarChart from "components/common/RadarChart";
 import BarChart from "components/common/BarChart";
 
 import usePlayerStats from "hooks/usePlayerStats";
+
+import { playerProptypes } from "components/types";
 
 import styles from "./PlayerStats.module.css";
 
@@ -23,7 +25,13 @@ const PlayerStats = ({ players, season }) => {
     players,
   });
 
-  const playersPalette = useMemo(() => distinctColors({ count: 2 }), []); //2 players is the max amount, to make palette dynamically use players array
+  const playersPalette = useMemo(() => {
+    const bodyStyles = getComputedStyle(document.body);
+    return [
+      bodyStyles.getPropertyValue("--primary-color"),
+      bodyStyles.getPropertyValue("--secondary-color"),
+    ];
+  }, []);
 
   const labels = useMemo(
     () => ({
@@ -74,8 +82,9 @@ const PlayerStats = ({ players, season }) => {
         [labelKey]: subject,
         ...Object.entries(rest).reduce((acc, [key, value]) => {
           const playerQuery = queries.find(
-            (query) => query.data.player.personId === key
+            (query) => query?.data?.player?.personId === key
           );
+          if (!playerQuery) return acc;
           acc[key] = (value / getStats(playerQuery.data.stats).mpg).toFixed(2);
           return acc;
         }, {}),
@@ -155,6 +164,11 @@ const PlayerStats = ({ players, season }) => {
       </div>
     </section>
   );
+};
+
+PlayerStats.propTypes = {
+  players: PropTypes.arrayOf(playerProptypes).isRequired,
+  season: PropTypes.string.isRequired,
 };
 
 export default PlayerStats;

@@ -2,6 +2,8 @@ import usePlaceHolderSource from "hooks/usePlaceholderSource";
 
 import PlaceholderImage from "public/images/player-placeholder.png";
 
+import { playerProptypes } from "components/types";
+
 import styles from "./PlayerImage.module.css";
 
 const PlayerImage = ({ player, ...rest }) => {
@@ -22,6 +24,10 @@ const PlayerImage = ({ player, ...rest }) => {
       {...rest}
     />
   );
+};
+
+PlayerImage.propTypes = {
+  player: playerProptypes.isRequired,
 };
 
 export default PlayerImage;

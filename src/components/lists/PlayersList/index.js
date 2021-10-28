@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect, useCallback } from "react";
+import { useRef, useState, useEffect, useCallback } from "react";
 import { Link } from "react-router-dom";
 import Proptypes from "prop-types";
 
@@ -60,6 +60,7 @@ const PlayersList = ({ list, amountRendered = 12, isLoading }) => {
 PlayersList.propTypes = {
   list: Proptypes.arrayOf(playerProptypes).isRequired,
   amountRendered: Proptypes.number,
+  isLoading: Proptypes.bool,
 };
 
 export default PlayersList;

@@ -1,4 +1,5 @@
-import React, { useRef } from "react";
+import { useRef } from "react";
+import PropTypes from "prop-types";
 
 import useAccordion from "hooks/useAccordion";
 
@@ -20,6 +21,12 @@ const CollapseView = ({ summary, children, open = true }) => {
       {children}
     </details>
   );
+};
+
+CollapseView.propTypes = {
+  summary: PropTypes.node.isRequired,
+  children: PropTypes.node,
+  open: PropTypes.bool,
 };
 
 export default CollapseView;

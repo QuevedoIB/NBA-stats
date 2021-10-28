@@ -1,4 +1,4 @@
-import React, { useMemo, useCallback, useState, useRef } from "react";
+import { useMemo, useCallback, useState, useRef } from "react";
 import i18n from "i18n";
 import { useTranslation } from "react-i18next";
 
@@ -39,12 +39,7 @@ const LanguageSelector = () => {
       onClick={toggleLanguageOptions}
     >
       <SelectedLanguage />
-      {displayedOptions && (
-        <LanguagesList
-          languageOptions={languageOptions}
-          onClickOutside={closeOptions}
-        />
-      )}
+      {displayedOptions && <LanguagesList languageOptions={languageOptions} />}
     </div>
   );
 };

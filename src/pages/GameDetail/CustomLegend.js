@@ -1,4 +1,7 @@
 import { Link } from "react-router-dom";
+import PropTypes from "prop-types";
+
+import { teamProptypes } from "components/types";
 
 import styles from "./GameDetail.module.css";
 
@@ -21,3 +24,12 @@ export default function CustomLegend({ game, teams, teamsPalette }) {
     </div>
   );
 }
+
+CustomLegend.propTypes = {
+  teams: PropTypes.arrayOf(teamProptypes).isRequired,
+  teamsPalette: PropTypes.arrayOf(PropTypes.string).isRequired,
+  game: PropTypes.shape({
+    hTeam: PropTypes.shape({ teamId: PropTypes.string.isRequired }).isRequired,
+    vTeam: PropTypes.shape({ teamId: PropTypes.string.isRequired }).isRequired,
+  }).isRequired,
+};

@@ -9,6 +9,9 @@ import {
   Legend,
   ResponsiveContainer,
 } from "recharts";
+import PropTypes from "prop-types";
+
+import { playerProptypes } from "components/types";
 
 const BarChart = ({ data, domain, labelKey, players, palette }) => {
   return (
@@ -50,6 +53,14 @@ const BarChart = ({ data, domain, labelKey, players, palette }) => {
       </ChartComponent>
     </ResponsiveContainer>
   );
+};
+
+BarChart.propTypes = {
+  data: PropTypes.arrayOf(PropTypes.object),
+  domain: PropTypes.arrayOf(PropTypes.number).isRequired,
+  labelKey: PropTypes.string.isRequired,
+  players: PropTypes.arrayOf(playerProptypes),
+  palette: PropTypes.arrayOf(PropTypes.string),
 };
 
 export default BarChart;

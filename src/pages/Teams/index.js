@@ -1,4 +1,4 @@
-import React, { useMemo } from "react";
+import { useMemo } from "react";
 
 import TeamList from "components/lists/TeamList";
 import Shimmer from "components/common/Shimmer";

@@ -6,7 +6,7 @@
   width: fit-content;
   margin: 0 1rem 1rem 0;
   box-shadow: 0 3px 13px 1px rgba(0, 0, 0, 0.12);
-  background: var(--white-50);
+  background: rgb(var(--rgb-bg-color-secondary));
   border-radius: var(--border-radius);
   padding: 2rem 1rem;
 }
