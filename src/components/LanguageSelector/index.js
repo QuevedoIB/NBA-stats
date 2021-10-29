@@ -34,6 +34,7 @@ const LanguageSelector = () => {
 
   return (
     <div
+      data-testid="language-select-container"
       ref={containerRef}
       className={styles.container}
       onClick={toggleLanguageOptions}

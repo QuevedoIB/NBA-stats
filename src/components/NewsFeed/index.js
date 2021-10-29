@@ -31,9 +31,7 @@ const NewsFeed = () => {
 
   return (
     <section className={`border-container ${styles.container}`}>
-      <CollapseView
-        summary={<h3 className={`title ${styles.title}`}>{data.header}</h3>}
-      >
+      <CollapseView summary={<h3 className="title">{data.header}</h3>}>
         <ul className={styles.list}>
           {!data?.articles?.length ? (
             <li>
