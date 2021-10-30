@@ -29,6 +29,10 @@ describe("Players flow", () => {
       cy.window().then(($window) => {
         expect($window.scrollY).to.eql(0);
       });
+
+      cy.get("section ul li").first().click();
+
+      cy.url().should("include", "http://localhost:3000/player-detail/");
     });
   });
 
