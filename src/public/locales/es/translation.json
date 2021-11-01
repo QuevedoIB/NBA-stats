@@ -41,6 +41,14 @@
     "awayLoss": "Derrotas visitantes"
   },
   "conferences": { "east": "Este", "west": "Oeste" },
+  "divisions": {
+    "southeast": "Sureste",
+    "atlantic": "Atlántico",
+    "central": "Central",
+    "southwest": "Suroeste",
+    "northwest": "Noroeste",
+    "pacific": "Pacífico"
+  },
   "gamesResult": {
     "title": "Resultados",
     "noResults": "No hay resultados para esa fecha"

@@ -41,6 +41,14 @@
     "awayLoss": "Visitor loses"
   },
   "conferences": { "east": "East", "west": "West" },
+  "divisions": {
+    "southeast": "Southeast",
+    "atlantic": "Atlantic",
+    "central": "Central",
+    "southwest": "Southwest",
+    "northwest": "Northwest",
+    "pacific": "Pacific"
+  },
   "gamesResult": {
     "title": "Results",
     "noResults": "No results found for this date"

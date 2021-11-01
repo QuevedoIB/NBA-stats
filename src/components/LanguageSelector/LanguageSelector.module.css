@@ -24,9 +24,9 @@
   align-items: center;
   padding: 0 1rem;
   transition: all ease 0.25s;
-  background-color: rgb(var(--rgb-bg-color-secondary));
+  background-color: var(--bg-color-secondary);
 }
 
 .optionsContainer li:hover {
-  filter: brightness(150%);
+  background-color: var(--active-color);
 }

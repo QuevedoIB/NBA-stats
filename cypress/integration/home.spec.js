@@ -78,17 +78,22 @@ describe("Home flow", () => {
       });
   });
 
-  it("Navbar flow works", () => {
+  it.only("Navbar flow works", () => {
     cy.get("nav a").as("navigationLinks");
 
-    cy.get("@navigationLinks").contains("Teams").click();
-
-    cy.url().should("eq", "http://localhost:3000/teams");
-
-    cy.go("back");
-
-    cy.get("@navigationLinks").contains("Players").click();
-
-    cy.url().should("eq", "http://localhost:3000/players");
+    cy.get("@navigationLinks")
+      .contains("Teams")
+      .click()
+      .then(() => {
+        cy.url().should("eq", "http://localhost:3000/teams");
+        cy.go("back").then(() => {
+          cy.get("@navigationLinks")
+            .contains("Players")
+            .click()
+            .then(() => {
+              cy.url().should("eq", "http://localhost:3000/players");
+            });
+        });
+      });
   });
 });

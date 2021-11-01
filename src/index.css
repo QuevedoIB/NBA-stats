@@ -108,7 +108,8 @@ input {
 
 body {
   --bg-color: rgb(247, 249, 247);
-  --rgb-bg-color-secondary: 255, 255, 255;
+  --bg-color-secondary: rgb(240, 242, 240);
+  --active-color: rgb(248, 250, 248);
   --border-color: #d6d6d6;
   --font-color: rgb(18, 18, 18);
   --rgb-bg: 247, 249, 247;
@@ -124,7 +125,8 @@ body {
 
 body.theme-dark {
   --bg-color: rgb(38, 36, 46);
-  --rgb-bg-color-secondary: 26, 26, 26;
+  --bg-color-secondary: rgb(26, 26, 26);
+  --active-color: rgb(46, 44, 54);
   --border-color: #d6d6d6;
   --font-color: rgb(204, 197, 197);
   --rgb-bg: 38, 36, 46;
