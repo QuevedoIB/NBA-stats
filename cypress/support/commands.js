@@ -38,10 +38,19 @@ Cypress.Commands.add("getCalendar", (team) => {
     });
 });
 
+Cypress.Commands.add("getGames", (date = "2021-10-28") => {
+  cy.intercept(
+    "GET",
+    `https://data.nba.net/10s/prod/v1/${date
+      .split("-")
+      .join("")}/scoreboard.json`
+  ).as("fetchGames");
+});
+
 Cypress.Commands.add("navigateTeams", () => {
   cy.getTeams();
 
-  cy.visit("http://localhost:3000/teams");
+  cy.visit("/teams");
 
   cy.wait("@fetchTeams", { timeout: 10000 }).then((data) => {
     const teams = parseData(data);
@@ -54,7 +63,7 @@ Cypress.Commands.add("navigateDetail", (route = "") => {
   cy.getPlayers();
   cy.getTeams();
 
-  cy.visit(`http://localhost:3000/${route}`);
+  cy.visit(`/${route}`);
 
   cy.wait(["@fetchTeams", "@fetchPlayers"], { timeout: 10000 }).then(
     ([teamsData, playersData]) => {

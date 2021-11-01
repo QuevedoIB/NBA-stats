@@ -32,7 +32,7 @@ describe("Players flow", () => {
 
       cy.get("section ul li").first().click();
 
-      cy.url().should("include", "http://localhost:3000/player-detail/");
+      cy.url().should("include", "/player-detail/");
     });
   });
 
