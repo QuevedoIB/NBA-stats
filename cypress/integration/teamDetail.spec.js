@@ -103,6 +103,7 @@ describe("Team detail flow", () => {
           cy.get("@gamesList")
             .should("not.be.visible")
             .then(() => {
+              cy.wait(1000);
               cy.get("@title").click();
               cy.get("@gamesList").should("be.visible");
             });
