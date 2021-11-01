@@ -1,9 +1,22 @@
 import { getTranslation } from "./spec";
 
-describe("Player Detail Flow", () => {
+describe("Player detail flow", () => {
   const getPlayerName = (player) => `${player.firstName} ${player.lastName}`;
   beforeEach(() => {
-    cy.goToPlayerDetail().as("screenData");
+    cy.navigateDetail("players").then(({ players, teams }) => {
+      const selected = players[0];
+
+      cy.get("section [data-testid=player-filters] input").type(
+        `${selected.firstName} ${selected.lastName}`
+      );
+
+      cy.get("section ul a li:first").click();
+
+      return cy
+        .contains("NBA STATS")
+        .then(() => ({ selected, players, teams }))
+        .as("screenData");
+    });
   });
   it("Player detail renders", () => {
     cy.get("@screenData");
@@ -67,7 +80,7 @@ describe("Player Detail Flow", () => {
       });
     });
   });
-  it.only("Charts flow", () => {
+  it("Charts flow", () => {
     const validateChartLegend = ({ player, secondPlayer, containerAllias }) => {
       cy.get(containerAllias).within(() => {
         cy.get("span.recharts-legend-item-text")

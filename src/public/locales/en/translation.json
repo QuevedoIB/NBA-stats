@@ -23,7 +23,8 @@
     "position": "Position",
     "team": "Team",
     "all": "All",
-    "retired": "Retired"
+    "retired": "Retired",
+    "years": "Years"
   },
   "filters": {
     "title": "Filters",
@@ -46,6 +47,12 @@
   },
   "newsFeed": {
     "noResults": "No se han encontrado artículos"
+  },
+  "roster": {
+    "title": "Roster"
+  },
+  "calendar": {
+    "title": "Calendar"
   },
   "basketballPositions": {
     "G": "Point guard / Shooting guard",

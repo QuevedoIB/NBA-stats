@@ -1,3 +1,5 @@
+import { parseData } from "../integration/spec";
+
 Cypress.Commands.add("getPlayers", () => {
   cy.intercept(
     "GET",
@@ -5,41 +7,9 @@ Cypress.Commands.add("getPlayers", () => {
   )
     .as("fetchPlayers")
     .then((data) => {
-      if (!data) return;
-      const {
-        response: {
-          body: {
-            league: { standard: players },
-          },
-        },
-      } = data;
+      const players = parseData(data);
       return players;
     });
-});
-
-Cypress.Commands.add("goToPlayerDetail", () => {
-  cy.getPlayers();
-  cy.getTeams();
-
-  cy.visit("http://localhost:3000/players");
-
-  cy.wait(["@fetchTeams", "@fetchPlayers"]).then(([teamsData, playersData]) => {
-    const parseData = (data) => data.response.body.league.standard;
-    const players = parseData(playersData);
-
-    cy.get("section [data-testid=player-filters] input")
-      .as("playerFilters")
-      .type(`${players[0].firstName} ${players[0].lastName}`);
-
-    return cy
-      .get("section ul a li:first")
-      .click()
-      .then(() => ({
-        selected: players[0],
-        players,
-        teams: parseData(teamsData),
-      }));
-  });
 });
 
 Cypress.Commands.add("getTeams", () => {
@@ -49,14 +19,49 @@ Cypress.Commands.add("getTeams", () => {
   )
     .as("fetchTeams")
     .then((data) => {
-      if (!data) return;
-      const {
-        response: {
-          body: {
-            league: { standard: teams },
-          },
-        },
-      } = data;
+      const teams = parseData(data);
       return teams;
     });
+});
+
+Cypress.Commands.add("getCalendar", (team) => {
+  cy.intercept({
+    method: "get",
+    url: `${Cypress.env(
+      "REACT_APP_API_ENDPOINT"
+    )}/v1/2021/teams/${team}/schedule.json`,
+  })
+    .as("fetchCalendar")
+    .then((data) => {
+      const games = parseData(data);
+      return games;
+    });
+});
+
+Cypress.Commands.add("navigateTeams", () => {
+  cy.getTeams();
+
+  cy.visit("http://localhost:3000/teams");
+
+  cy.wait("@fetchTeams", { timeout: 10000 }).then((data) => {
+    const teams = parseData(data);
+    const nbaTeams = teams.filter((e) => e.isNBAFranchise);
+    return nbaTeams;
+  });
+});
+
+Cypress.Commands.add("navigateDetail", (route = "") => {
+  cy.getPlayers();
+  cy.getTeams();
+
+  cy.visit(`http://localhost:3000/${route}`);
+
+  cy.wait(["@fetchTeams", "@fetchPlayers"], { timeout: 10000 }).then(
+    ([teamsData, playersData]) => {
+      const players = parseData(playersData);
+      const teams = parseData(teamsData);
+
+      return { players, teams };
+    }
+  );
 });

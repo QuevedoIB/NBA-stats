@@ -1,35 +1,20 @@
 describe("Teams flow", () => {
   beforeEach(() => {
-    cy.visit("http://localhost:3000/teams");
+    cy.navigateTeams().as("teams");
   });
 
   it("Teams list works", () => {
-    cy.intercept(
-      "GET",
-      `${Cypress.env("REACT_APP_API_ENDPOINT")}/v2/2021/teams.json`
-    ).as("teams");
+    cy.get("@teams").then((teams) => {
+      teams.forEach((team) => {
+        cy.contains(team.divName).parent().contains(team.fullName);
+      });
 
-    cy.wait("@teams").then(
-      ({
-        response: {
-          body: {
-            league: { standard },
-          },
-        },
-      }) => {
-        const nbaTeams = standard.filter((e) => e.isNBAFranchise);
+      cy.contains(teams[0].fullName).click();
 
-        nbaTeams.forEach((team) => {
-          cy.contains(team.divName).parent().contains(team.fullName);
-        });
-
-        cy.contains(nbaTeams[0].fullName).click();
-
-        cy.url().should(
-          "eql",
-          `http://localhost:3000/team-detail/${nbaTeams[0].teamId}`
-        );
-      }
-    );
+      cy.url().should(
+        "eql",
+        `http://localhost:3000/team-detail/${teams[0].teamId}`
+      );
+    });
   });
 });

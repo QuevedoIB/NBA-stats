@@ -31,7 +31,7 @@ const RosterList = ({ roster, isLoading }) => {
 
   return (
     <section className={styles.container}>
-      <CollapseView summary={<h3 className="title">Roster</h3>}>
+      <CollapseView summary={<h3 className="title">{t("roster.title")}</h3>}>
         <div className={styles.scrollContainer}>
           <table className={styles.rosterTable}>
             <tbody>

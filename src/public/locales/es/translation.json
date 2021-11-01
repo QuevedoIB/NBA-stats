@@ -23,7 +23,8 @@
     "position": "Posición",
     "team": "Equipo",
     "all": "Todas",
-    "retired": "Retirado"
+    "retired": "Retirado",
+    "years": "Años"
   },
   "filters": {
     "title": "Filtros",
@@ -46,6 +47,12 @@
   },
   "newsFeed": {
     "noResults": "No se han encontrado artículos"
+  },
+  "roster": {
+    "title": "Plantilla"
+  },
+  "calendar": {
+    "title": "Calendario"
   },
   "basketballPositions": {
     "G": "Base / Escolta",

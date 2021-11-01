@@ -23,3 +23,5 @@ export const getTranslation = (key = "", replacers) => {
 
   return text || "";
 };
+
+export const parseData = (data) => data?.response?.body?.league?.standard;
