@@ -52,13 +52,13 @@ const PlayerStats = ({ players, season }) => {
         blocks: t("stats.blocks"),
         steals: t("stats.steals"),
         turnovers: t("stats.turnovers"),
-        offReb: t("stats.rebounds", { ending: "Ofensivos" }),
-        defReb: t("stats.rebounds", { ending: "Defensivos" }),
-        totReb: t("stats.rebounds", { ending: "Totales" }),
+        offReb: t("stats.rebounds", { ending: t("stats.types.offensive") }),
+        defReb: t("stats.rebounds", { ending: t("stats.types.defensive") }),
+        totReb: t("stats.rebounds", { ending: t("stats.types.total") }),
         pFouls: t("stats.fouls"),
         points: t("stats.points"),
-        gamesPlayed: t("stats.games", { ending: "Totales" }),
-        gamesStarted: t("stats.games", { ending: "Titular" }),
+        gamesPlayed: t("stats.games", { ending: t("stats.types.total") }),
+        gamesStarted: t("stats.games", { ending: t("stats.types.titular") }),
         plusMinus: t("stats.plusMinus"),
         min: t("stats.minutes"),
         dd2: t("stats.doubles"),
@@ -124,7 +124,7 @@ const PlayerStats = ({ players, season }) => {
 
   return (
     <section className={styles.chartsContainer}>
-      <div className={styles.chart}>
+      <article className={styles.chart}>
         <h3 className={styles.chartTitle}>{t("stats.titles.percentChart")}</h3>
         <div>
           <RadarChart
@@ -135,8 +135,8 @@ const PlayerStats = ({ players, season }) => {
             palette={playersPalette}
           />
         </div>
-      </div>
-      <div className={styles.chart}>
+      </article>
+      <article className={styles.chart}>
         <h3 className={styles.chartTitle}>
           {t("stats.titles.overallPerMinute")}
         </h3>
@@ -149,8 +149,8 @@ const PlayerStats = ({ players, season }) => {
             palette={playersPalette}
           />
         </div>
-      </div>
-      <div className={`${styles.chart} ${styles.barChart}`}>
+      </article>
+      <article className={`${styles.chart} ${styles.barChart}`}>
         <h3 className={styles.chartTitle}>{t("stats.titles.overall")}</h3>
         <div>
           <BarChart
@@ -161,7 +161,7 @@ const PlayerStats = ({ players, season }) => {
             palette={playersPalette}
           />
         </div>
-      </div>
+      </article>
     </section>
   );
 };

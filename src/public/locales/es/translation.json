@@ -62,6 +62,12 @@
       "overallPerMinute": "Por minuto",
       "overall": "Totales"
     },
+    "types": {
+      "defensive": "Defensivos",
+      "offensive": "Ofensivos",
+      "total": "Totales",
+      "titular": "Titular"
+    },
     "points": "Puntos",
     "assists": "Asistencias",
     "blocks": "Tapones",

@@ -4,9 +4,10 @@ describe("Teams flow", () => {
   });
 
   it("Teams list works", () => {
-    cy.intercept("GET", "https://data.nba.net/10s/prod/v2/2021/teams.json").as(
-      "teams"
-    );
+    cy.intercept(
+      "GET",
+      `${Cypress.env("REACT_APP_API_ENDPOINT")}/v2/2021/teams.json`
+    ).as("teams");
 
     cy.wait("@teams").then(
       ({
