@@ -97,17 +97,11 @@ describe("Team detail flow", () => {
         });
       });
 
-      cy.get("@title")
-        .click()
-        .then(() => {
-          cy.get("@gamesList")
-            .should("not.be.visible")
-            .then(() => {
-              cy.wait(1000);
-              cy.get("@title").click();
-              cy.get("@gamesList").should("be.visible");
-            });
-        });
+      cy.get("@title").click();
+      cy.get("@gamesList").should("not.be.visible", { timeout: 20000 });
+
+      cy.get("@title").click({ timeout: 20000 });
+      cy.get("@gamesList").should("be.visible", { timeout: 20000 });
     });
   });
 });
