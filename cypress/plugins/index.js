@@ -19,4 +19,9 @@
 module.exports = (on, config) => {
   // `on` is used to hook into various events Cypress emits
   // `config` is the resolved Cypress config
+  // load env values
+  const dotenv = require("dotenv").config();
+  config.env = dotenv.parsed;
+  // return config
+  return config;
 };

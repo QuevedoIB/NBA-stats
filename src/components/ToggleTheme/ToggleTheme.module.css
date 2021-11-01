@@ -38,7 +38,7 @@
 }
 
 #toggle:checked ~ .moon {
-  background: rgb(var(--rgb-bg-color-secondary));
+  background: var(--bg-color-secondary);
   transform: scale(1);
 }
 

@@ -13,7 +13,11 @@ const Shimmer = ({ children, height = "100%", width = "100%" }) => {
           })
         )
       ) : (
-        <div className={styles.shimmer} style={{ height, width }} />
+        <div
+          data-testid="shimmer"
+          className={styles.shimmer}
+          style={{ height, width }}
+        />
       )}
     </>
   );

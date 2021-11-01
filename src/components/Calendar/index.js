@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 
 import CollapseView from "components/common/CollapseView";
@@ -10,6 +11,7 @@ import { teamProptypes, gamePropTypes } from "components/types";
 import styles from "./Calendar.module.css";
 
 const Calendar = ({ teams, calendar, isLoading }) => {
+  const [t] = useTranslation();
   const parsedIdTeams = useMemo(() => {
     return teams?.reduce((acc, team) => {
       acc[team.teamId] = team;
@@ -21,7 +23,7 @@ const Calendar = ({ teams, calendar, isLoading }) => {
 
   return (
     <section className={styles.container}>
-      <CollapseView summary={<h3 className="title">Calendar</h3>}>
+      <CollapseView summary={<h3 className="title">{t("calendar.title")}</h3>}>
         <ul className={styles.calendarContainer}>
           {calendar?.map((game) => {
             return (

@@ -34,16 +34,8 @@ class NbaService {
     return this.service.get("/v2/2021/teams.json");
   }
 
-  fetchTeamRoster(code) {
-    return this.service.get(`/v1/2021/teams/${code}/roster.json`);
-  }
-
   fetchTeamCalendar(code) {
     return this.service.get(`/v1/2021/teams/${code}/schedule.json`);
-  }
-
-  fetchTeamLeaders(code) {
-    return this.service.get(`/v1/2020/teams/${code}/leaders.json`);
   }
 
   fetchStandings() {

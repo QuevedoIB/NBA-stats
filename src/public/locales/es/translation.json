@@ -23,7 +23,8 @@
     "position": "Posición",
     "team": "Equipo",
     "all": "Todas",
-    "retired": "Retirado"
+    "retired": "Retirado",
+    "years": "Años"
   },
   "filters": {
     "title": "Filtros",
@@ -40,12 +41,26 @@
     "awayLoss": "Derrotas visitantes"
   },
   "conferences": { "east": "Este", "west": "Oeste" },
+  "divisions": {
+    "southeast": "Sureste",
+    "atlantic": "Atlántico",
+    "central": "Central",
+    "southwest": "Suroeste",
+    "northwest": "Noroeste",
+    "pacific": "Pacífico"
+  },
   "gamesResult": {
     "title": "Resultados",
     "noResults": "No hay resultados para esa fecha"
   },
   "newsFeed": {
     "noResults": "No se han encontrado artículos"
+  },
+  "roster": {
+    "title": "Plantilla"
+  },
+  "calendar": {
+    "title": "Calendario"
   },
   "basketballPositions": {
     "G": "Base / Escolta",
@@ -61,6 +76,12 @@
       "percentChart": "Porcentaje de acierto",
       "overallPerMinute": "Por minuto",
       "overall": "Totales"
+    },
+    "types": {
+      "defensive": "Defensivos",
+      "offensive": "Ofensivos",
+      "total": "Totales",
+      "titular": "Titular"
     },
     "points": "Puntos",
     "assists": "Asistencias",

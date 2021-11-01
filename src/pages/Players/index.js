@@ -74,7 +74,7 @@ const Players = () => {
 
   return (
     <section>
-      <div className={styles.listFilters}>
+      <div data-testid="player-filters" className={styles.listFilters}>
         <SearchBar
           keyword={searchKey}
           onSearchChange={handleSearchChange}
