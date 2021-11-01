@@ -78,7 +78,7 @@ describe("Home flow", () => {
       });
   });
 
-  it.only("Navbar flow works", () => {
+  it("Navbar flow works", () => {
     cy.get("nav a").as("navigationLinks");
 
     cy.get("@navigationLinks").contains("Teams").click();
