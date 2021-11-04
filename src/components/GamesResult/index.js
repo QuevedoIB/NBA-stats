@@ -3,40 +3,29 @@ import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 
 import GameCard from "components/cards/GameCard";
+import CollapseView from "components/common/CollapseView";
+import Shimmer from "components/common/Shimmer";
 
 import NbaService from "services/NbaService";
 
 import { HOUR_MILLISECONDS, MIN_DATE_DATA } from "constants.js";
 
+import { getCalendarRanges } from "helpers/formatDate";
 import useErrorHandler from "hooks/useErrorHandler";
 import useTeams from "hooks/useTeams";
 
 import styles from "./GamesResult.module.css";
-import CollapseView from "components/common/CollapseView";
-import Shimmer from "components/common/Shimmer";
 
 const GamesResult = () => {
   const [t] = useTranslation();
   const { teams } = useTeams();
-  const { today, maxDate } = useMemo(() => {
-    const currentDate = new Date();
-    let month = currentDate.getUTCMonth() + 1;
-    let day = currentDate.getUTCDate();
-    month = month < 10 ? `0${month}` : month;
-    day = day < 10 ? `0${day}` : day;
-    return {
-      today: `${currentDate.getUTCFullYear()}-${month}-${day}`,
-      maxDate: `${currentDate.getUTCFullYear() + 1}-${month}-${day}`,
-    };
-  }, []);
+  const { today, maxDate } = useMemo(() => getCalendarRanges(), []);
   const [date, setDate] = useState(today);
   const { isLoading, error, data } = useQuery(
     `fetch-${date}-games`,
     async () => {
-      const splittedDate = date.split("-");
-      const { data } = await NbaService.fetchDayGames(
-        `${splittedDate[0]}${splittedDate[1]}${splittedDate[2]}`
-      );
+      const [year, month, day] = date.split("-");
+      const { data } = await NbaService.fetchDayGames(`${year}${month}${day}`);
       return data;
     },
     {
@@ -46,6 +35,7 @@ const GamesResult = () => {
   useErrorHandler(error?.message);
 
   const handleDateChange = ({ target: { value } }) => setDate(value);
+
   const handleClick = (e) => e.stopPropagation();
 
   const parsedIdTeams = useMemo(() => {
@@ -66,6 +56,7 @@ const GamesResult = () => {
             <input
               type="date"
               name="results-date"
+              required
               value={date}
               min={MIN_DATE_DATA}
               max={maxDate}
