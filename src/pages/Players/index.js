@@ -17,6 +17,7 @@ const Players = () => {
   const [t] = useTranslation();
   const { teams } = useTeams();
   const { toggled, handleToggle } = useToggle();
+  console.log(toggled);
   const {
     isLoading,
     players,
