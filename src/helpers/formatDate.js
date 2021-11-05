@@ -11,6 +11,19 @@ export const formatDate = (date, language = "en", showHours = true) => {
   return new Intl.DateTimeFormat(language, options).format(parsedDate);
 };
 
+export const getCalendarRanges = (language) => {
+  const currentDate = new Date();
+  const nextYear = new Date();
+  nextYear.setFullYear(currentDate.getFullYear() + 1);
+
+  const parseDate = (date) => date.toISOString().split("T")[0];
+
+  return {
+    today: parseDate(currentDate),
+    maxDate: parseDate(nextYear),
+  };
+};
+
 export const parseMins = (t) => {
   const s = t.split(":");
   return Number(s[0]) * 60 + Number(s[1]);
