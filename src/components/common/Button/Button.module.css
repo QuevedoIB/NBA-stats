@@ -5,12 +5,10 @@
   display: flex;
   justify-content: center;
   padding: 0.5rem 1rem;
+  background-color: var(--bg-color-secondary);
+  border-color: var(--border-color);
 }
 
-.secondary {
-  border-color: red;
-}
-
-.primary {
-  border-color: blue;
+.container:hover {
+  background-color: var(--bg-color-secondary-hover);
 }
