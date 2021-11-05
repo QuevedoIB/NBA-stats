@@ -15,9 +15,11 @@ import useErrorHandler from "hooks/useErrorHandler";
 import useTeams from "hooks/useTeams";
 
 import styles from "./GamesResult.module.css";
+import Spinner from "components/common/Spinner";
 
 const GamesResult = () => {
   const [t] = useTranslation();
+  const [mounted, setMounted] = useState(false);
   const { teams } = useTeams();
   const { today, maxDate } = useMemo(() => getCalendarRanges(), []);
   const [date, setDate] = useState(today);
@@ -26,6 +28,7 @@ const GamesResult = () => {
     async () => {
       const [year, month, day] = date.split("-");
       const { data } = await NbaService.fetchDayGames(`${year}${month}${day}`);
+      setMounted(true);
       return data;
     },
     {
@@ -45,7 +48,7 @@ const GamesResult = () => {
     }, {});
   }, [teams]);
 
-  if (isLoading) return <Shimmer />;
+  if (!mounted) return <Shimmer />;
 
   return (
     <section className={`${styles.container} border-container`}>
@@ -67,7 +70,11 @@ const GamesResult = () => {
         }
       >
         <ul>
-          {!data?.numGames ? (
+          {isLoading ? (
+            <li>
+              <Spinner />
+            </li>
+          ) : !data?.numGames ? (
             <li>
               <p>{t("gamesResult.noResults")}</p>
             </li>
