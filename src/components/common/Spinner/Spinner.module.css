@@ -1,21 +1,21 @@
 .spinner {
-    -webkit-animation: spin 1s ease-in-out infinite;
-    animation: spin 1s ease-in-out infinite;
-    border-radius: 50%;
-    border-top-color: var(--font-color);
-    border: 0.25rem solid rgba(var(--rgb-border), 0.3);
-    height: 2rem;
-    margin: auto;
-    width: 2rem;
+  -webkit-animation: spin 1s ease-in-out infinite;
+  animation: spin 1s ease-in-out infinite;
+  border-radius: 50%;
+  border: 0.25rem solid rgba(var(--rgb-border), 0.3);
+  border-top-color: var(--font-color);
+  height: 2rem;
+  margin: auto;
+  width: 2rem;
 }
 
 @keyframes spin {
-    to {
-        -webkit-transform: rotate(360deg);
-    }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
 @-webkit-keyframes spin {
-    to {
-        -webkit-transform: rotate(360deg);
-    }
+  to {
+    -webkit-transform: rotate(360deg);
+  }
 }
