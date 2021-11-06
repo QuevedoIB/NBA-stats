@@ -62,6 +62,20 @@
   "calendar": {
     "title": "Calendario"
   },
+  "gameEvents": {
+    "shot": "Tiro",
+    "missed": "Fallado",
+    "scored": "Anotado",
+    "shotMissed": "$t(gameEvents.shot) $t(gameEvents.missed)",
+    "shotScored": "$t(gameEvents.shot) $t(gameEvents.scored)",
+    "freeThrow": "Tiro libre",
+    "block": "Tapón",
+    "rebound": "Rebote",
+    "turnover": "Pérdida de balón",
+    "foul": "Falta",
+    "violation": "Violación",
+    "possesion": "Gana posesión"
+  },
   "basketballPositions": {
     "G": "Base / Escolta",
     "F": "Alero",

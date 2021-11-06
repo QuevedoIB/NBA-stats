@@ -1,4 +1,4 @@
-import { useState, useMemo } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { useQuery } from "react-query";
 import { useTranslation } from "react-i18next";
 
@@ -28,7 +28,6 @@ const GamesResult = () => {
     async () => {
       const [year, month, day] = date.split("-");
       const { data } = await NbaService.fetchDayGames(`${year}${month}${day}`);
-      setMounted(true);
       return data;
     },
     {
@@ -36,6 +35,8 @@ const GamesResult = () => {
     }
   );
   useErrorHandler(error?.message);
+
+  useEffect(() => setMounted(true), [data]);
 
   const handleDateChange = ({ target: { value } }) => setDate(value);
 

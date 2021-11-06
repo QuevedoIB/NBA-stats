@@ -1,3 +1,4 @@
+import { useTranslation } from "react-i18next";
 import PropTypes from "prop-types";
 
 import { PLAY_BY_PLAY_EVENTS } from "constants.js";
@@ -24,6 +25,7 @@ export default function CustomTooltip({
   gameData,
   teamsPalette,
 }) {
+  const [t] = useTranslation();
   if (active && payload?.[0]?.payload.hasEvent) {
     return (
       <div className={styles.tooltipContainer}>
@@ -49,7 +51,7 @@ export default function CustomTooltip({
             <span className={styles.player}>
               {customContent.payload.name}:{" "}
             </span>
-            {PLAY_BY_PLAY_EVENTS[customContent.payload.event]}
+            {t(PLAY_BY_PLAY_EVENTS[customContent.payload.event])}
           </p>
         )}
       </div>

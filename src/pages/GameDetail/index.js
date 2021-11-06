@@ -1,7 +1,6 @@
 import { useCallback, useMemo, useState } from "react";
 import { useParams } from "react-router";
 import { useQuery, useQueries } from "react-query";
-import { useTranslation } from "react-i18next";
 import {
   ComposedChart,
   Area,
@@ -10,7 +9,6 @@ import {
   Tooltip,
   Legend,
   Scatter,
-  Cell,
   ResponsiveContainer,
 } from "recharts";
 
@@ -18,34 +16,30 @@ import EmptyChart from "./EmptyChart";
 import CustomTooltip from "./CustomTooltip";
 import CustomLegend from "./CustomLegend";
 import Shimmer from "components/common/Shimmer";
+import renderDot from "./ScatterDot";
 
 import useTeams from "hooks/useTeams";
 import usePlayers from "hooks/usePlayers";
 import useErrorHandler from "hooks/useErrorHandler";
+import useWindowSize from "hooks/useWindowSize";
 
 import NbaService from "services/NbaService";
 
-import { parseMins, parseMinsToString } from "helpers/formatDate";
 import {
-  HOUR_MILLISECONDS,
-  NBA_PERIOD_SECONDS,
-  NBA_OVERTIME_SECONDS,
-  NBA_PERIOD_AMOUNT,
-} from "constants.js";
+  getMaxScoreDiffRanges,
+  getPeriodTicks,
+  getPageColors,
+  parseGameData,
+  getGradientOffsets,
+} from "helpers/gameData";
+import { HOUR_MILLISECONDS } from "constants.js";
 
 import styles from "./GameDetail.module.css";
 
 const GameDetail = () => {
-  const [t] = useTranslation();
   const { gameId, date } = useParams();
   const [tooltipData, setTooltipData] = useState();
-
-  const updateTooltip = useCallback(
-    ({ payload }, index) => {
-      setTooltipData(index === tooltipData?.index ? null : { payload, index });
-    },
-    [tooltipData]
-  );
+  const { width: windowWidth } = useWindowSize();
 
   const { isLoading, error, data } = useQuery(
     `fetch-${date}-${gameId}`,
@@ -58,54 +52,6 @@ const GameDetail = () => {
     }
   );
   useErrorHandler(error?.message);
-
-  const scoreDomain = useMemo(() => {
-    if (!data?.stats) return;
-    const biggestScoreDiff =
-      Math.ceil(
-        Math.max(data.stats.hTeam.biggestLead, data.stats.vTeam.biggestLead) /
-          10
-      ) * 10;
-    return [-biggestScoreDiff, biggestScoreDiff];
-  }, [data]);
-
-  const timerTicks = useMemo(() => {
-    if (!data?.stats) return;
-
-    const timerTicks = [];
-    let periods = data.basicGameData.period.current;
-
-    for (let i = 1; i <= NBA_PERIOD_AMOUNT; i++) {
-      const seconds = i * NBA_PERIOD_SECONDS;
-      timerTicks.push(seconds);
-      periods--;
-    }
-
-    while (periods > 0) {
-      timerTicks.push(
-        NBA_OVERTIME_SECONDS + NBA_PERIOD_AMOUNT * NBA_PERIOD_SECONDS
-      );
-      periods--;
-    }
-
-    return timerTicks;
-  }, [data]);
-
-  const { filteredTeams: teams } = useTeams({
-    key: "teamId",
-    value: data && [
-      data.basicGameData.hTeam.teamId,
-      data.basicGameData.vTeam.teamId,
-    ],
-  });
-
-  const teamsPalette = useMemo(() => {
-    const bodyStyles = getComputedStyle(document.body);
-    return [
-      bodyStyles.getPropertyValue("--primary-color"),
-      bodyStyles.getPropertyValue("--secondary-color"),
-    ];
-  }, []);
 
   const { filteredPlayers: players, players: allNBAplayers } = usePlayers({
     key: "teamId",
@@ -135,6 +81,27 @@ const GameDetail = () => {
       })
   );
 
+  const { scoreDomain, timerTicks } = useMemo(() => {
+    if (!data?.stats) return {};
+    return {
+      scoreDomain: getMaxScoreDiffRanges(
+        data.stats.hTeam.biggestLead,
+        data.stats.vTeam.biggestLead
+      ),
+      timerTicks: getPeriodTicks(data.basicGameData.period.current),
+    };
+  }, [data]);
+
+  const teamsPalette = useMemo(() => getPageColors(), []);
+
+  const { filteredTeams: teams } = useTeams({
+    key: "teamId",
+    value: data && [
+      data.basicGameData.hTeam.teamId,
+      data.basicGameData.vTeam.teamId,
+    ],
+  });
+
   const isLoadingPlays = useMemo(
     () => plays.some((result) => result.isLoading),
     [plays]
@@ -142,87 +109,20 @@ const GameDetail = () => {
 
   const { parsedPlays, playerTicks, ticks } = useMemo(() => {
     if (isLoadingPlays || isLoading || !data?.stats) return {};
+    return parseGameData({ data, players: allNBAplayers, plays });
+  }, [allNBAplayers, data, isLoading, isLoadingPlays, plays]);
 
-    const isAscendingOrder =
-      data?.basicGameData.hTeam.teamId.localeCompare(
-        data?.basicGameData.vTeam.teamId
-      ) > 0;
+  const gradientOffsets = useMemo(
+    () => parsedPlays && getGradientOffsets(parsedPlays),
+    [parsedPlays]
+  );
 
-    const sortedPlayers = data.stats.activePlayers
-      .slice()
-      .sort((a, b) =>
-        isAscendingOrder ? a.teamId - b.teamId : b.teamId - a.teamId
-      );
-
-    const playerNames = sortedPlayers.reduce((acc, player, index) => {
-      let name = `${player.firstName} ${player.lastName}`;
-      /* 2018 players don't return firstName and lastName, some are retired or not NBA players anymore so no data available about their names */
-      if (!player.firstName || !player.lastName) {
-        const playerData = allNBAplayers.find(
-          (e) => e.personId === player.personId
-        );
-        name = playerData
-          ? `${playerData?.firstName} ${playerData?.lastName}`
-          : t("common.retired");
-      }
-      acc[player.personId] = {
-        index: index + 1,
-        name,
-      };
-      return acc;
-    }, {});
-
-    const validateEventImpact = ({ eventMsgType, hasScoreChange }) => {
-      if (+eventMsgType === 3 && hasScoreChange) return true;
-      const positiveEvents = [1, 4, 10];
-      //Review unnecessary events ex: substitution
-      return positiveEvents.includes(+eventMsgType);
-    };
-
-    const parsedPlays = plays.reduce((acc, { isSuccess, data }, i) => {
-      if (!isSuccess || !data?.plays?.length) return acc;
-      const period = i + 1;
-      data.plays.forEach((play) => {
-        const { index, name } = playerNames[play.personId] || {};
-        const isOvertime = period > NBA_PERIOD_AMOUNT;
-        const periodDuration = isOvertime
-          ? NBA_OVERTIME_SECONDS
-          : NBA_PERIOD_SECONDS;
-        const baseTime = isOvertime
-          ? NBA_PERIOD_SECONDS * NBA_PERIOD_AMOUNT +
-            (period - NBA_PERIOD_AMOUNT) * NBA_OVERTIME_SECONDS
-          : periodDuration * period;
-        const time = parseMinsToString(baseTime - parseMins(play.clock));
-
-        acc.push({
-          time: baseTime - parseMins(play.clock),
-          name,
-          event: play.eventMsgType,
-          score: play.hTeamScore - play.vTeamScore,
-          hScore: play.hTeamScore,
-          vScore: play.vTeamScore,
-          x: time,
-          y: index || null,
-          hasEvent: index,
-          positive: index && validateEventImpact(play),
-        });
-      });
-
-      return acc;
-    }, []);
-
-    const playersEntries = Object.entries(playerNames).map(
-      ([_, { index, name }]) => [index, name]
-    );
-
-    const playerTicks = Object.fromEntries(playersEntries);
-
-    return {
-      parsedPlays,
-      playerTicks,
-      ticks: playersEntries.map((_, i) => i + 1),
-    };
-  }, [allNBAplayers, data, isLoading, isLoadingPlays, plays, t]);
+  const updateTooltip = useCallback(
+    ({ payload }, index) => {
+      setTooltipData(index === tooltipData?.index ? null : { payload, index });
+    },
+    [tooltipData]
+  );
 
   if (isLoading || isLoadingPlays) return <Shimmer height="80vh" />;
 
@@ -232,21 +132,7 @@ const GameDetail = () => {
     );
   }
 
-  const gradientOffset = () => {
-    const dataMax = Math.max(...parsedPlays.map((play) => play.score));
-    const dataMin = Math.min(...parsedPlays.map((play) => play.score));
-
-    if (dataMax <= 0) {
-      return 0;
-    } else if (dataMin >= 0) {
-      return 1;
-    } else {
-      return dataMax / (dataMax - dataMin);
-    }
-  };
-
-  const off = gradientOffset();
-  const isMobile = window.innerWidth <= 600;
+  const isMobile = windowWidth <= 600;
 
   return (
     <section>
@@ -306,12 +192,12 @@ const GameDetail = () => {
             <defs>
               <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
                 <stop
-                  offset={off}
+                  offset={gradientOffsets}
                   stopColor={teamsPalette[0]}
                   stopOpacity={1}
                 />
                 <stop
-                  offset={off}
+                  offset={gradientOffsets}
                   stopColor={teamsPalette[1]}
                   stopOpacity={1}
                 />
@@ -331,18 +217,9 @@ const GameDetail = () => {
               onMouseLeave={updateTooltip}
               onMouseEnter={updateTooltip}
             >
-              {parsedPlays.map((entry, index) => {
-                const hoveredStatus = index === tooltipData?.index;
-                const dotColor = entry.positive ? "#b6ed51" : "#d6483e";
-                return (
-                  <Cell
-                    key={`cell-${index}`}
-                    fill={dotColor}
-                    stroke={hoveredStatus ? dotColor : ""}
-                    strokeWidth={8}
-                  />
-                );
-              })}
+              {parsedPlays.map((entry, index) =>
+                renderDot({ entry, index, tooltip: tooltipData })
+              )}
             </Scatter>
           </ComposedChart>
         </ResponsiveContainer>
