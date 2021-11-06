@@ -6,6 +6,8 @@ import {
   NBA_PERIOD_AMOUNT,
   NBA_PERIOD_SECONDS,
   NBA_OVERTIME_SECONDS,
+  POSITIVE_EVENTS,
+  NEUTRAL_EVENTS,
 } from "constants.js";
 
 export const getMaxScoreDiffRanges = (rangeA, rangeB) => {
@@ -47,15 +49,13 @@ const validateEventImpact = ({
   play: { eventMsgType, hasScoreChange },
   isPlayerEvent,
 }) => {
-  const neutralEvents = [8, 9, 12, 13, 18, 20];
-  if (neutralEvents.includes(+eventMsgType)) return {};
-  const positiveEvents = [1, 4, 10];
+  if (NEUTRAL_EVENTS.includes(+eventMsgType)) return {};
   const eventData = {
     y: isPlayerEvent,
     hasEvent: isPlayerEvent,
     positive:
       (+eventMsgType === 3 && hasScoreChange) ||
-      positiveEvents.includes(+eventMsgType),
+      POSITIVE_EVENTS.includes(+eventMsgType),
   };
   return eventData;
 };

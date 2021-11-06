@@ -15,16 +15,16 @@ export const NBA_PERIOD_SECONDS =
 export const MIN_DATE_DATA = "2014-10-28";
 
 export const PLAY_BY_PLAY_EVENTS = {
-  1: "Shot scored",
-  2: "Shot missed",
-  3: "Free throw", //check isScoreChange to know if missed or scored
-  4: "Rebound",
-  5: "Turnover",
-  6: "Foul",
-  7: "Violation", //kicked ball
+  1: "gameEvents.shotScored",
+  2: "gameEvents.shotMissed",
+  3: "gameEvents.freeThrow",
+  4: "gameEvents.rebound",
+  5: "gameEvents.turnover",
+  6: "gameEvents.foul",
+  7: "gameEvents.violation", //EX: kicked ball
   8: "Substitution",
   9: "Team timeout",
-  10: "Gains possesion",
+  10: "gameEvents.possesion",
   11: "",
   12: "Start period",
   13: "End period",
@@ -36,6 +36,9 @@ export const PLAY_BY_PLAY_EVENTS = {
   19: "",
   20: "Stoppage: Out-of-Bounds",
 };
+
+export const POSITIVE_EVENTS = [1, 4, 10];
+export const NEUTRAL_EVENTS = [8, 9, 12, 13, 18, 20];
 
 //COLORS
 export const COLORS = {
