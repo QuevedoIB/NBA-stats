@@ -36,3 +36,9 @@ export const PLAY_BY_PLAY_EVENTS = {
   19: "",
   20: "Stoppage: Out-of-Bounds",
 };
+
+//COLORS
+export const COLORS = {
+  POSITIVE: "#b6ed51",
+  NEGATIVE: "#d6483e",
+};
