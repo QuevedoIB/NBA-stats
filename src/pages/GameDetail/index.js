@@ -209,6 +209,7 @@ const GameDetail = () => {
               dataKey="score"
               stroke="url(#splitColor)"
               fill="url(#splitColor)"
+              activeDot={{ fill: "black" }}
             />
             <Scatter
               yAxisId="left"
