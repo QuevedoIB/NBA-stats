@@ -24,7 +24,7 @@ const Button = ({
 Button.propTypes = {
   role: Proptypes.oneOf(["primary", "secondary"]),
   onClick: Proptypes.func.isRequired,
-  type: Proptypes.oneOf(["button, submit"]),
+  type: Proptypes.oneOf(["button", "submit"]),
   text: Proptypes.string,
   classes: Proptypes.string,
   children: Proptypes.elementType,

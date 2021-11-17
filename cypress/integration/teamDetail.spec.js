@@ -1,4 +1,6 @@
-import { parseData, getTranslation } from "./spec";
+import i18n from "../../src/i18n";
+
+import { parseData } from "./spec";
 import { formatDate } from "../../src/helpers/formatDate";
 
 describe("Team detail flow", () => {
@@ -35,9 +37,7 @@ describe("Team detail flow", () => {
         (player) => player.teamId === team.teamId
       );
 
-      cy.contains(getTranslation("roster.title"), { timeout: 10000 }).as(
-        "title"
-      );
+      cy.contains(i18n.t("roster.title"), { timeout: 10000 }).as("title");
 
       cy.get("@title").closest("details").find("table").as("rosterTable");
 
@@ -59,7 +59,7 @@ describe("Team detail flow", () => {
         cy.get("@playerRow").within(() => {
           player.heightMeters && cy.contains(`${player.heightMeters}m`);
           player.weightKilograms && cy.contains(`${player.weightKilograms}kg`);
-          cy.contains(getTranslation(`basketballPositions.${player.pos}`));
+          cy.contains(i18n.t(`basketballPositions.${player.pos}`));
         });
       });
 
@@ -72,9 +72,7 @@ describe("Team detail flow", () => {
 
   it("Calendar works", () => {
     cy.get("@teamData").then(({ team, teams, games }) => {
-      cy.contains(getTranslation("calendar.title"), { timeout: 10000 }).as(
-        "title"
-      );
+      cy.contains(i18n.t("calendar.title"), { timeout: 10000 }).as("title");
 
       cy.get("@title").closest("details").find("ul").as("gamesList");
 

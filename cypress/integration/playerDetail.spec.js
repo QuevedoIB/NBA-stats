@@ -1,4 +1,4 @@
-import { getTranslation } from "./spec";
+import i18n from "../../src/i18n";
 
 describe("Player detail flow", () => {
   const getPlayerName = (player) => `${player.firstName} ${player.lastName}`;
@@ -28,20 +28,18 @@ describe("Player detail flow", () => {
         cy.get(`img[alt="${getPlayerName(player)}"]`);
 
         cy.contains(
-          `${getTranslation("common.position")}: ${getTranslation(
+          `${i18n.t("common.position")}: ${i18n.t(
             `basketballPositions.${player?.pos}`
           )}`
         );
 
-        cy.contains(
-          `${getTranslation("common.debut")}: ${player?.nbaDebutYear || ""}`
-        );
+        cy.contains(`${i18n.t("common.debut")}: ${player?.nbaDebutYear || ""}`);
 
         const playerTeam = teams.find(
           (team) => team.teamId === player.teamId
         ).fullName;
 
-        cy.contains(`${getTranslation("common.team")}: ${playerTeam}`);
+        cy.contains(`${i18n.t("common.team")}: ${playerTeam}`);
       });
     };
 
@@ -107,14 +105,14 @@ describe("Player detail flow", () => {
 
       //Polygon chart
       cy.get("section article")
-        .contains(`${getTranslation("stats.titles.percentChart")}`)
+        .contains(`${i18n.t("stats.titles.percentChart")}`)
         .closest("article")
         .as("shotChart");
 
       const shotLabels = [
-        getTranslation("stats.3pts"),
-        getTranslation("stats.2pts"),
-        getTranslation("stats.1pts"),
+        i18n.t("stats.3pts"),
+        i18n.t("stats.2pts"),
+        i18n.t("stats.1pts"),
       ];
 
       shotLabels.forEach((label) =>
@@ -129,16 +127,16 @@ describe("Player detail flow", () => {
 
       //Polygon chart
       cy.get("section article")
-        .contains(`${getTranslation("stats.titles.overallPerMinute")}`)
+        .contains(`${i18n.t("stats.titles.overallPerMinute")}`)
         .closest("article")
         .as("minuteChart");
 
       const minutesLabels = [
-        getTranslation("stats.points"),
-        getTranslation("stats.rebounds", { ending: "" }),
-        getTranslation("stats.assists"),
-        getTranslation("stats.blocks"),
-        getTranslation("stats.steals"),
+        i18n.t("stats.points"),
+        i18n.t("stats.rebounds", { ending: "" }),
+        i18n.t("stats.assists"),
+        i18n.t("stats.blocks"),
+        i18n.t("stats.steals"),
       ];
 
       minutesLabels.forEach((label) =>
@@ -153,36 +151,36 @@ describe("Player detail flow", () => {
 
       //Bar chart
       cy.get("section article")
-        .contains(`${getTranslation("stats.titles.overall")}`)
+        .contains(`${i18n.t("stats.titles.overall")}`)
         .closest("article")
         .as("overallChart");
 
       const overallLabels = [
-        getTranslation("stats.assists"),
-        getTranslation("stats.blocks"),
-        getTranslation("stats.steals"),
-        getTranslation("stats.turnovers"),
-        getTranslation("stats.rebounds", {
-          ending: getTranslation("stats.types.offensive"),
+        i18n.t("stats.assists"),
+        i18n.t("stats.blocks"),
+        i18n.t("stats.steals"),
+        i18n.t("stats.turnovers"),
+        i18n.t("stats.rebounds", {
+          ending: i18n.t("stats.types.offensive"),
         }),
-        getTranslation("stats.rebounds", {
-          ending: getTranslation("stats.types.defensive"),
+        i18n.t("stats.rebounds", {
+          ending: i18n.t("stats.types.defensive"),
         }),
-        getTranslation("stats.rebounds", {
-          ending: getTranslation("stats.types.total"),
+        i18n.t("stats.rebounds", {
+          ending: i18n.t("stats.types.total"),
         }),
-        getTranslation("stats.fouls"),
-        getTranslation("stats.points"),
-        getTranslation("stats.games", {
-          ending: getTranslation("stats.types.total"),
+        i18n.t("stats.fouls"),
+        i18n.t("stats.points"),
+        i18n.t("stats.games", {
+          ending: i18n.t("stats.types.total"),
         }),
-        getTranslation("stats.games", {
-          ending: getTranslation("stats.types.titular"),
+        i18n.t("stats.games", {
+          ending: i18n.t("stats.types.titular"),
         }),
-        getTranslation("stats.plusMinus"),
-        getTranslation("stats.minutes"),
-        getTranslation("stats.doubles"),
-        getTranslation("stats.triples"),
+        i18n.t("stats.plusMinus"),
+        i18n.t("stats.minutes"),
+        i18n.t("stats.doubles"),
+        i18n.t("stats.triples"),
       ];
 
       overallLabels.forEach((label) =>
