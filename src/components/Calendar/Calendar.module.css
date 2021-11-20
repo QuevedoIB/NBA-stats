@@ -15,7 +15,6 @@
 .calendarContainer li {
   border-bottom: 1px solid var(--border-color);
   border-right: 1px solid var(--border-color);
-  padding: 1rem;
 }
 
 .calendarContainer p {

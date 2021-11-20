@@ -36,7 +36,7 @@ const GamesResult = () => {
   );
   useErrorHandler(error?.message);
 
-  useEffect(() => setMounted(true), [data]);
+  useEffect(() => data && setMounted(true), [data]);
 
   const handleDateChange = ({ target: { value } }) => setDate(value);
 

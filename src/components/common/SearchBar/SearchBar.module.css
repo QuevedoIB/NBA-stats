@@ -1,8 +1,16 @@
 .container {
   display: flex;
-  flex-direction: column-reverse;
-  position: relative;
+  flex-direction: column;
   width: fit-content;
+}
+
+.inputContainer {
+  position: relative;
+}
+
+.inputContainer:not(:last-child) input {
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
 }
 
 .input {
@@ -17,31 +25,20 @@
 }
 
 .inputIcon {
-  margin: 0 auto;
-  padding: 0.25rem 0;
+  align-items: center;
+  display: flex;
+  height: 100%;
+  justify-content: center;
   position: absolute;
-  right: 0.6rem;
-  text-align: center;
-  top: 0.4rem;
-  width: 1rem;
+  right: 0;
+  top: 0;
+  width: 2rem;
 }
 
-.inputIcon .circle {
-  border-radius: var(--border-radius);
-  border: 0.125rem solid var(--font-color);
-  height: 0.6rem;
-  width: 0.6rem;
-}
-
-.inputIcon .rectangle {
-  border-bottom-right-radius: 0.12rem;
-  border-top-right-radius: 0.12rem;
-  border: 0.12rem solid var(--font-color);
-  bottom: 0.1rem;
-  position: absolute;
-  right: 0rem;
-  transform: rotate(45deg);
-  width: 0.2rem;
+.inputIcon svg {
+  fill: var(--font-color);
+  height: 1.5rem;
+  width: 1.5rem;
 }
 
 .suggestions {
@@ -67,9 +64,4 @@
 
 .suggestions button:hover {
   background-color: rgba(var(--rgb-border), 0.1);
-}
-
-.suggestions + .input {
-  border-bottom-left-radius: 0;
-  border-bottom-right-radius: 0;
 }
