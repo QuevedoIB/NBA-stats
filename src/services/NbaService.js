@@ -24,7 +24,7 @@ class NbaService {
   }
 
   fetchPlayers() {
-    return this.service.get("/v1/2021/players.json");
+    return this.service.get(`/v1/${currentYear}/players.json`);
   }
 
   fetchPlayerStats(playerId) {
