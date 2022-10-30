@@ -1,5 +1,7 @@
 import { parseData } from "../integration/spec";
 
+const currentYear = new Date().getFullYear();
+
 Cypress.Commands.add("getPlayers", () => {
   cy.intercept(
     "GET",
@@ -15,7 +17,7 @@ Cypress.Commands.add("getPlayers", () => {
 Cypress.Commands.add("getTeams", () => {
   cy.intercept(
     "GET",
-    `${Cypress.env("REACT_APP_API_ENDPOINT")}/v2/2021/teams.json`
+    `${Cypress.env("REACT_APP_API_ENDPOINT")}/v2/${currentYear}/teams.json`
   )
     .as("fetchTeams")
     .then((data) => {

@@ -1,5 +1,6 @@
 import axios from "axios";
 
+const currentYear = new Date().getFullYear();
 class NbaService {
   constructor() {
     this.service = axios.create({
@@ -31,7 +32,7 @@ class NbaService {
   }
 
   fetchTeams() {
-    return this.service.get("/v2/2021/teams.json");
+    return this.service.get(`/v2/${currentYear}/teams.json`);
   }
 
   fetchTeamCalendar(code) {
