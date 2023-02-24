@@ -1,19 +1,19 @@
-import axios from 'axios'
+import axios from "axios";
 
 class NewsFeedService {
-  constructor () {
+  constructor() {
     this.service = axios.create({
-      baseURL: process.env.REACT_APP_NEWSFEED_API
-    })
+      baseURL: process.env.REACT_APP_NEWSFEED_API,
+    });
   }
 
-  fetchNews (language) {
+  fetchNews(language) {
     return this.service.get(
-            `/apis/site/v2/sports/basketball/nba/news?lang=${language}`
-    )
+      `/apis/site/v2/sports/basketball/nba/news?lang=${language}`
+    );
   }
 }
 
-const service = new NewsFeedService()
+const service = new NewsFeedService();
 
-export default service
+export default service;

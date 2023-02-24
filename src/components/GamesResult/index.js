@@ -28,6 +28,7 @@ const GamesResult = () => {
     async () => {
       const [year, month, day] = date.split("-");
       const { data } = await NbaService.fetchDayGames(`${year}${month}${day}`);
+      console.log({ data });
       return data;
     },
     {

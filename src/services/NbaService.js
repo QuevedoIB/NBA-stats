@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const currentYear = new Date().getFullYear();
+const currentYear = 2019;
 class NbaService {
   constructor() {
     this.service = axios.create({
@@ -32,7 +32,7 @@ class NbaService {
   }
 
   fetchTeams() {
-    return this.service.get(`/v2/${currentYear}/teams.json`);
+    return this.service.get(`/v1/${currentYear}/teams.json`);
   }
 
   fetchTeamCalendar(code) {
@@ -44,7 +44,9 @@ class NbaService {
   }
 
   fetchDayGames(date) {
-    return this.service.get(`/v1/${date}/scoreboard.json`);
+    return this.service.get(
+      `https://cdn.nba.com/static/json/liveData/scoreboard/todaysScoreboard_00.json`
+    );
   }
 
   fetchGame({ date, gameId }) {

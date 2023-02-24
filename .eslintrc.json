@@ -3,7 +3,7 @@
     "browser": true,
     "es2021": true
   },
-  "extends": ["react-app", "plugin:cypress/recommended"],
+  "extends": ["plugin:cypress/recommended"],
   "parserOptions": {
     "ecmaFeatures": {
       "jsx": true
